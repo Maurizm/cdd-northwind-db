@@ -1,0 +1,16 @@
+# Binarios de VS/SSDT (NO subir)
+bin/
+obj/
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.publish.xml
+*.user
+.vs/
+
+# Bases de datos y backups (NO subir)
+*.mdf  *.ldf  *.ndf
+*.bak  *.bacpac  *.dacpac
+
+# Sistema
+Thumbs.db  .DS_Store
