@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NorthWindOLTP", "NorthWindOLTP\NorthWindOLTP.sqlproj", "{5545F99F-387A-40B4-AF95-32A84FEFC948}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NorthWindDW", "NorthWindDW\NorthWindDW.sqlproj", "{F69E059D-D77E-4F52-B1C1-133F4651A4C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,12 @@ Global
 		{5545F99F-387A-40B4-AF95-32A84FEFC948}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5545F99F-387A-40B4-AF95-32A84FEFC948}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5545F99F-387A-40B4-AF95-32A84FEFC948}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F69E059D-D77E-4F52-B1C1-133F4651A4C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69E059D-D77E-4F52-B1C1-133F4651A4C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69E059D-D77E-4F52-B1C1-133F4651A4C5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F69E059D-D77E-4F52-B1C1-133F4651A4C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69E059D-D77E-4F52-B1C1-133F4651A4C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69E059D-D77E-4F52-B1C1-133F4651A4C5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
