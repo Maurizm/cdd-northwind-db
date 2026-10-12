@@ -16,8 +16,9 @@ obj/
 *.bacpac
 *.dacpac
 
-# Documentos internos
+# Documentos internos y guías de estudio
 agent.md
+guia.md
 
 # Sistema
 Thumbs.db
