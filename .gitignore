@@ -9,8 +9,17 @@ obj/
 .vs/
 
 # Bases de datos y backups (NO subir)
-*.mdf  *.ldf  *.ndf
-*.bak  *.bacpac  *.dacpac
+*.mdf
+*.ldf
+*.ndf
+*.bak
+*.bacpac
+*.dacpac
+
+# Documentos internos y guías de estudio
+agent.md
+guia.md
 
 # Sistema
-Thumbs.db  .DS_Store
+Thumbs.db
+.DS_Store
