@@ -5,14 +5,13 @@ CREATE TABLE [dbo].[DimCustomer] (
     [ContactName]       NVARCHAR(30) NULL,
     [ContactTitle]      NVARCHAR(30) NULL,
     [Address]           NVARCHAR(60) NULL,
-    [City]              NVARCHAR(15) NULL,
-    [Region]            NVARCHAR(15) NULL,
     [PostalCode]        NVARCHAR(10) NULL,
-    [Country]           NVARCHAR(15) NULL,
     [Phone]             NVARCHAR(24) NULL,
     [Fax]               NVARCHAR(24) NULL,
     [DemographicsDesc]  NVARCHAR(MAX) NULL,
-    CONSTRAINT [PK_DimCustomer] PRIMARY KEY CLUSTERED ([CustomerKey] ASC)
+    [GeographyKey]      INT NOT NULL,
+    CONSTRAINT [PK_DimCustomer] PRIMARY KEY CLUSTERED ([CustomerKey] ASC),
+    CONSTRAINT [FK_DimCustomer_DimGeography] FOREIGN KEY ([GeographyKey]) REFERENCES [dbo].[DimGeography]([GeographyKey])
 );
 GO
 

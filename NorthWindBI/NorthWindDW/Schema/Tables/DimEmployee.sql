@@ -9,16 +9,15 @@ CREATE TABLE [dbo].[DimEmployee] (
     [BirthDate]         DATE NULL,
     [HireDate]          DATE NULL,
     [Address]           NVARCHAR(60) NULL,
-    [City]              NVARCHAR(15) NULL,
-    [Region]            NVARCHAR(15) NULL,
     [PostalCode]        NVARCHAR(10) NULL,
-    [Country]           NVARCHAR(15) NULL,
     [HomePhone]         NVARCHAR(24) NULL,
     [Extension]         NVARCHAR(4) NULL,
     [ManagerName]       NVARCHAR(35) NULL,
     [TerritoriesDesc]   NVARCHAR(MAX) NULL,
     [RegionDesc]        NVARCHAR(MAX) NULL,
-    CONSTRAINT [PK_DimEmployee] PRIMARY KEY CLUSTERED ([EmployeeKey] ASC)
+    [GeographyKey]      INT NOT NULL,
+    CONSTRAINT [PK_DimEmployee] PRIMARY KEY CLUSTERED ([EmployeeKey] ASC),
+    CONSTRAINT [FK_DimEmployee_DimGeography] FOREIGN KEY ([GeographyKey]) REFERENCES [dbo].[DimGeography]([GeographyKey])
 );
 GO
 
