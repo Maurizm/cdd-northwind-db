@@ -11,6 +11,7 @@ SET NOCOUNT ON;
         o.[CustomerID],
         o.[EmployeeID],
         o.[ShipVia],
+        p.[SupplierID],
         o.[OrderDate],
         o.[ShippedDate],
         o.[RequiredDate],
@@ -20,6 +21,8 @@ SET NOCOUNT ON;
     FROM [$(OLTP_DB)].[dbo].[OrderDetails] od
     INNER JOIN [$(OLTP_DB)].[dbo].[Orders] o
         ON od.[OrderID] = o.[OrderID]
+    INNER JOIN [$(OLTP_DB)].[dbo].[Products] p
+        ON od.[ProductID] = p.[ProductID]
 )
 INSERT INTO [dbo].[FactSales] (
     [OrderDateKey],
@@ -28,6 +31,7 @@ INSERT INTO [dbo].[FactSales] (
     [CustomerKey],
     [EmployeeKey],
     [ProductKey],
+    [SupplierKey],
     [ShipperKey],
     [OrderID],
     [OrderLineNum],
@@ -47,6 +51,7 @@ SELECT
     ISNULL(dc.[CustomerKey], -1) AS [CustomerKey],
     ISNULL(de.[EmployeeKey], -1) AS [EmployeeKey],
     ISNULL(dp.[ProductKey], -1) AS [ProductKey],
+    ISNULL(dsup.[SupplierKey], -1) AS [SupplierKey],
     ISNULL(ds.[ShipperKey], -1) AS [ShipperKey],
     cte.[OrderID],
     cte.[OrderLineNum],
@@ -71,6 +76,8 @@ LEFT JOIN [dbo].[DimEmployee] de
     ON de.[EmployeeID] = cte.[EmployeeID]
 LEFT JOIN [dbo].[DimProduct] dp
     ON dp.[ProductID] = cte.[ProductID]
+LEFT JOIN [dbo].[DimSupplier] dsup
+    ON dsup.[SupplierID] = cte.[SupplierID]
 LEFT JOIN [dbo].[DimShipper] ds
     ON ds.[ShipperID] = cte.[ShipVia];
 

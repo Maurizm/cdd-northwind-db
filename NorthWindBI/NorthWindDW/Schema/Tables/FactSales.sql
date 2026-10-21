@@ -6,6 +6,7 @@ CREATE TABLE [dbo].[FactSales] (
     [CustomerKey]       INT NOT NULL,
     [EmployeeKey]       INT NOT NULL,
     [ProductKey]        INT NOT NULL,
+    [SupplierKey]       INT NOT NULL,
     [ShipperKey]        INT NOT NULL,
     [OrderID]           INT NOT NULL,
     [OrderLineNum]      SMALLINT NOT NULL,
@@ -24,6 +25,7 @@ CREATE TABLE [dbo].[FactSales] (
     CONSTRAINT [FK_FactSales_DimCustomer]      FOREIGN KEY ([CustomerKey])     REFERENCES [dbo].[DimCustomer]([CustomerKey]),
     CONSTRAINT [FK_FactSales_DimEmployee]      FOREIGN KEY ([EmployeeKey])     REFERENCES [dbo].[DimEmployee]([EmployeeKey]),
     CONSTRAINT [FK_FactSales_DimProduct]       FOREIGN KEY ([ProductKey])      REFERENCES [dbo].[DimProduct]([ProductKey]),
+    CONSTRAINT [FK_FactSales_DimSupplier]      FOREIGN KEY ([SupplierKey])     REFERENCES [dbo].[DimSupplier]([SupplierKey]),
     CONSTRAINT [FK_FactSales_DimShipper]       FOREIGN KEY ([ShipperKey])      REFERENCES [dbo].[DimShipper]([ShipperKey])
 );
 GO
@@ -39,6 +41,8 @@ GO
 CREATE NONCLUSTERED INDEX [IX_FactSales_ProductKey]      ON [dbo].[FactSales]([ProductKey] ASC);
 GO
 CREATE NONCLUSTERED INDEX [IX_FactSales_ShipperKey]      ON [dbo].[FactSales]([ShipperKey] ASC);
+GO
+CREATE NONCLUSTERED INDEX [IX_FactSales_SupplierKey]     ON [dbo].[FactSales]([SupplierKey] ASC);
 GO
 CREATE NONCLUSTERED INDEX [IX_FactSales_OrderID]         ON [dbo].[FactSales]([OrderID] ASC);
 GO

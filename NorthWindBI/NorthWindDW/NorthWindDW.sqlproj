@@ -59,6 +59,10 @@
     <Folder Include="Schema" />
     <Folder Include="Schema\Tables" />
     <Folder Include="Schema\Scripts" />
+    <Folder Include="Schema\Security" />
+    <Folder Include="Schema\Security\schemas" />
+    <Folder Include="Schema\Programmability" />
+    <Folder Include="Schema\Programmability\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Tables\DimCustomer.sql" />
@@ -67,8 +71,27 @@
     <Build Include="Schema\Tables\DimProduct.sql" />
     <Build Include="Schema\Tables\DimShipper.sql" />
     <Build Include="Schema\Tables\FactSales.sql" />
+    <Build Include="Schema\Tables\DimGeography.sql" />
+    <Build Include="Schema\Tables\DimSupplier.sql" />
+    <Build Include="Schema\Tables\PackageConfig.sql" />
+    <Build Include="Schema\Tables\staging.customer.sql" />
+    <Build Include="Schema\Tables\staging.employee.sql" />
+    <Build Include="Schema\Tables\staging.product.sql" />
+    <Build Include="Schema\Tables\staging.supplier.sql" />
+    <Build Include="Schema\Tables\staging.shipper.sql" />
+    <Build Include="Schema\Tables\staging.sales.sql" />
+    <Build Include="Schema\Security\schemas\staging.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetLastPackageRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\UpdateLastPackageRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimCustomer.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimEmployee.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimSupplier.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimProduct.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimShipper.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactSales.sql" />
   </ItemGroup>
   <ItemGroup>
+    <PreDeploy Include="Schema\Scripts\Script.PreDeployment.sql" />
     <PostDeploy Include="Schema\Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -77,5 +100,6 @@
     <None Include="Schema\Scripts\02_Load_Dimensions.sql" />
     <None Include="Schema\Scripts\03_Load_FactSales.sql" />
     <None Include="Schema\Scripts\04_Validation_Analytics.sql" />
+    <None Include="Schema\Scripts\PackageConfig.data.sql" />
   </ItemGroup>
 </Project>

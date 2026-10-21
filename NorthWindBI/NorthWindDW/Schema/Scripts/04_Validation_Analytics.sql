@@ -15,14 +15,15 @@ SELECT
 -- 2. Top 10 Clientes con Mayor Facturación Neta
 SELECT TOP 10
     c.[CompanyName],
-    c.[Country],
-    c.[City],
+    g.[Country],
+    g.[City],
     COUNT(DISTINCT f.[OrderID]) AS TotalPedidos,
     SUM(f.[Quantity])           AS TotalUnidades,
     SUM(f.[NetAmount])          AS TotalVentasNetas
 FROM [dbo].[FactSales] f
-INNER JOIN [dbo].[DimCustomer] c ON f.[CustomerKey] = c.[CustomerKey]
-GROUP BY c.[CompanyName], c.[Country], c.[City]
+INNER JOIN [dbo].[DimCustomer] c  ON f.[CustomerKey] = c.[CustomerKey]
+INNER JOIN [dbo].[DimGeography] g ON c.[GeographyKey] = g.[GeographyKey]
+GROUP BY c.[CompanyName], g.[Country], g.[City]
 ORDER BY TotalVentasNetas DESC;
 
 -- 3. Ventas por Categoría de Producto y Año
@@ -53,13 +54,14 @@ ORDER BY VentasNetas DESC;
 SELECT TOP 10
     p.[ProductName],
     p.[CategoryName],
-    p.[SupplierName],
+    su.[CompanyName]            AS Proveedor,
     p.[ProductStatus],
     SUM(f.[Quantity])           AS UnidadesTotales,
     SUM(f.[NetAmount])          AS IngresosTotales
 FROM [dbo].[FactSales] f
-INNER JOIN [dbo].[DimProduct] p ON f.[ProductKey] = p.[ProductKey]
-GROUP BY p.[ProductName], p.[CategoryName], p.[SupplierName], p.[ProductStatus]
+INNER JOIN [dbo].[DimProduct] p   ON f.[ProductKey]  = p.[ProductKey]
+INNER JOIN [dbo].[DimSupplier] su ON f.[SupplierKey] = su.[SupplierKey]
+GROUP BY p.[ProductName], p.[CategoryName], su.[CompanyName], p.[ProductStatus]
 ORDER BY UnidadesTotales DESC;
 
 -- 6. Tiempo Promedio de Entrega (en días) por Transportista
@@ -74,4 +76,16 @@ INNER JOIN [dbo].[DimDate] dShip  ON f.[ShippedDateKey] = dShip.[DateKey]
 WHERE f.[ShippedDateKey] <> -1
 GROUP BY s.[CompanyName]
 ORDER BY PromedioDiasEntrega ASC;
+
+-- 7. Ventas por País del Proveedor (DimSupplier + DimGeography conformada)
+SELECT
+    su.[CompanyName]            AS Proveedor,
+    g.[Country]                 AS PaisProveedor,
+    COUNT(DISTINCT f.[OrderID]) AS TotalPedidos,
+    SUM(f.[NetAmount])          AS VentasNetas
+FROM [dbo].[FactSales] f
+INNER JOIN [dbo].[DimSupplier] su  ON f.[SupplierKey] = su.[SupplierKey]
+INNER JOIN [dbo].[DimGeography] g  ON su.[GeographyKey] = g.[GeographyKey]
+GROUP BY su.[CompanyName], g.[Country]
+ORDER BY VentasNetas DESC;
 GO
