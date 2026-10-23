@@ -1,16 +1,16 @@
-﻿CREATE TABLE [dbo].[DimProduct]
-(
-    [ProductKey] [int] IDENTITY(1,1) NOT NULL,
-    [ProductCode] [int] NOT NULL,
-    [ProductName] [nvarchar](40) NOT NULL,
-    [CategoryName] [nvarchar](15) NULL,
-    [SupplierName] [nvarchar](40) NULL,
-    [SupplierCountry] [nvarchar](15) NULL,
-    [QuantityPerUnit] [nvarchar](20) NULL,
-    [ListUnitPrice] [money] NULL,
-    [Discontinued] [bit] NOT NULL,
-    [ProductStatus] [nvarchar](15) NOT NULL,
+CREATE TABLE [dbo].[DimProduct] (
+    [ProductKey]            INT IDENTITY(1,1) NOT NULL,
+    [ProductID]             INT NOT NULL,
+    [ProductName]           NVARCHAR(40) NOT NULL,
+    [CategoryName]          NVARCHAR(15) NULL,
+    [CategoryDescription]   NVARCHAR(MAX) NULL,
+    [QuantityPerUnit]       NVARCHAR(20) NULL,
+    [ListUnitPrice]         MONEY NULL,
+    [Discontinued]          BIT NOT NULL,
+    [ProductStatus]         NVARCHAR(15) NOT NULL,
     CONSTRAINT [PK_DimProduct] PRIMARY KEY CLUSTERED ([ProductKey] ASC)
 );
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_DimProduct_Code] ON [dbo].[DimProduct] ([ProductCode] ASC);
+
+CREATE NONCLUSTERED INDEX [IX_DimProduct_ID] ON [dbo].[DimProduct] ([ProductID] ASC);
+GO

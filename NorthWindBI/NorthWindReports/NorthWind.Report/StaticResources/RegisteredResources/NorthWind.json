@@ -1,0 +1,38 @@
+{
+  "name": "NorthWind",
+  "dataColors": [
+    "#155E63",
+    "#D88935",
+    "#253331",
+    "#4E7A6F",
+    "#C7B89B",
+    "#6B8F8A",
+    "#A45A2A",
+    "#8FA396"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#253331",
+  "tableAccent": "#155E63",
+  "textClasses": {
+    "title": {
+      "fontFace": "DIN",
+      "fontSize": 11,
+      "color": "#253331"
+    },
+    "header": {
+      "fontFace": "Georgia",
+      "fontSize": 18,
+      "color": "#253331"
+    },
+    "callout": {
+      "fontFace": "DIN",
+      "fontSize": 26,
+      "color": "#253331"
+    },
+    "label": {
+      "fontFace": "DIN",
+      "fontSize": 9,
+      "color": "#253331"
+    }
+  }
+}

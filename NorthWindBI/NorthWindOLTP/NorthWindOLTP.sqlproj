@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -59,6 +59,8 @@
     <Folder Include="Schema" />
     <Folder Include="Schema\Tables" />
     <Folder Include="Schema\Scripts" />
+    <Folder Include="Schema\Programmability" />
+    <Folder Include="Schema\Programmability\Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Tables\Region.sql" />
@@ -74,6 +76,13 @@
     <Build Include="Schema\Tables\Products.sql" />
     <Build Include="Schema\Tables\Orders.sql" />
     <Build Include="Schema\Tables\OrderDetails.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetDatabaseRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetCustomersChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetEmployeesChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetProductsChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetShippersChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetSuppliersChangesByRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetOrdersChangesByRowVersion.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Schema\Scripts\territories.data.sql" />
