@@ -218,7 +218,7 @@ def build_model(server="localhost", database="NorthWindDW"):
         "name": "NorthWindOLAP", "id": "NorthWindOLAP",
         "compatibilityLevel": 1600,
         "model": {
-            "culture": "es-ES", "defaultPowerBIDataSourceVersion": "powerBI_V3",
+            "culture": "es-ES",
             "dataSources": [{
                 "name": "NorthWindDW", "type": "provider",
                 "connectionString": (

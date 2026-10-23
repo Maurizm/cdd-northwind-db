@@ -4,7 +4,6 @@
   "compatibilityLevel": 1600,
   "model": {
     "culture": "es-ES",
-    "defaultPowerBIDataSourceVersion": "powerBI_V3",
     "dataSources": [
       {
         "name": "NorthWindDW",
