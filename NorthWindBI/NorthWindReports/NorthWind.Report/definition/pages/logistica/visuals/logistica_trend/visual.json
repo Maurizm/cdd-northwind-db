@@ -93,7 +93,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#253331'"
+                      "Value": "'#252423'"
                     }
                   }
                 }
@@ -102,7 +102,7 @@
             "fontFamily": {
               "expr": {
                 "Literal": {
-                  "Value": "'DIN'"
+                  "Value": "'Segoe UI'"
                 }
               }
             },
@@ -169,7 +169,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E3DED4'"
+                      "Value": "'#D2D0CE'"
                     }
                   }
                 }
@@ -178,7 +178,7 @@
             "radius": {
               "expr": {
                 "Literal": {
-                  "Value": "6D"
+                  "Value": "4D"
                 }
               }
             }
@@ -195,7 +195,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#155E63'"
+                      "Value": "'#744DA9'"
                     }
                   }
                 }

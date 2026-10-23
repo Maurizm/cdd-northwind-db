@@ -22,10 +22,10 @@
                   {
                     "value": "NORTHWIND / Clientes y vendedores",
                     "textStyle": {
-                      "fontFamily": "Georgia",
+                      "fontFamily": "Segoe UI",
                       "fontSize": "20pt",
                       "fontWeight": "bold",
-                      "color": "#253331"
+                      "color": "#252423"
                     }
                   }
                 ]

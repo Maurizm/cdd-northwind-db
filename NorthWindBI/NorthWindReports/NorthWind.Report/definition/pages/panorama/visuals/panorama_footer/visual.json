@@ -22,9 +22,9 @@
                   {
                     "value": "Importes sin moneda definida | Fechas hist\u00f3ricas del origen",
                     "textStyle": {
-                      "fontFamily": "DIN",
+                      "fontFamily": "Segoe UI",
                       "fontSize": "8pt",
-                      "color": "#253331"
+                      "color": "#252423"
                     }
                   }
                 ]

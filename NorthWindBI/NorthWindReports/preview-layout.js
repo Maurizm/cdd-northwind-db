@@ -13,7 +13,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_filter_1",
@@ -24,7 +25,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_filter_2",
@@ -35,7 +37,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_filter_3",
@@ -46,7 +49,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_kpi_0",
@@ -57,7 +61,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_kpi_1",
@@ -68,7 +73,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "panorama_kpi_2",
@@ -79,7 +85,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_kpi_3",
@@ -90,7 +97,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "panorama_kpi_4",
@@ -113,7 +121,8 @@ const PAGES = [
           270,
           840,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_categories",
@@ -124,7 +133,8 @@ const PAGES = [
           270,
           520,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_clients",
@@ -135,7 +145,8 @@ const PAGES = [
           532,
           440,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_products",
@@ -146,7 +157,8 @@ const PAGES = [
           532,
           440,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "panorama_countries",
@@ -157,7 +169,8 @@ const PAGES = [
           532,
           464,
           246
-        ]
+        ],
+        "cls": "sales"
       }
     ]
   },
@@ -174,7 +187,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_filter_1",
@@ -185,7 +199,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_filter_2",
@@ -196,7 +211,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_filter_3",
@@ -207,7 +223,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_kpi_0",
@@ -218,7 +235,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_kpi_1",
@@ -229,7 +247,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "productos_kpi_2",
@@ -240,7 +259,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_kpi_3",
@@ -275,7 +295,8 @@ const PAGES = [
           270,
           840,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_categories",
@@ -286,7 +307,8 @@ const PAGES = [
           270,
           520,
           246
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "productos_detail",
@@ -297,7 +319,8 @@ const PAGES = [
           532,
           840,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "productos_suppliers",
@@ -308,7 +331,8 @@ const PAGES = [
           532,
           520,
           246
-        ]
+        ],
+        "cls": "sales"
       }
     ]
   },
@@ -325,7 +349,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_filter_1",
@@ -336,7 +361,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_filter_2",
@@ -347,7 +373,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_filter_3",
@@ -358,7 +385,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_kpi_0",
@@ -369,7 +397,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_kpi_1",
@@ -380,7 +409,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "clientes_kpi_2",
@@ -391,7 +421,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_kpi_3",
@@ -402,7 +433,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "clientes_kpi_4",
@@ -425,7 +457,8 @@ const PAGES = [
           270,
           840,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_sellers",
@@ -436,7 +469,8 @@ const PAGES = [
           270,
           520,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_detail",
@@ -447,7 +481,8 @@ const PAGES = [
           532,
           840,
           246
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "clientes_countries",
@@ -458,7 +493,8 @@ const PAGES = [
           532,
           520,
           246
-        ]
+        ],
+        "cls": "sales"
       }
     ]
   },
@@ -475,7 +511,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "logistica_filter_1",
@@ -486,7 +523,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "logistica_filter_2",
@@ -497,7 +535,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "logistica_filter_3",
@@ -508,7 +547,8 @@ const PAGES = [
           76,
           332,
           62
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "logistica_kpi_0",
@@ -519,7 +559,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "freight"
       },
       {
         "name": "logistica_kpi_1",
@@ -530,7 +571,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "logistica_kpi_2",
@@ -541,7 +583,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "logistics"
       },
       {
         "name": "logistica_kpi_3",
@@ -552,7 +595,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "volume"
       },
       {
         "name": "logistica_kpi_4",
@@ -563,7 +607,8 @@ const PAGES = [
           154,
           264,
           100
-        ]
+        ],
+        "cls": "sales"
       },
       {
         "name": "logistica_days",
@@ -574,7 +619,8 @@ const PAGES = [
           270,
           840,
           246
-        ]
+        ],
+        "cls": "logistics"
       },
       {
         "name": "logistica_freight",
@@ -585,7 +631,8 @@ const PAGES = [
           270,
           520,
           246
-        ]
+        ],
+        "cls": "freight"
       },
       {
         "name": "logistica_trend",
@@ -596,7 +643,8 @@ const PAGES = [
           532,
           840,
           246
-        ]
+        ],
+        "cls": "logistics"
       },
       {
         "name": "logistica_detail",
@@ -607,7 +655,8 @@ const PAGES = [
           532,
           520,
           246
-        ]
+        ],
+        "cls": "sales"
       }
     ]
   }

@@ -22,10 +22,10 @@
                   {
                     "value": "NORTHWIND / Log\u00edstica: pedido a env\u00edo",
                     "textStyle": {
-                      "fontFamily": "Georgia",
+                      "fontFamily": "Segoe UI",
                       "fontSize": "20pt",
                       "fontWeight": "bold",
-                      "color": "#253331"
+                      "color": "#252423"
                     }
                   }
                 ]

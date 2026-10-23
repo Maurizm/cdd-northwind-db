@@ -20,38 +20,56 @@ SCHEMA = (
 )
 
 # Design tokens - formatting only, no query semantics.
-PAGE_BG = "#F5F3EE"
+PAGE_BG = "#F0F2F5"
 PANEL_BG = "#FFFFFF"
-TEXT = "#253331"
-TEAL = "#155E63"
-ORANGE = "#D88935"
-BORDER = "#E3DED4"
-LABEL_FONT = "DIN"
-HEADING_FONT = "Georgia"
+TEXT = "#252423"
+BORDER = "#D2D0CE"
+LABEL_FONT = "Segoe UI"
+HEADING_FONT = "Segoe UI"
 HEADING_RECT = (32, 16, 1120, 48)
 FOOTER_RECT = (32, 784, 760, 18)
 FOOTER_TEXT = "Importes sin moneda definida | Fechas históricas del origen"
 
+# Paleta estándar clásica de Power BI con colores semánticos por métrica:
+BLUE_SALES = "#118DFF"       # Azul clásico Power BI para Ventas / Facturación
+GREEN_VOLUME = "#01B8AA"     # Verde agua para Unidades / Pedidos
+ORANGE_DISCOUNT = "#FD625E"  # Rojo/Coral para Descuentos
+AMBER_FREIGHT = "#F2C80F"    # Ámbar/Amarillo para Flete
+PURPLE_LOGISTICS = "#744DA9" # Púrpura/Morado para Tiempos y Logística
+
 # Selection sources/targets for native cross-filtering interactions.
 FILTERING_SOURCES = {"slicer", "barChart", "lineChart", "tableEx"}
 FILTERING_TARGETS = {"card", "barChart", "lineChart", "tableEx"}
-DISCOUNT_TITLES = {"Descuentos", "Tasa de Descuento"}
 
 THEME = {
     "name": "NorthWind",
-    "dataColors": ["#155E63", "#D88935", "#253331", "#4E7A6F",
-                   "#C7B89B", "#6B8F8A", "#A45A2A", "#8FA396"],
+    "dataColors": [
+        BLUE_SALES, GREEN_VOLUME, ORANGE_DISCOUNT, AMBER_FREIGHT,
+        PURPLE_LOGISTICS, "#374649", "#8AD4EB", "#FE9666"
+    ],
     "background": "#FFFFFF",
-    "foreground": "#253331",
-    "tableAccent": "#155E63",
+    "foreground": "#252423",
+    "tableAccent": BLUE_SALES,
     "textClasses": {
-        "title": {"fontFace": "DIN", "fontSize": 11, "color": "#253331"},
-        "header": {"fontFace": "Georgia", "fontSize": 18,
-                   "color": "#253331"},
-        "callout": {"fontFace": "DIN", "fontSize": 26, "color": "#253331"},
-        "label": {"fontFace": "DIN", "fontSize": 9, "color": "#253331"},
+        "title": {"fontFace": LABEL_FONT, "fontSize": 11, "color": TEXT},
+        "header": {"fontFace": HEADING_FONT, "fontSize": 18, "color": TEXT},
+        "callout": {"fontFace": LABEL_FONT, "fontSize": 26, "color": TEXT},
+        "label": {"fontFace": LABEL_FONT, "fontSize": 9, "color": TEXT},
     },
 }
+
+
+def visual_theme(entry):
+    title = entry["title"]
+    if "Descuento" in title:
+        return ORANGE_DISCOUNT, "discount"
+    if "Unidades" in title or title in ("Pedidos", "Pedidos Enviados"):
+        return GREEN_VOLUME, "volume"
+    if "Flete" in title:
+        return AMBER_FREIGHT, "freight"
+    if "envío" in title.lower() or "días" in title.lower() or "dias" in title.lower():
+        return PURPLE_LOGISTICS, "logistics"
+    return BLUE_SALES, "sales" 
 
 
 def lit(value):
@@ -80,7 +98,7 @@ def panel_objects(title):
         "border": [{"properties": {
             "show": lit("true"),
             "color": solid(BORDER),
-            "radius": lit("6D"),
+            "radius": lit("4D"),
         }}],
     }
 
@@ -91,12 +109,13 @@ def visual_doc(entry, z):
     visual["visualContainerObjects"] = panel_objects(entry["title"])
     objects = visual.setdefault("objects", {})
     kind = visual["visualType"]
+    color, _ = visual_theme(entry)
     if kind in ("barChart", "lineChart"):
         objects["dataPoint"] = [
-            {"properties": {"defaultColor": solid(TEAL)}}
+            {"properties": {"defaultColor": solid(color)}}
         ]
-    elif kind == "card" and entry["title"] in DISCOUNT_TITLES:
-        objects["labels"] = [{"properties": {"color": solid(ORANGE)}}]
+    elif kind == "card":
+        objects["labels"] = [{"properties": {"color": solid(color)}}]
     elif kind == "slicer":
         objects["data"] = [{"properties": {"mode": lit("'Dropdown'")}}]
     doc = {
@@ -196,7 +215,7 @@ def layout_js(model_pages):
             "title": v["title"],
             "t": v["visual"]["visualType"],
             "r": v["rect"],
-            **({"cls": "discount"} if v["title"] in DISCOUNT_TITLES else {}),
+            "cls": visual_theme(v)[1],
         } for v in page["visuals"]],
     } for page in model_pages]
     return (
