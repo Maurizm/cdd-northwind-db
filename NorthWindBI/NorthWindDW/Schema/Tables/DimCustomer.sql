@@ -1,0 +1,19 @@
+CREATE TABLE [dbo].[DimCustomer] (
+    [CustomerKey]       INT IDENTITY(1,1) NOT NULL,
+    [CustomerID]        NCHAR(5) NOT NULL,
+    [CompanyName]       NVARCHAR(40) NOT NULL,
+    [ContactName]       NVARCHAR(30) NULL,
+    [ContactTitle]      NVARCHAR(30) NULL,
+    [Address]           NVARCHAR(60) NULL,
+    [PostalCode]        NVARCHAR(10) NULL,
+    [Phone]             NVARCHAR(24) NULL,
+    [Fax]               NVARCHAR(24) NULL,
+    [DemographicsDesc]  NVARCHAR(MAX) NULL,
+    [GeographyKey]      INT NOT NULL,
+    CONSTRAINT [PK_DimCustomer] PRIMARY KEY CLUSTERED ([CustomerKey] ASC),
+    CONSTRAINT [FK_DimCustomer_DimGeography] FOREIGN KEY ([GeographyKey]) REFERENCES [dbo].[DimGeography]([GeographyKey])
+);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_DimCustomer_ID] ON [dbo].[DimCustomer] ([CustomerID] ASC);
+GO

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>NorthWindDW</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{f69e059d-d77e-4f52-b1c1-133f4651a4c5}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql170DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>NorthWindDW</RootNamespace>
+    <AssemblyName>NorthWindDW</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets do not exist -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Schema" />
+    <Folder Include="Schema\Tables" />
+    <Folder Include="Schema\Scripts" />
+    <Folder Include="Schema\Security" />
+    <Folder Include="Schema\Security\schemas" />
+    <Folder Include="Schema\Programmability" />
+    <Folder Include="Schema\Programmability\Stored Procedures" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schema\Tables\DimCustomer.sql" />
+    <Build Include="Schema\Tables\DimDate.sql" />
+    <Build Include="Schema\Tables\DimEmployee.sql" />
+    <Build Include="Schema\Tables\DimProduct.sql" />
+    <Build Include="Schema\Tables\DimShipper.sql" />
+    <Build Include="Schema\Tables\FactSales.sql" />
+    <Build Include="Schema\Tables\DimGeography.sql" />
+    <Build Include="Schema\Tables\DimSupplier.sql" />
+    <Build Include="Schema\Tables\PackageConfig.sql" />
+    <Build Include="Schema\Tables\staging.customer.sql" />
+    <Build Include="Schema\Tables\staging.employee.sql" />
+    <Build Include="Schema\Tables\staging.product.sql" />
+    <Build Include="Schema\Tables\staging.supplier.sql" />
+    <Build Include="Schema\Tables\staging.shipper.sql" />
+    <Build Include="Schema\Tables\staging.sales.sql" />
+    <Build Include="Schema\Security\schemas\staging.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\GetLastPackageRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\UpdateLastPackageRowVersion.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimCustomer.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimEmployee.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimSupplier.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimProduct.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeDimShipper.sql" />
+    <Build Include="Schema\Programmability\Stored Procedures\DW_MergeFactSales.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Schema\Scripts\Script.PreDeployment.sql" />
+    <PostDeploy Include="Schema\Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Schema\Scripts\00_CleanDW.sql" />
+    <None Include="Schema\Scripts\01_Load_DimDate.sql" />
+    <None Include="Schema\Scripts\02_Load_Dimensions.sql" />
+    <None Include="Schema\Scripts\03_Load_FactSales.sql" />
+    <None Include="Schema\Scripts\04_Validation_Analytics.sql" />
+    <None Include="Schema\Scripts\PackageConfig.data.sql" />
+  </ItemGroup>
+</Project>

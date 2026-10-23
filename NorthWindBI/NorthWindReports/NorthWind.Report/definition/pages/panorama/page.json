@@ -1,0 +1,461 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
+  "name": "panorama",
+  "displayName": "Panorama de ventas",
+  "displayOption": "FitToPage",
+  "width": 1440,
+  "height": 810,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F5F3EE'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_countries",
+      "target": "panorama_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_0",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_1",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_2",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_filter_3",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_trend",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_categories",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_clients",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "panorama_products",
+      "target": "panorama_countries",
+      "type": "DataFilter"
+    }
+  ]
+}
