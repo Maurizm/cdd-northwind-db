@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NorthWind BI - Vista previa de diseño</title>
+<title>NorthWind BI - Portal Analítico de Negocio</title>
 <link rel="icon" href="data:,">
 <style>
   :root {
     --page-bg: #F0F2F5; --panel-bg: #FFFFFF; --text: #252423;
-    --blue: #118DFF; --green: #01B8AA; --orange: #FD625E;
+    --blue: #118DFF; --brand-blue: #0A58CA; --royal-blue: #0056B3;
+    --gold: #FFD100; --green: #01B8AA; --orange: #FD625E;
     --amber: #F2C80F; --purple: #744DA9; --border: #D2D0CE;
     --muted: #605E5C;
     --label-font: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
@@ -17,33 +18,97 @@
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--page-bg); color: var(--text);
          font-family: var(--label-font); }
-  .banner { background: var(--blue); color: #fff; padding: 10px 24px;
-            font-size: 14px; }
-  .banner strong { font-family: var(--heading-font); }
-  .banner .warn { opacity: .9; }
-  .tabs { display: flex; gap: 4px; padding: 8px 24px 0; flex-wrap: wrap; }
-  .tabs button { border: 1px solid var(--border); background: var(--panel-bg);
+  .banner { background: #004085; color: #fff; padding: 10px 24px;
+            font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .banner strong { font-family: var(--heading-font); letter-spacing: 0.5px; }
+  .banner .badge { background: var(--gold); color: #003366; padding: 3px 8px; border-radius: 12px; font-weight: bold; font-size: 11px; }
+  .tabs { display: flex; gap: 4px; padding: 8px 24px 0; flex-wrap: wrap; background: #e9ecef; border-bottom: 1px solid var(--border); }
+  .tabs button { border: 1px solid var(--border); background: #f8f9fa;
                  color: var(--text); padding: 8px 16px; border-radius: 4px 4px 0 0;
                  border-bottom: none; font-family: var(--label-font);
-                 font-size: 13px; cursor: pointer; }
-  .tabs button.active { background: var(--panel-bg); color: var(--blue);
-                        font-weight: 700; border-top: 3px solid var(--blue); }
-  .wrap { padding: 0 24px 32px; }
+                 font-size: 13px; cursor: pointer; transition: background .15s; }
+  .tabs button:hover { background: #fff; }
+  .tabs button.active { background: #fff; color: var(--brand-blue);
+                        font-weight: 700; border-top: 3px solid var(--brand-blue); border-bottom: 1px solid #fff; }
+  .wrap { padding: 20px 24px 32px; }
   .page { display: none; position: relative; aspect-ratio: 16 / 9;
           width: 100%; max-width: 1440px; margin: 0 auto;
           background: #FFFFFF;
-          border: 1px solid var(--border); border-radius: 4px; }
+          border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
   .page.active { display: block; }
+
+  /* HOME PAGE STYLING (MATCHING TEACHER'S SLIDE) */
+  .page-home {
+    background: radial-gradient(circle at center, #0B5ED7 0%, #004085 100%) !important;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    padding: 30px 40px; color: #fff; overflow: hidden;
+  }
+  .home-header { text-align: center; margin-bottom: 25px; }
+  .home-logo-img { height: 95px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3)); cursor: pointer; }
+  .home-slogan { font-family: 'Segoe Script', 'Brush Script MT', cursive, sans-serif;
+                 font-size: clamp(16px, 1.8vw, 24px); color: #FFFFFF; margin-top: 6px;
+                 text-shadow: 0 2px 4px rgba(0,0,0,0.4); opacity: 0.95; }
+  
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px 24px;
+    width: 100%;
+    max-width: 1280px;
+    margin-top: 10px;
+  }
+  .home-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 209, 0, 0.25);
+    border-radius: 12px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    backdrop-filter: blur(4px);
+  }
+  .home-card:hover {
+    background: rgba(255, 209, 0, 0.15);
+    border-color: var(--gold);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  }
+  .home-card img {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    transition: transform 0.2s ease;
+  }
+  .home-card:hover img {
+    transform: scale(1.08);
+  }
+  .home-card .card-title {
+    font-size: clamp(13px, 1.1vw, 16px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.3px;
+    line-height: 1.25;
+  }
+  .home-card .card-action {
+    font-size: 11px;
+    color: #FFFFFF;
+    opacity: 0.8;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* DETAILS PAGES STYLING */
   .panel { position: absolute; left: var(--x); top: var(--y);
            width: var(--w); height: var(--h);
            background: var(--panel-bg); border: 1px solid var(--border);
            border-radius: 4px; overflow: hidden; display: flex;
-           flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
-  .panel.nav-module:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(17, 141, 255, 0.15);
-    border-color: var(--blue);
-  }
+           flex-direction: column; }
   .panel .vtitle { font-size: max(12px, .8vw); font-weight: 600;
                    padding: 6px 8px; color: var(--text); }
   .panel .vbody { flex: 1; display: flex; align-items: center;
@@ -54,7 +119,6 @@
                  letter-spacing: .08em; }
   .panel.card .vbody { font-size: max(20px, 1.8vw); font-weight: 700; }
   
-  /* Clases semánticas de color */
   .panel.sales .vbody, .panel.card.sales .vbody { color: var(--blue); }
   .panel.sales .axis { border-left-color: var(--blue); border-bottom-color: var(--blue); }
   .panel.volume .vbody, .panel.card.volume .vbody { color: var(--green); }
@@ -80,73 +144,86 @@
   .heading { position: absolute; left: var(--x); top: var(--y);
              width: var(--w); height: var(--h); margin: 0;
              padding: 0 16px;
-             background: var(--blue); color: #FFFFFF; border-radius: 4px;
+             background: var(--brand-blue); color: #FFFFFF; border-radius: 4px;
              font-family: var(--heading-font); font-weight: 600;
              font-size: clamp(14px, 1.4vw, 18px);
              display: flex; align-items: center; justify-content: space-between; }
-  .btn-home { background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4);
-              padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; text-decoration: none; }
-  .btn-home:hover { background: rgba(255, 255, 255, 0.35); }
+  .btn-home { background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255,255,255,0.5);
+              padding: 5px 14px; border-radius: 4px; font-size: 12px; cursor: pointer; text-decoration: none;
+              font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .btn-home:hover { background: #fff; color: var(--brand-blue); }
   .footnote { position: absolute; left: var(--x); top: var(--y);
               width: var(--w); height: var(--h); font-size: 10px;
               color: var(--muted); display: flex; align-items: center; }
-  .hint { padding: 8px 24px; font-size: 12px; color: var(--muted); }
-  @media (max-width: 720px) {
+  .hint { padding: 8px 24px; font-size: 12px; color: var(--muted); text-align: center; }
+
+  @media (max-width: 900px) {
+    .home-grid { grid-template-columns: repeat(2, 1fr); }
     .page { position: static; aspect-ratio: auto; }
-    .panel, .heading, .footnote { position: static; width: 100%;
-                                  height: auto; margin: 8px 0; }
-    .heading { font-size: 18px; }
-    .panel .vbody { min-height: 80px; }
-    .panel.card .vbody { min-height: 60px; }
+    .panel, .heading, .footnote { position: static; width: 100%; height: auto; margin: 8px 0; }
   }
 </style>
 </head>
 <body>
 <header class="banner">
-  <strong>Vista previa de diseño - Proyecto NorthWind BI</strong>
-  <span class="warn">| Portal Analítico y Landing Page (Grupo 5)</span>
+  <div>
+    <strong>NORTHWIND TRADERS BI</strong>
+    <span>| Portal Analítico de Negocio (Grupo 5)</span>
+  </div>
+  <span class="badge">Power BI Desktop Ready</span>
 </header>
 <nav class="tabs" id="tabs"></nav>
 <div class="wrap" id="pages"></div>
-<p class="hint">El layout proviene de <code>preview-layout.js</code>, generado por <code>build_report.py</code>. Haga clic en los módulos de la página de Inicio para navegar.</p>
+<p class="hint">Haga clic en cualquiera de los iconos interactivos para navegar entre los módulos del sistema.</p>
+
 <script src="preview-layout.js"></script>
 <script>
-// PAGES comes from generated preview-layout.js (name/title/type/rect only).
 const PW = 1440, PH = 810;
 const HEADING = [32,16,1376,44], FOOTER = [32,784,1376,18];
-const FOOTER_TEXT = "Proyecto NorthWind BI - Grupo 5 | Business Intelligence";
+const FOOTER_TEXT = "Proyecto NorthWind BI - Grupo 5 | Módulo II: Almacenamiento y Visualización";
 
 function pos(r){
   return `--x:${r[0]/PW*100}%;--y:${r[1]/PH*100}%;`
        + `--w:${r[2]/PW*100}%;--h:${r[3]/PH*100}%;`;
 }
+
 function goToPage(pageName){
   const btn = document.querySelector(`.tabs button[data-page="${pageName}"]`);
   if(btn) btn.click();
 }
+
 function body(v){
   if(v.t==="slicer") return `<div class="vbody"><span>${v.title} --</span></div>`;
-  if(v.t==="card") return `<div class="vbody">--<span class="kind">métrica kpi</span></div>`;
+  if(v.t==="card") return `<div class="vbody">--<span class="kind">KPI</span></div>`;
   if(v.t==="tableEx") return `<div class="vbody">
       <div class="trow head"><span>--</span><span>--</span><span>--</span></div>
-      <div class="trow"><span>--</span><span>--</span><span>--</span></div>
       <div class="trow"><span>--</span><span>--</span><span>--</span></div>
       <div class="trow"><span>--</span><span>--</span><span>--</span></div></div>`;
   return `<div class="vbody"><div class="axis"></div>
       <span style="font-size:11px;font-weight:600;">[Visual interactivo]</span><span class="kind">${v.t}</span></div>`;
 }
+
 function panel(v){
   const cls = v.t==="barChart" ? "bar" : v.t;
-  const isNav = v.name.startsWith("home_module_");
-  const target = isNav ? v.name.replace("home_module_", "") : "";
-  const navAttr = isNav ? ` onclick="goToPage('${target}')" style="${pos(v.r)}cursor:pointer;"` : ` style="${pos(v.r)}"`;
-  const navBadge = isNav ? `<div style="padding:4px 10px;font-size:11px;font-weight:bold;color:var(--blue);text-align:right;background:#f8f9fa;border-top:1px solid var(--border);">Explorar Módulo &rarr;</div>` : "";
-  return `<div class="panel ${cls} ${v.cls||""} ${isNav?"nav-module":""}" ${navAttr} title="${v.name}">
-    <div class="vtitle">${v.title}</div>${body(v)}${navBadge}</div>`;
+  return `<div class="panel ${cls} ${v.cls||""}" style="${pos(v.r)}" title="${v.name}">
+    <div class="vtitle">${v.title}</div>${body(v)}</div>`;
 }
+
+// 8 Interactive Modules for the Home Landing Page (Matching teacher's slide design)
+const HOME_MODULES = [
+  { id: "exec", title: "Executive Summary", icon: "assets/icon_executive_summary.svg", page: "panorama", action: "Resumen global de ventas" },
+  { id: "rev", title: "Revenue Growth Management", icon: "assets/icon_revenue.svg", page: "panorama", action: "Evolución y tendencias" },
+  { id: "comm", title: "Commercial Execution", icon: "assets/icon_commercial.svg", page: "clientes", action: "Fuerza de ventas y pedidos" },
+  { id: "cust", title: "Customer Intelligence", icon: "assets/icon_customers.svg", page: "clientes", action: "Comportamiento de clientes" },
+  { id: "prod", title: "Product and Category Management", icon: "assets/icon_products.svg", page: "productos", action: "Catálogo y categorías" },
+  { id: "geo", title: "Geo Performance", icon: "assets/icon_geo.svg", page: "panorama", action: "Distribución geográfica" },
+  { id: "log", title: "Logistics Performance", icon: "assets/icon_logistics.svg", page: "logistica", action: "Tiempos de envío y flete" },
+  { id: "story", title: "Storytelling & Insights", icon: "assets/icon_storytelling.svg", page: "panorama", action: "Análisis guiado" }
+];
+
 PAGES.forEach((p,i)=>{
   const b=document.createElement("button");
-  b.textContent=p.title;
+  b.textContent = (p.name === "home") ? "🏠 Inicio (Portal)" : p.title;
   b.setAttribute("data-page", p.name);
   if(i===0) b.classList.add("active");
   b.onclick=()=>{
@@ -156,13 +233,35 @@ PAGES.forEach((p,i)=>{
   };
   document.getElementById("tabs").appendChild(b);
 
-  const homeBtn = p.name !== "home" ? `<button class="btn-home" onclick="goToPage('home')">&#8962; Volver a Inicio</button>` : `<span style="font-size:12px;opacity:0.9;">Portal de Bienvenida Ejecutivo</span>`;
-
   const d=document.createElement("section");
-  d.className="page"+(i===0?" active":""); d.id="pg_"+p.name;
-  d.innerHTML=`<h2 class="heading" style="${pos(HEADING)}"><span>NORTHWIND / ${p.title}</span>${homeBtn}</h2>`
-    +p.visuals.map(panel).join("")
-    +`<span class="footnote" style="${pos(FOOTER)}">${FOOTER_TEXT}</span>`;
+  d.id = "pg_" + p.name;
+
+  if (p.name === "home") {
+    // HOME LANDING PAGE RENDER (MATCHING THE TEACHER'S BLUE & GOLD SLIDE)
+    d.className = "page page-home" + (i===0 ? " active" : "");
+    d.innerHTML = `
+      <div class="home-header">
+        <img src="assets/logo_northwind.svg" alt="NorthWind Traders" class="home-logo-img" />
+        <div class="home-slogan">Soluciones para cada rincón de tu oficina y despensa.</div>
+      </div>
+      <div class="home-grid">
+        ${HOME_MODULES.map(m => `
+          <div class="home-card" onclick="goToPage('${m.page}')" title="Ir a ${m.title}">
+            <img src="${m.icon}" alt="${m.title}" />
+            <div class="card-title">${m.title}</div>
+            <div class="card-action">${m.action} &rarr;</div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  } else {
+    // ANALYTICAL REPORT PAGES
+    d.className = "page" + (i===0 ? " active" : "");
+    const homeBtn = `<button class="btn-home" onclick="goToPage('home')">&#8962; Volver al Inicio</button>`;
+    d.innerHTML = `<h2 class="heading" style="${pos(HEADING)}"><span>NORTHWIND / ${p.title}</span>${homeBtn}</h2>`
+      + p.visuals.map(panel).join("")
+      + `<span class="footnote" style="${pos(FOOTER)}">${FOOTER_TEXT}</span>`;
+  }
   document.getElementById("pages").appendChild(d);
 });
 </script>

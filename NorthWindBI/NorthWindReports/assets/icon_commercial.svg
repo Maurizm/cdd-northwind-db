@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="#FFD100" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+
+  <!-- Coin with dollar -->
+  <circle cx="62" cy="32" r="18" />
+  <text x="62" y="39" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="bold" fill="#FFD100" stroke="none" text-anchor="middle">$</text>
+  <!-- Hand -->
+  <path d="M12,68 L32,68 C38,68 45,64 52,58 L62,50 C65,48 70,50 68,54 L58,66 C65,66 76,66 82,66 C86,66 88,70 85,73 L70,84 C66,87 60,88 54,88 L12,88" />
+
+</svg>

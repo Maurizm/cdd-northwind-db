@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 130" width="500" height="130">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#001845" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <!-- Yellow pill badge -->
+  <rect x="25" y="15" width="450" height="100" rx="50" fill="#FFD100" filter="url(#shadow)"/>
+  <!-- Compass / Nautical Star Icon -->
+  <g transform="translate(60, 40) scale(0.85)">
+    <polygon points="25,5 31,19 45,25 31,31 25,45 19,31 5,25 19,19" fill="#0A3871"/>
+    <circle cx="25" cy="25" r="4" fill="#FFD100"/>
+  </g>
+  <!-- Text -->
+  <text x="260" y="74" font-family="'Segoe UI', 'Impact', sans-serif" font-size="34" font-weight="900" fill="#0A3871" text-anchor="middle" letter-spacing="2">NORTHWIND TRADERS</text>
+</svg>
