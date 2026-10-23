@@ -172,9 +172,10 @@ class NorthWindJobTests(unittest.TestCase):
     def test_schedule_and_server(self):
         self.assertIn("sp_add_jobschedule", self.text)
         self.assertIn("sp_add_jobserver", self.text)
-        # daily schedule (freq_type=4) starting at 02:00
+        # daily frequency (freq_type=4) recurring every minute, all day
         self.assertIn("@freq_type=4", self.text)
-        self.assertIn("@active_start_time=20000", self.text)
+        self.assertIn("@freq_subday_type=4", self.text)
+        self.assertIn("@freq_subday_interval=1", self.text)
 
     def test_failure_stops_job(self):
         for match in re.finditer(

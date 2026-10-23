@@ -144,8 +144,9 @@ usa el subsistema `SSIS` con `/ISSERVER` contra
    WHERE job_id = (SELECT job_id FROM msdb.dbo.sysjobs WHERE name='NorthWindJob');
    ```
 
-3. Programación: diaria a las **02:00** (se puede deshabilitar el
-   schedule desde SSMS → Jobs → NorthWindJob → Schedules).
+3. Programación: **cada 1 minuto**, todo el día (igual que el job de
+   referencia del curso; se puede deshabilitar el schedule desde
+   SSMS → Jobs → NorthWindJob → Schedules).
 
 ## Recuperación ante fallos
 

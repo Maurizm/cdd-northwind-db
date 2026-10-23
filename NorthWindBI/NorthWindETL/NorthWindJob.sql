@@ -123,17 +123,17 @@ IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 EXEC @ReturnCode = msdb.dbo.sp_update_job @job_id = @jobId, @start_step_id = 1
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 
-EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'Cada día a las 02:00',
+EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'Cada minuto',
 		@enabled=1,
 		@freq_type=4,
 		@freq_interval=1,
-		@freq_subday_type=1,
-		@freq_subday_interval=0,
+		@freq_subday_type=4,
+		@freq_subday_interval=1,
 		@freq_relative_interval=0,
 		@freq_recurrence_factor=0,
 		@active_start_date=20261023,
 		@active_end_date=99991231,
-		@active_start_time=20000,
+		@active_start_time=0,
 		@active_end_time=235959,
 		@schedule_uid=N'3c9d5f31-6b4f-4e8b-9a8a-2f1c1f7f6a01'
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
