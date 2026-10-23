@@ -14,7 +14,7 @@ BEGIN
 		p.[QuantityPerUnit],
 		p.[UnitPrice]                                AS [ListUnitPrice],
 		p.[Discontinued],
-		CASE WHEN p.[Discontinued] = 1 THEN N'Descontinuado' ELSE N'Activo' END AS [ProductStatus]
+		CAST(CASE WHEN p.[Discontinued] = 1 THEN N'Descontinuado' ELSE N'Activo' END AS NVARCHAR(15)) AS [ProductStatus]
 	FROM [dbo].[Products] p
 	LEFT JOIN [dbo].[Categories] c
 		ON p.[CategoryID] = c.[CategoryID]
