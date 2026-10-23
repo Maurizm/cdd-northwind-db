@@ -1,13 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="#FFD100" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-
-  <!-- Graph in background -->
-  <polyline points="15,45 30,30 45,38 65,18" />
-  <polyline points="55,18 65,18 65,28" />
-  <!-- Person -->
-  <circle cx="50" cy="38" r="10" />
-  <path d="M35,62 C35,52 65,52 65,62" />
-  <!-- Podium / Desk -->
-  <rect x="25" y="62" width="50" height="26" rx="2" />
-  <line x1="35" y1="72" x2="65" y2="72" />
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F9E79F" />
+      <stop offset="100%" stop-color="#C59B27" />
+    </linearGradient>
+  </defs>
+  <!-- Background Presentation Board -->
+  <rect x="14" y="16" width="72" height="46" rx="4" stroke="url(#goldStroke)" stroke-width="2" />
+  <!-- Growth Line inside board -->
+  <polyline points="22,46 38,36 52,42 74,26" stroke="#FFFFFF" stroke-width="2.2" />
+  <circle cx="74" cy="26" r="3" fill="#D4AF37" stroke="#FFFFFF" stroke-width="1.5" />
+  <!-- Executive Figure -->
+  <circle cx="50" cy="54" r="8" stroke="url(#goldStroke)" />
+  <!-- Podium / Stand -->
+  <path d="M38,72 L32,86 L68,86 L62,72 Z" stroke="url(#goldStroke)" stroke-width="2" />
+  <line x1="26" y1="86" x2="74" y2="86" stroke="url(#goldStroke)" stroke-width="2.5" />
 </svg>

@@ -31,6 +31,7 @@ FOOTER_RECT = (32, 784, 1376, 18)
 FOOTER_TEXT = "Proyecto NorthWind BI - Grupo 5 | Business Intelligence"
 
 # Paleta estándar clásica de Power BI con colores semánticos por métrica:
+NAVY_HEADING = "#0E2A47"     # Azul marino corporativo NorthWind para encabezados
 BLUE_SALES = "#118DFF"       # Azul clásico Power BI para Ventas / Facturación
 GREEN_VOLUME = "#01B8AA"     # Verde agua para Unidades / Pedidos
 ORANGE_DISCOUNT = "#FD625E"  # Rojo/Coral para Descuentos
@@ -291,7 +292,7 @@ def build(server, database, output):
             f"NORTHWIND / {page['title']}",
             {"fontFamily": HEADING_FONT, "fontSize": "16pt",
              "fontWeight": "bold", "color": "#FFFFFF"}, 0,
-            bg_color=BLUE_SALES, border_color=BLUE_SALES)
+            bg_color=NAVY_HEADING, border_color=NAVY_HEADING)
         write_json(visuals_dir / heading["name"] / "visual.json", heading)
         for z, entry in enumerate(page["visuals"], start=1):
             doc = visual_doc(entry, z)

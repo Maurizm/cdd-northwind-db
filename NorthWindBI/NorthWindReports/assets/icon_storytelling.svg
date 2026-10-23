@@ -1,14 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="#FFD100" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="goldStrokeStory" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F9E79F" />
+      <stop offset="100%" stop-color="#C59B27" />
+    </linearGradient>
+  </defs>
+  <!-- Lightbulb of Insight at Top Center -->
+  <path d="M42,26 C42,21.5 45.5,18 50,18 C54.5,18 58,21.5 58,26 C58,29 56,31 55,33 L45,33 C44,31 42,29 42,26 Z" stroke="#FFFFFF" stroke-width="2" fill="rgba(255,255,255,0.15)" />
+  <line x1="46" y1="36" x2="54" y2="36" stroke="#FFFFFF" stroke-width="2" />
+  <!-- Spark rays -->
+  <line x1="50" y1="12" x2="50" y2="15" stroke="url(#goldStrokeStory)" stroke-width="2" />
+  <line x1="38" y1="16" x2="40" y2="18" stroke="url(#goldStrokeStory)" stroke-width="2" />
+  <line x1="62" y1="16" x2="60" y2="18" stroke="url(#goldStrokeStory)" stroke-width="2" />
 
-  <!-- Open book -->
-  <path d="M50,30 C40,25 25,24 14,28 L14,75 C25,71 40,72 50,78 C60,72 75,71 86,75 L86,28 C75,24 60,25 50,30 Z" />
-  <line x1="50" y1="30" x2="50" y2="78" />
-  <!-- Lines in pages -->
-  <line x1="22" y1="40" x2="42" y2="38" />
-  <line x1="22" y1="50" x2="42" y2="48" />
-  <line x1="22" y1="60" x2="38" y2="58" />
-  <line x1="58" y1="38" x2="78" y2="40" />
-  <line x1="58" y1="48" x2="78" y2="50" />
-  <line x1="58" y1="58" x2="74" y2="60" />
+  <!-- Open Executive Ledger / Dossier below -->
+  <path d="M50,48 C42,44 28,43 16,47 L16,84 C28,80 42,81 50,86 C58,81 72,80 84,84 L84,47 C72,43 58,44 50,48 Z" stroke="url(#goldStrokeStory)" stroke-width="2.5" fill="rgba(212,175,55,0.08)" />
+  <line x1="50" y1="48" x2="50" y2="86" stroke="url(#goldStrokeStory)" stroke-width="2.5" />
 
+  <!-- Analysis lines in pages -->
+  <line x1="24" y1="58" x2="42" y2="56" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85" />
+  <line x1="24" y1="66" x2="42" y2="64" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85" />
+  <line x1="24" y1="74" x2="38" y2="72" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85" />
+  <line x1="58" y1="56" x2="76" y2="58" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85" />
+  <line x1="58" y1="64" x2="76" y2="66" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85" />
+  <line x1="58" y1="72" x2="72" y2="74" stroke="#FFFFFF" stroke-width="1.8" opacity="0.85" />
 </svg>
