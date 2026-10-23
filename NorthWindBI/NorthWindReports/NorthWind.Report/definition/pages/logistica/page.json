@@ -1,0 +1,376 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
+  "name": "logistica",
+  "displayName": "An\u00e1lisis de Log\u00edstica y Env\u00edos",
+  "displayOption": "FitToPage",
+  "width": 1440,
+  "height": 810,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F0F2F5'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_days",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_days",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_days",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_days",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_days",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_days",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_days",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_freight",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_freight",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_freight",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_freight",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_freight",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_freight",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_freight",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_detail",
+      "target": "logistica_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_0",
+      "target": "logistica_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_1",
+      "target": "logistica_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_2",
+      "target": "logistica_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_filter_3",
+      "target": "logistica_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_days",
+      "target": "logistica_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_freight",
+      "target": "logistica_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "logistica_trend",
+      "target": "logistica_detail",
+      "type": "DataFilter"
+    }
+  ]
+}

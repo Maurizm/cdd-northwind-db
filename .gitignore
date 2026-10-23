@@ -23,3 +23,14 @@ guia.md
 # Sistema
 Thumbs.db
 .DS_Store
+
+# SSAS tabular y Power BI (NO subir)
+__pycache__/
+*.py[cod]
+.pbi/
+*.pbix
+*.abf
+*.asdatabase
+*.deploymentoptions
+*.deploymenttargets
+.playwright-mcp/

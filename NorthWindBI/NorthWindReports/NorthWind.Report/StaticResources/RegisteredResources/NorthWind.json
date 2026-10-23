@@ -1,0 +1,38 @@
+{
+  "name": "NorthWind",
+  "dataColors": [
+    "#118DFF",
+    "#01B8AA",
+    "#FD625E",
+    "#F2C80F",
+    "#744DA9",
+    "#374649",
+    "#8AD4EB",
+    "#FE9666"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#252423",
+  "tableAccent": "#118DFF",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#252423"
+    },
+    "header": {
+      "fontFace": "Segoe UI",
+      "fontSize": 18,
+      "color": "#252423"
+    },
+    "callout": {
+      "fontFace": "Segoe UI",
+      "fontSize": 26,
+      "color": "#252423"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 9,
+      "color": "#252423"
+    }
+  }
+}
