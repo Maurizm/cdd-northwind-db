@@ -18,4 +18,8 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="NorthWindOLAP/NorthWindOLAP.smproj">
+    <BuildType Project="Development" />
+    <Build />
+  </Project>
 </Solution>

@@ -1,0 +1,876 @@
+{
+  "name": "NorthWindOLAP",
+  "id": "NorthWindOLAP",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "es-ES",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "dataSources": [
+      {
+        "name": "NorthWindDW",
+        "type": "provider",
+        "connectionString": "Provider=MSOLEDBSQL;Data Source=localhost;Initial Catalog=NorthWindDW;Integrated Security=SSPI;Persist Security Info=False",
+        "impersonationMode": "impersonateServiceAccount"
+      }
+    ],
+    "tables": [
+      {
+        "name": "Calendario",
+        "columns": [
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "sourceColumn": "DateKey",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Ano",
+            "dataType": "int64",
+            "sourceColumn": "Ano",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Trimestre",
+            "dataType": "string",
+            "sourceColumn": "Trimestre",
+            "summarizeBy": "none",
+            "sortByColumn": "TrimestreNumero"
+          },
+          {
+            "name": "TrimestreNumero",
+            "dataType": "int64",
+            "sourceColumn": "TrimestreNumero",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Mes",
+            "dataType": "string",
+            "sourceColumn": "Mes",
+            "summarizeBy": "none",
+            "sortByColumn": "MesNumero"
+          },
+          {
+            "name": "MesNumero",
+            "dataType": "int64",
+            "sourceColumn": "MesNumero",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "MesAnio",
+            "dataType": "string",
+            "sourceColumn": "MesAnio",
+            "summarizeBy": "none",
+            "sortByColumn": "OrdenMesAnio"
+          },
+          {
+            "name": "OrdenMesAnio",
+            "dataType": "int64",
+            "sourceColumn": "OrdenMesAnio",
+            "summarizeBy": "none",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Calendario",
+            "mode": "import",
+            "source": {
+              "type": "query",
+              "dataSource": "NorthWindDW",
+              "query": "SELECT [DateKey],\n       CASE WHEN [DateKey] <> -1 THEN [FullDate] END AS [Fecha],\n       CASE WHEN [DateKey] <> -1 THEN [Year] END AS [Ano],\n       [QuarterName] AS [Trimestre], [Quarter] AS [TrimestreNumero],\n       [MonthName] AS [Mes], [MonthOfYear] AS [MesNumero],\n       CASE WHEN [DateKey] = -1 THEN N'Desconocido'\n            ELSE CONVERT(NVARCHAR(7), [FullDate], 126) END AS [MesAnio],\n       CASE WHEN [DateKey] = -1 THEN 0\n            ELSE [Year] * 100 + [MonthOfYear] END AS [OrdenMesAnio]\nFROM [dbo].[DimDate]"
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Calendario",
+            "levels": [
+              {
+                "name": "Ano",
+                "ordinal": 0,
+                "column": "Ano"
+              },
+              {
+                "name": "Trimestre",
+                "ordinal": 1,
+                "column": "Trimestre"
+              },
+              {
+                "name": "Mes",
+                "ordinal": 2,
+                "column": "Mes"
+              },
+              {
+                "name": "Fecha",
+                "ordinal": 3,
+                "column": "Fecha"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Clientes",
+        "columns": [
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "sourceColumn": "CustomerKey",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Cliente",
+            "dataType": "string",
+            "sourceColumn": "Cliente",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Pais",
+            "dataType": "string",
+            "sourceColumn": "Pais",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ciudad",
+            "dataType": "string",
+            "sourceColumn": "Ciudad",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Clientes",
+            "mode": "import",
+            "source": {
+              "type": "query",
+              "dataSource": "NorthWindDW",
+              "query": "SELECT c.[CustomerKey], c.[CompanyName] AS [Cliente],\n       g.[Country] AS [Pais], g.[Region] AS [Region], g.[City] AS [Ciudad]\nFROM [dbo].[DimCustomer] c\nLEFT JOIN [dbo].[DimGeography] g ON c.[GeographyKey] = g.[GeographyKey]"
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Ubicacion del Cliente",
+            "levels": [
+              {
+                "name": "Pais",
+                "ordinal": 0,
+                "column": "Pais"
+              },
+              {
+                "name": "Region",
+                "ordinal": 1,
+                "column": "Region"
+              },
+              {
+                "name": "Ciudad",
+                "ordinal": 2,
+                "column": "Ciudad"
+              },
+              {
+                "name": "Cliente",
+                "ordinal": 3,
+                "column": "Cliente"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Productos",
+        "columns": [
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Producto",
+            "dataType": "string",
+            "sourceColumn": "Producto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Categoria",
+            "dataType": "string",
+            "sourceColumn": "Categoria",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Estado",
+            "dataType": "string",
+            "sourceColumn": "Estado",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Productos",
+            "mode": "import",
+            "source": {
+              "type": "query",
+              "dataSource": "NorthWindDW",
+              "query": "SELECT [ProductKey], [ProductName] AS [Producto],\n       [CategoryName] AS [Categoria], [ProductStatus] AS [Estado]\nFROM [dbo].[DimProduct]"
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Catalogo",
+            "levels": [
+              {
+                "name": "Categoria",
+                "ordinal": 0,
+                "column": "Categoria"
+              },
+              {
+                "name": "Producto",
+                "ordinal": 1,
+                "column": "Producto"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Vendedores",
+        "columns": [
+          {
+            "name": "EmployeeKey",
+            "dataType": "int64",
+            "sourceColumn": "EmployeeKey",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Vendedor",
+            "dataType": "string",
+            "sourceColumn": "Vendedor",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cargo",
+            "dataType": "string",
+            "sourceColumn": "Cargo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Supervisor",
+            "dataType": "string",
+            "sourceColumn": "Supervisor",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Pais",
+            "dataType": "string",
+            "sourceColumn": "Pais",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ciudad",
+            "dataType": "string",
+            "sourceColumn": "Ciudad",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Vendedores",
+            "mode": "import",
+            "source": {
+              "type": "query",
+              "dataSource": "NorthWindDW",
+              "query": "SELECT e.[EmployeeKey], e.[FullName] AS [Vendedor], e.[Title] AS [Cargo],\n       e.[ManagerName] AS [Supervisor], g.[Country] AS [Pais],\n       g.[Region] AS [Region], g.[City] AS [Ciudad]\nFROM [dbo].[DimEmployee] e\nLEFT JOIN [dbo].[DimGeography] g ON e.[GeographyKey] = g.[GeographyKey]"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Proveedores",
+        "columns": [
+          {
+            "name": "SupplierKey",
+            "dataType": "int64",
+            "sourceColumn": "SupplierKey",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Proveedor",
+            "dataType": "string",
+            "sourceColumn": "Proveedor",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Pais",
+            "dataType": "string",
+            "sourceColumn": "Pais",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ciudad",
+            "dataType": "string",
+            "sourceColumn": "Ciudad",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Proveedores",
+            "mode": "import",
+            "source": {
+              "type": "query",
+              "dataSource": "NorthWindDW",
+              "query": "SELECT s.[SupplierKey], s.[CompanyName] AS [Proveedor],\n       g.[Country] AS [Pais], g.[Region] AS [Region], g.[City] AS [Ciudad]\nFROM [dbo].[DimSupplier] s\nLEFT JOIN [dbo].[DimGeography] g ON s.[GeographyKey] = g.[GeographyKey]"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Transportistas",
+        "columns": [
+          {
+            "name": "ShipperKey",
+            "dataType": "int64",
+            "sourceColumn": "ShipperKey",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Transportista",
+            "dataType": "string",
+            "sourceColumn": "Transportista",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Transportistas",
+            "mode": "import",
+            "source": {
+              "type": "query",
+              "dataSource": "NorthWindDW",
+              "query": "SELECT [ShipperKey], [CompanyName] AS [Transportista]\nFROM [dbo].[DimShipper]"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Ventas",
+        "columns": [
+          {
+            "name": "SalesKey",
+            "dataType": "int64",
+            "sourceColumn": "SalesKey",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "OrderID",
+            "dataType": "int64",
+            "sourceColumn": "OrderID",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "OrderLineNum",
+            "dataType": "int64",
+            "sourceColumn": "OrderLineNum",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "OrderDateKey",
+            "dataType": "int64",
+            "sourceColumn": "OrderDateKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "ShippedDateKey",
+            "dataType": "int64",
+            "sourceColumn": "ShippedDateKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "RequiredDateKey",
+            "dataType": "int64",
+            "sourceColumn": "RequiredDateKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "sourceColumn": "CustomerKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "EmployeeKey",
+            "dataType": "int64",
+            "sourceColumn": "EmployeeKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "SupplierKey",
+            "dataType": "int64",
+            "sourceColumn": "SupplierKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "ShipperKey",
+            "dataType": "int64",
+            "sourceColumn": "ShipperKey",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Quantity",
+            "dataType": "int64",
+            "sourceColumn": "Quantity",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "DiasHastaEnvio",
+            "dataType": "int64",
+            "sourceColumn": "DiasHastaEnvio",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "GrossAmount",
+            "dataType": "decimal",
+            "sourceColumn": "GrossAmount",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "DiscountAmount",
+            "dataType": "decimal",
+            "sourceColumn": "DiscountAmount",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "NetAmount",
+            "dataType": "decimal",
+            "sourceColumn": "NetAmount",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "AllocatedFreight",
+            "dataType": "decimal",
+            "sourceColumn": "AllocatedFreight",
+            "summarizeBy": "none",
+            "isHidden": true,
+            "formatString": "#,0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Ventas",
+            "mode": "import",
+            "source": {
+              "type": "query",
+              "dataSource": "NorthWindDW",
+              "query": "SELECT f.[SalesKey], f.[OrderID], f.[OrderLineNum],\n       f.[OrderDateKey], f.[ShippedDateKey], f.[RequiredDateKey],\n       f.[CustomerKey], f.[EmployeeKey], f.[ProductKey],\n       f.[SupplierKey], f.[ShipperKey], f.[Quantity],\n       f.[GrossAmount], f.[DiscountAmount], f.[NetAmount], f.[AllocatedFreight],\n       CASE WHEN f.[OrderDateKey] <> -1 AND f.[ShippedDateKey] <> -1\n            THEN DATEDIFF(DAY, od.[FullDate], sd.[FullDate]) END\n            AS [DiasHastaEnvio]\nFROM [dbo].[FactSales] f\nLEFT JOIN [dbo].[DimDate] od ON f.[OrderDateKey] = od.[DateKey]\nLEFT JOIN [dbo].[DimDate] sd ON f.[ShippedDateKey] = sd.[DateKey]"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Ventas Brutas",
+            "expression": "SUM(Ventas[GrossAmount])",
+            "formatString": "#,0.00",
+            "displayFolder": "Importes",
+            "description": "Importe antes de descuentos; la moneda no esta identificada en el origen."
+          },
+          {
+            "name": "Descuentos",
+            "expression": "SUM(Ventas[DiscountAmount])",
+            "formatString": "#,0.00",
+            "displayFolder": "Importes",
+            "description": "Importe de descuentos concedidos, no porcentaje."
+          },
+          {
+            "name": "Ventas Netas",
+            "expression": "SUM(Ventas[NetAmount])",
+            "formatString": "#,0.00",
+            "displayFolder": "Importes",
+            "description": "Importe despues de descuentos, sin agregar flete."
+          },
+          {
+            "name": "Unidades Vendidas",
+            "expression": "SUM(Ventas[Quantity])",
+            "formatString": "#,0",
+            "displayFolder": "Actividad",
+            "description": "Unidades de las lineas de pedido en el contexto seleccionado."
+          },
+          {
+            "name": "Pedidos",
+            "expression": "DISTINCTCOUNT(Ventas[OrderID])",
+            "formatString": "#,0",
+            "displayFolder": "Actividad",
+            "description": "Pedidos distintos. No es aditivo entre productos o categorias."
+          },
+          {
+            "name": "Ticket Promedio",
+            "expression": "DIVIDE([Ventas Netas], [Pedidos])",
+            "formatString": "#,0.00",
+            "displayFolder": "Importes",
+            "description": "Ventas netas por pedido dentro del contexto seleccionado."
+          },
+          {
+            "name": "Tasa de Descuento",
+            "expression": "DIVIDE([Descuentos], [Ventas Brutas])",
+            "formatString": "0.0%",
+            "displayFolder": "Importes",
+            "description": "Descuento efectivo ponderado por importe bruto."
+          },
+          {
+            "name": "Flete Asignado",
+            "expression": "SUM(Ventas[AllocatedFreight])",
+            "formatString": "#,0.00",
+            "displayFolder": "Logistica",
+            "description": "Flete distribuido entre lineas por el ETL; puede tener redondeo monetario."
+          },
+          {
+            "name": "Pedidos Enviados",
+            "expression": "CALCULATE([Pedidos], KEEPFILTERS(Ventas[ShippedDateKey] <> -1))",
+            "formatString": "#,0",
+            "displayFolder": "Logistica",
+            "description": "Pedidos con fecha de envio conocida."
+          },
+          {
+            "name": "Dias Promedio Hasta Envio",
+            "expression": "AVERAGEX(VALUES(Ventas[OrderID]), CALCULATE(MAX(Ventas[DiasHastaEnvio])))",
+            "formatString": "0.0",
+            "displayFolder": "Logistica",
+            "description": "Dias pedido-envio, ponderados por pedido, no por linea. No mide entrega al cliente; omite fechas desconocidas."
+          },
+          {
+            "name": "Ventas por Fecha de Envio",
+            "expression": "CALCULATE([Ventas Netas], USERELATIONSHIP(Ventas[ShippedDateKey], Calendario[DateKey]))",
+            "formatString": "#,0.00",
+            "displayFolder": "Fechas",
+            "description": "Ventas netas agrupadas por fecha de envio."
+          },
+          {
+            "name": "Ventas por Fecha Requerida",
+            "expression": "CALCULATE([Ventas Netas], USERELATIONSHIP(Ventas[RequiredDateKey], Calendario[DateKey]))",
+            "formatString": "#,0.00",
+            "displayFolder": "Fechas",
+            "description": "Ventas netas agrupadas por fecha requerida."
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "Ventas_OrderDateKey",
+        "fromTable": "Ventas",
+        "fromColumn": "OrderDateKey",
+        "fromCardinality": "many",
+        "toTable": "Calendario",
+        "toColumn": "DateKey",
+        "toCardinality": "one",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Ventas_ShippedDateKey",
+        "fromTable": "Ventas",
+        "fromColumn": "ShippedDateKey",
+        "fromCardinality": "many",
+        "toTable": "Calendario",
+        "toColumn": "DateKey",
+        "toCardinality": "one",
+        "isActive": false,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Ventas_RequiredDateKey",
+        "fromTable": "Ventas",
+        "fromColumn": "RequiredDateKey",
+        "fromCardinality": "many",
+        "toTable": "Calendario",
+        "toColumn": "DateKey",
+        "toCardinality": "one",
+        "isActive": false,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Ventas_CustomerKey",
+        "fromTable": "Ventas",
+        "fromColumn": "CustomerKey",
+        "fromCardinality": "many",
+        "toTable": "Clientes",
+        "toColumn": "CustomerKey",
+        "toCardinality": "one",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Ventas_ProductKey",
+        "fromTable": "Ventas",
+        "fromColumn": "ProductKey",
+        "fromCardinality": "many",
+        "toTable": "Productos",
+        "toColumn": "ProductKey",
+        "toCardinality": "one",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Ventas_EmployeeKey",
+        "fromTable": "Ventas",
+        "fromColumn": "EmployeeKey",
+        "fromCardinality": "many",
+        "toTable": "Vendedores",
+        "toColumn": "EmployeeKey",
+        "toCardinality": "one",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Ventas_SupplierKey",
+        "fromTable": "Ventas",
+        "fromColumn": "SupplierKey",
+        "fromCardinality": "many",
+        "toTable": "Proveedores",
+        "toColumn": "SupplierKey",
+        "toCardinality": "one",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "Ventas_ShipperKey",
+        "fromTable": "Ventas",
+        "fromColumn": "ShipperKey",
+        "fromCardinality": "many",
+        "toTable": "Transportistas",
+        "toColumn": "ShipperKey",
+        "toCardinality": "one",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      }
+    ],
+    "perspectives": [
+      {
+        "name": "Ventas",
+        "tables": [
+          {
+            "name": "Calendario",
+            "columns": [
+              {
+                "name": "Fecha"
+              },
+              {
+                "name": "Ano"
+              },
+              {
+                "name": "Trimestre"
+              },
+              {
+                "name": "Mes"
+              },
+              {
+                "name": "MesAnio"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Calendario"
+              }
+            ]
+          },
+          {
+            "name": "Clientes",
+            "columns": [
+              {
+                "name": "Cliente"
+              },
+              {
+                "name": "Pais"
+              },
+              {
+                "name": "Region"
+              },
+              {
+                "name": "Ciudad"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Ubicacion del Cliente"
+              }
+            ]
+          },
+          {
+            "name": "Productos",
+            "columns": [
+              {
+                "name": "Producto"
+              },
+              {
+                "name": "Categoria"
+              },
+              {
+                "name": "Estado"
+              }
+            ],
+            "hierarchies": [
+              {
+                "name": "Catalogo"
+              }
+            ]
+          },
+          {
+            "name": "Vendedores",
+            "columns": [
+              {
+                "name": "Vendedor"
+              },
+              {
+                "name": "Cargo"
+              },
+              {
+                "name": "Supervisor"
+              },
+              {
+                "name": "Pais"
+              },
+              {
+                "name": "Region"
+              },
+              {
+                "name": "Ciudad"
+              }
+            ]
+          },
+          {
+            "name": "Proveedores",
+            "columns": [
+              {
+                "name": "Proveedor"
+              },
+              {
+                "name": "Pais"
+              },
+              {
+                "name": "Region"
+              },
+              {
+                "name": "Ciudad"
+              }
+            ]
+          },
+          {
+            "name": "Transportistas",
+            "columns": [
+              {
+                "name": "Transportista"
+              }
+            ]
+          },
+          {
+            "name": "Ventas",
+            "columns": [],
+            "measures": [
+              {
+                "name": "Ventas Brutas"
+              },
+              {
+                "name": "Descuentos"
+              },
+              {
+                "name": "Ventas Netas"
+              },
+              {
+                "name": "Unidades Vendidas"
+              },
+              {
+                "name": "Pedidos"
+              },
+              {
+                "name": "Ticket Promedio"
+              },
+              {
+                "name": "Tasa de Descuento"
+              },
+              {
+                "name": "Flete Asignado"
+              },
+              {
+                "name": "Pedidos Enviados"
+              },
+              {
+                "name": "Dias Promedio Hasta Envio"
+              },
+              {
+                "name": "Ventas por Fecha de Envio"
+              },
+              {
+                "name": "Ventas por Fecha Requerida"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

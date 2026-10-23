@@ -1,0 +1,21 @@
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Development</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4CE13AB6-071A-4CF7-9B98-E9093B675172}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <Name>NorthWindOLAP</Name>
+    <OutputPath>bin\</OutputPath>
+    <DeploymentServerName>localhost</DeploymentServerName>
+    <DeploymentServerEdition>Developer</DeploymentServerEdition>
+    <DeploymentServerDatabase>NorthWindOLAP</DeploymentServerDatabase>
+    <DeploymentServerCubeName>Model</DeploymentServerCubeName>
+    <DeploymentOptionProcessing>DoNotProcess</DeploymentOptionProcessing>
+    <DeploymentOptionTransactionalDeployment>True</DeploymentOptionTransactionalDeployment>
+    <DeploymentOptionDirectQueryMode>InMemory</DeploymentOptionDirectQueryMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="NorthWind.bim"><SubType>Code</SubType></Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Business Intelligence Semantic Model\1.0\Microsoft.AnalysisServices.VSHostBuilder.targets" />
+</Project>
