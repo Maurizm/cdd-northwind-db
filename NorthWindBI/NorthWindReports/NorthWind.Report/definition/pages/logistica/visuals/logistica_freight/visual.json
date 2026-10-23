@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "logistica_freight",
   "position": {
-    "x": 888,
+    "x": 928,
     "y": 270,
-    "z": 11,
-    "width": 520,
-    "height": 246,
-    "tabOrder": 11
+    "z": 17,
+    "width": 480,
+    "height": 236,
+    "tabOrder": 17
   },
   "visual": {
     "visualType": "barChart",

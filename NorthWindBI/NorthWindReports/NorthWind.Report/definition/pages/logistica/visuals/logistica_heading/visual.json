@@ -5,7 +5,7 @@
     "x": 32,
     "y": 16,
     "z": 0,
-    "width": 1120,
+    "width": 576,
     "height": 48,
     "tabOrder": 0
   },
@@ -20,7 +20,7 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "NORTHWIND / Logistica: pedido a envio",
+                    "value": "NORTHWIND / Logística: pedido a envío",
                     "textStyle": {
                       "fontFamily": "Georgia",
                       "fontSize": "20pt",

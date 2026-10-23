@@ -11,7 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-from report_contract import connection_files, pages
+from report_contract import bookmarks, connection_files, pages
 
 HERE = Path(__file__).resolve().parent
 SCHEMA = (
@@ -28,14 +28,27 @@ ORANGE = "#D88935"
 BORDER = "#E3DED4"
 LABEL_FONT = "DIN"
 HEADING_FONT = "Georgia"
-HEADING_RECT = (32, 16, 1120, 48)
-FOOTER_RECT = (32, 784, 760, 18)
-FOOTER_TEXT = "Importes sin moneda definida | Fechas historicas del origen"
+HEADING_RECT = (32, 16, 576, 48)
+STORY_RECT = (32, 768, 1088, 36)
+STORY_SUFFIX = " | Importes sin moneda definida"
 
 # Selection sources/targets for native cross-filtering interactions.
-FILTERING_SOURCES = {"slicer", "barChart", "lineChart", "tableEx"}
-FILTERING_TARGETS = {"card", "barChart", "lineChart", "tableEx"}
+# Buttons and textboxes are never filtering sources or targets.
+FILTERING_SOURCES = {
+    "slicer", "barChart", "clusteredBarChart", "columnChart",
+    "clusteredColumnChart", "lineChart", "lineClusteredColumnComboChart",
+    "tableEx", "pivotTable", "scatterChart", "azureMap",
+}
+FILTERING_TARGETS = (FILTERING_SOURCES - {"slicer"}) | {"card"}
 DISCOUNT_TITLES = {"Descuentos", "Tasa de Descuento"}
+
+# Action companion property per actionButton action type.
+ACTION_PROPS = {
+    "PageNavigation": "navigationSection",
+    "Bookmark": "bookmark",
+    "Drillthrough": "drillthroughSection",
+    "WebUrl": "webUrl",
+}
 
 THEME = {
     "name": "NorthWind",
@@ -85,20 +98,83 @@ def panel_objects(title):
     }
 
 
+def button_visual(entry):
+    """Action-button objects in the dual-entry pattern the engine requires."""
+    action = entry["action"]
+    link = {"show": lit("true"), "type": lit(f"'{action['type']}'")}
+    if action.get("target"):
+        link[ACTION_PROPS[action["type"]]] = lit(f"'{action['target']}'")
+    selected = entry.get("selected")
+    fill_color = TEAL if selected else PANEL_BG
+    font_color = PANEL_BG if selected else TEAL
+    outline = [{"properties": {"show": lit("false")}}] if selected else [
+        {"properties": {"show": lit("true")}},
+        {"properties": {"color": solid(TEAL)},
+         "selector": {"id": "default"}},
+    ]
+    return {
+        "visualType": "actionButton",
+        "objects": {
+            "text": [
+                {"properties": {"show": lit("true")}},
+                {"properties": {
+                    "text": lit(f"'{entry['title']}'"),
+                    "fontSize": lit("11D"),
+                    "fontFamily": lit(f"'{LABEL_FONT}'"),
+                    "fontColor": solid(font_color),
+                    "horizontalAlignment": lit("'center'"),
+                }, "selector": {"id": "default"}},
+            ],
+            "icon": [
+                {"properties": {"show": lit("false")}},
+                {"properties": {
+                    "shapeType": lit("'rightArrow'"),
+                    "placement": lit("'left'"),
+                }, "selector": {"id": "default"}},
+            ],
+            "fill": [
+                {"properties": {"show": lit("true")}},
+                {"properties": {"fillColor": solid(fill_color)},
+                 "selector": {"id": "default"}},
+            ],
+            "outline": outline,
+            "shape": [
+                {"properties": {
+                    "tileShape": lit("'rectangleRounded'"),
+                    "roundEdge": lit("8L")}},
+                {"properties": {
+                    "tileShape": lit("'rectangleRounded'")},
+                 "selector": {"id": "default"}},
+            ],
+        },
+        "visualContainerObjects": {
+            "background": [{"properties": {"show": lit("false")}}],
+            "border": [{"properties": {"show": lit("false")}}],
+            "visualLink": [{"properties": link}],
+        },
+        "drillFilterOtherVisuals": True,
+    }
+
+
 def visual_doc(entry, z):
     rect = entry["rect"]
-    visual = copy.deepcopy(entry["visual"])
-    visual["visualContainerObjects"] = panel_objects(entry["title"])
-    objects = visual.setdefault("objects", {})
-    kind = visual["visualType"]
-    if kind in ("barChart", "lineChart"):
-        objects["dataPoint"] = [
-            {"properties": {"defaultColor": solid(TEAL)}}
-        ]
-    elif kind == "card" and entry["title"] in DISCOUNT_TITLES:
-        objects["labels"] = [{"properties": {"color": solid(ORANGE)}}]
-    elif kind == "slicer":
-        objects["data"] = [{"properties": {"mode": lit("'Dropdown'")}}]
+    kind = entry["visual"]["visualType"]
+    if kind == "actionButton":
+        visual = button_visual(entry)
+    else:
+        visual = copy.deepcopy(entry["visual"])
+        visual["visualContainerObjects"] = panel_objects(entry["title"])
+        objects = visual.setdefault("objects", {})
+        if kind in ("barChart", "clusteredBarChart", "columnChart",
+                    "clusteredColumnChart", "lineChart",
+                    "lineClusteredColumnComboChart", "scatterChart"):
+            objects.setdefault("dataPoint", [
+                {"properties": {"defaultColor": solid(TEAL)}}
+            ])
+        elif kind == "card" and entry["title"] in DISCOUNT_TITLES:
+            objects["labels"] = [{"properties": {"color": solid(ORANGE)}}]
+        elif kind == "slicer":
+            objects["data"] = [{"properties": {"mode": lit("'Dropdown'")}}]
     doc = {
         "$schema": SCHEMA + "visualContainer/2.1.0/schema.json",
         "name": entry["name"],
@@ -110,6 +186,8 @@ def visual_doc(entry, z):
     }
     if "filterConfig" in entry:
         doc["filterConfig"] = copy.deepcopy(entry["filterConfig"])
+    if entry.get("hidden"):
+        doc["isHidden"] = True
     return doc
 
 
@@ -148,7 +226,7 @@ def page_doc(page):
             "color": solid(PAGE_BG), "transparency": lit("0D")}}]},
         "visualInteractions": page_interactions(page),
     }
-    for key in ("type", "pageBinding", "filterConfig"):
+    for key in ("type", "pageBinding", "filterConfig", "visibility"):
         if key in page:
             doc[key] = copy.deepcopy(page[key])
     return doc
@@ -191,12 +269,14 @@ def layout_js(model_pages):
     data = [{
         "name": page["name"],
         "title": page["title"],
+        "story": page["story"] + STORY_SUFFIX,
         "visuals": [{
             "name": v["name"],
             "title": v["title"],
             "t": v["visual"]["visualType"],
             "r": v["rect"],
             **({"cls": "discount"} if v["title"] in DISCOUNT_TITLES else {}),
+            **({"h": True} if v.get("hidden") else {}),
         } for v in page["visuals"]],
     } for page in model_pages]
     return (
@@ -217,12 +297,14 @@ def build(server, database, output):
     expected_names = {}
     for page in model_pages:
         expected = {v["name"] for v in page["visuals"]}
-        expected |= {f"{page['name']}_heading", f"{page['name']}_footer"}
+        expected |= {f"{page['name']}_heading", f"{page['name']}_story"}
         expected_names[page["name"]] = expected
     guard_dirs(pages_dir, set(names), "page directories")
     for page in model_pages:
         guard_dirs(pages_dir / page["name"] / "visuals",
                    expected_names[page["name"]], "visual directories")
+    bookmarks_dir = report / "definition" / "bookmarks"
+    guard_dirs(bookmarks_dir, set(), "bookmark directories")
 
     for rel, payload in connection_files(server, database).items():
         write_json(output / rel, payload)
@@ -247,6 +329,15 @@ def build(server, database, output):
         "$schema": SCHEMA + "pagesMetadata/1.0.0/schema.json",
         "pageOrder": names, "activePageName": names[0],
     })
+    bookmark_data = bookmarks()
+    write_json(bookmarks_dir / "bookmarks.json", {
+        "$schema": SCHEMA + "bookmarksMetadata/1.0.0/schema.json",
+        "items": bookmark_data["items"],
+    })
+    for bookmark_name, payload in bookmark_data["files"].items():
+        write_json(bookmarks_dir / f"{bookmark_name}.bookmark.json",
+                   {"$schema": SCHEMA + "bookmark/2.1.0/schema.json",
+                    **payload})
     (output / "preview-layout.js").write_text(
         layout_js(model_pages), encoding="utf-8")
 
@@ -265,11 +356,13 @@ def build(server, database, output):
             doc = visual_doc(entry, z)
             write_json(visuals_dir / entry["name"] / "visual.json", doc)
             written += 1
-        footer = textbox_doc(
-            f"{page['name']}_footer", FOOTER_RECT, FOOTER_TEXT,
-            {"fontFamily": LABEL_FONT, "fontSize": "8pt",
-             "color": TEXT}, len(page["visuals"]) + 1)
-        write_json(visuals_dir / footer["name"] / "visual.json", footer)
+        story = textbox_doc(
+            f"{page['name']}_story", STORY_RECT,
+            page["story"] + STORY_SUFFIX,
+            {"fontFamily": HEADING_FONT, "fontSize": "10pt",
+             "fontStyle": "italic", "color": TEXT},
+            len(page["visuals"]) + 1)
+        write_json(visuals_dir / story["name"] / "visual.json", story)
         written += 2
     return names, written
 

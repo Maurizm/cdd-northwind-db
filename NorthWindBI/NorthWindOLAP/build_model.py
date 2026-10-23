@@ -53,16 +53,27 @@ FROM [dbo].[DimShipper]
 """,
     "Ventas": """
 SELECT f.[SalesKey], f.[OrderID], f.[OrderLineNum],
+       f.[OrderID] AS [Pedido],
        f.[OrderDateKey], f.[ShippedDateKey], f.[RequiredDateKey],
        f.[CustomerKey], f.[EmployeeKey], f.[ProductKey],
        f.[SupplierKey], f.[ShipperKey], f.[Quantity],
        f.[GrossAmount], f.[DiscountAmount], f.[NetAmount], f.[AllocatedFreight],
+       CASE WHEN d.[Pct] = 0 THEN N'Sin descuento'
+            WHEN d.[Pct] <= 5 THEN N'1-5%'
+            WHEN d.[Pct] <= 10 THEN N'6-10%'
+            WHEN d.[Pct] <= 15 THEN N'11-15%'
+            WHEN d.[Pct] <= 20 THEN N'16-20%'
+            ELSE N'Más de 20%' END AS [Nivel de Descuento],
+       CASE WHEN d.[Pct] = 0 THEN 0 WHEN d.[Pct] <= 5 THEN 1
+            WHEN d.[Pct] <= 10 THEN 2 WHEN d.[Pct] <= 15 THEN 3
+            WHEN d.[Pct] <= 20 THEN 4 ELSE 5 END AS [OrdenDescuento],
        CASE WHEN f.[OrderDateKey] <> -1 AND f.[ShippedDateKey] <> -1
             THEN DATEDIFF(DAY, od.[FullDate], sd.[FullDate]) END
             AS [DiasHastaEnvio]
 FROM [dbo].[FactSales] f
 LEFT JOIN [dbo].[DimDate] od ON f.[OrderDateKey] = od.[DateKey]
 LEFT JOIN [dbo].[DimDate] sd ON f.[ShippedDateKey] = sd.[DateKey]
+CROSS APPLY (SELECT CAST(ROUND(f.[Discount] * 100, 0) AS INT) AS [Pct]) d
 """,
 }
 
@@ -100,10 +111,36 @@ MEASURES = [
      "CALCULATE([Ventas Netas], "
      "USERELATIONSHIP(Ventas[RequiredDateKey], Calendario[DateKey]))",
      AMOUNT, "Fechas", "Ventas netas agrupadas por fecha requerida."),
+    ("Clientes Activos", "DISTINCTCOUNT(Ventas[CustomerKey])", NUMBER,
+     "Actividad",
+     "Clientes distintos con al menos una linea de pedido en el contexto."),
+    ("Precio Promedio", "DIVIDE([Ventas Brutas], [Unidades Vendidas])",
+     AMOUNT, "Importes",
+     "Precio unitario medio ponderado por unidades, antes de descuentos."),
+    ("Ventas Año Anterior",
+     """VAR UltimaVenta = CALCULATE(MAX(Ventas[OrderDateKey]), REMOVEFILTERS())
+RETURN
+    IF(HASONEVALUE(Calendario[MesAño]) && MIN(Calendario[DateKey]) <= UltimaVenta,
+        VAR FechasPrevias =
+            SELECTCOLUMNS(
+                FILTER(VALUES(Calendario[Fecha]), NOT ISBLANK(Calendario[Fecha])),
+                "Fecha", EDATE(Calendario[Fecha], -12))
+        RETURN
+            CALCULATE([Ventas Netas], REMOVEFILTERS(Calendario),
+                      TREATAS(FechasPrevias, Calendario[Fecha])))""",
+     AMOUNT, "Fechas",
+     "Ventas netas del mismo mes del año anterior (fecha de pedido). "
+     "Solo se calcula para un mes dentro del rango de ventas."),
+    ("Crecimiento Interanual",
+     "DIVIDE([Ventas Netas] - [Ventas Año Anterior], [Ventas Año Anterior])",
+     "0.0%", "Fechas",
+     "Variacion contra el mismo mes del año anterior; vacio si no hay mes "
+     "previo."),
 ]
 
 
-def column(name, data_type="string", *, hidden=False, key=False, sort=None):
+def column(name, data_type="string", *, hidden=False, key=False, sort=None,
+           category=None, fmt=None):
     result = {
         "name": name, "dataType": data_type, "sourceColumn": name,
         "summarizeBy": "none",
@@ -114,9 +151,13 @@ def column(name, data_type="string", *, hidden=False, key=False, sort=None):
         result["isKey"] = True
     if sort:
         result["sortByColumn"] = sort
-    if data_type == "decimal":
+    if category:
+        result["dataCategory"] = category
+    if fmt:
+        result["formatString"] = fmt
+    elif data_type == "decimal":
         result["formatString"] = AMOUNT
-    if data_type == "dateTime":
+    elif data_type == "dateTime":
         result["formatString"] = "yyyy-MM-dd"
     return result
 
@@ -153,7 +194,14 @@ def build_model(server="localhost", database="NorthWindDW"):
         return column(name, "int64", hidden=True, key=True)
 
     def geography():
-        return [column(name) for name in ("Pais", "Region", "Ciudad")]
+        categories = {
+            "Pais": "Country", "Region": "StateOrProvince",
+            "Ciudad": "City",
+        }
+        return [
+            column(name, category=categories[name])
+            for name in ("Pais", "Region", "Ciudad")
+        ]
 
     tables = [
         table("Calendario", [
@@ -179,6 +227,9 @@ def build_model(server="localhost", database="NorthWindDW"):
         table("Transportistas", [key("ShipperKey"), column("Transportista")]),
         table("Ventas", [
             key("SalesKey"),
+            column("Pedido", "int64", fmt="0"),
+            column("Nivel de Descuento", sort="OrdenDescuento"),
+            column("OrdenDescuento", "int64", hidden=True),
             *[column(name, "int64", hidden=True) for name in (
                 "OrderID", "OrderLineNum", "OrderDateKey", "ShippedDateKey",
                 "RequiredDateKey", "CustomerKey", "EmployeeKey", "ProductKey",

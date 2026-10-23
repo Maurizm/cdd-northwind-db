@@ -27,18 +27,27 @@ Siete tablas: `Ventas` (hechos) mas las dimensiones `Calendario`,
 `Clientes`, `Productos`, `Vendedores`, `Proveedores` y `Transportistas`.
 
 - Grano de `Ventas`: una fila por linea de pedido (`SalesKey`; `OrderID` +
-  `OrderLineNum` se conservan ocultas para conteo de pedidos).
+  `OrderLineNum` se conservan ocultas para conteo de pedidos). `Pedido`
+  (alias visible de `OrderID`) permite agrupar/drillthrough por pedido, y
+  `Nivel de Descuento` clasifica cada linea en bandas (Sin descuento,
+  1-5%, 6-10%, 11-15%, 16-20%, Mas de 20%) ordenadas por la columna oculta
+  `OrdenDescuento`.
 - Geografia integrada: `DimGeography` se fusiona via LEFT JOIN dentro de
   las dimensiones relevantes (`Clientes`, `Vendedores`, `Proveedores`) como
-  columnas `Pais`/`Region`/`Ciudad`. No existe tabla de geografia propia y
-  el DW no se modifica.
+  columnas `Pais`/`Region`/`Ciudad`, con `dataCategory`
+  (Country/StateOrProvince/City) para que Azure Maps las geocodifique. No
+  existe tabla de geografia propia y el DW no se modifica.
 - Relaciones: una activa `Ventas[OrderDateKey] -> Calendario[DateKey]` y
   dos inactivas sobre `ShippedDateKey` y `RequiredDateKey`. Las medidas del
   grupo `Fechas` usan `USERELATIONSHIP` para activar las inactivas bajo
   demanda.
 - Medidas: todas viven en `Ventas` y se heredan en el tablero; no hace
   falta copiar formulas DAX a reportes. Carpetas `Importes`, `Actividad`,
-  `Logistica`, `Fechas`.
+  `Logistica`, `Fechas`. Ademas de importes/conteos hay comparativos
+  anuales (`Ventas Año Anterior` usa `EDATE`+`TREATAS` solo cuando hay un
+  unico `MesAño` seleccionado, y `Crecimiento Interanual` deriva de ella),
+  `Clientes Activos` (`DISTINCTCOUNT` de `CustomerKey`) y
+  `Precio Promedio` (precio ponderado por unidades antes de descuento).
 - Moneda: los importes usan formato numerico `#,0.00`; el origen no
   identifica moneda, por lo que ninguna medida asume una divisa.
 - Entregas: no existe fecha real de entrega al cliente en el DW.

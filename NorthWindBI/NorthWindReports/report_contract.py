@@ -1,12 +1,45 @@
-"""Lead-authored field bindings and query semantics for the PBIR report."""
+"""Lead-authored field bindings and query semantics for the PBIR report.
+
+Everything a visual must say about data -- which field goes in which role,
+which measure populates a card, which slicers exist, which filter limits a
+Top-N, the page navigation targets and the bookmarks -- lives here so the
+renderer only adds layout and formatting.
+"""
 
 import copy
 
-
 SCHEMA = "https://developer.microsoft.com/json-schemas/fabric/item/"
-DEFAULT_MEASURES = [
-    "Ventas Netas", "Pedidos", "Ticket Promedio", "Unidades Vendidas", "Descuentos",
+
+TOOLTIP_TRIO = ("Ventas Netas", "Unidades Vendidas", "Pedidos")
+
+VISIBLE_PAGES = ["resumen", "producto", "geografico", "detalle", "logistica"]
+
+NAV_LABELS = {
+    "resumen": "Resumen", "producto": "Producto", "geografico": "Geográfico",
+    "detalle": "Detalle", "logistica": "Logística",
+}
+
+STORY_BOOKMARKS = [
+    "historia_1_resumen", "historia_2_producto", "historia_3_geografico",
+    "historia_4_detalle", "historia_5_logistica",
 ]
+
+STORY_DISPLAY = [
+    "1. Cómo vamos", "2. Qué vendemos", "3. Dónde vendemos",
+    "4. Quién y cuándo compra", "5. Cómo entregamos",
+]
+
+FILTERS = [
+    ("Año", "Calendario", "Año"),
+    ("Periodo (mes-año)", "Calendario", "MesAño"),
+    ("País del cliente", "Clientes", "Pais"),
+    ("Categoría", "Productos", "Categoria"),
+]
+
+CARTESIAN = (
+    "barChart", "clusteredBarChart", "columnChart", "clusteredColumnChart",
+    "lineChart", "lineClusteredColumnComboChart",
+)
 
 
 def field(table, name, measure=False, alias=None):
@@ -23,6 +56,10 @@ def projection(table, name, measure=False):
         "field": field(table, name, measure),
         "queryRef": f"{table}.{name}", "nativeQueryRef": name,
     }
+
+
+def lit(value):
+    return {"expr": {"Literal": {"Value": value}}}
 
 
 def top_filter(table, name, measure, count):
@@ -63,73 +100,128 @@ def top_filter(table, name, measure, count):
     }
 
 
-def chart(name, title, kind, rect, group=None, measures=(), top=None):
+def chart(name, title, kind, rect, group=None, measures=(), top=None, *,
+          series=None, x=None, y2=None, size=None, rows=(), columns=(),
+          tooltips=None, hidden=False, swap_group=None, sort=None,
+          objects=None, active_projections=False):
     state = {}
-    if group:
-        state["Category"] = {"projections": [projection(*group)]}
-    if measures:
-        role = "Values" if kind == "tableEx" else "Data" if kind == "card" else "Y"
-        state[role] = {
-            "projections": [projection("Ventas", m, True) for m in measures]
-        }
-    if kind == "tableEx" and group:
-        state["Values"]["projections"].insert(0, projection(*group))
-        del state["Category"]
     if kind == "slicer":
-        state = {"Values": {"projections": [projection(*group)]}}
+        state["Values"] = {"projections": [projection(*group)]}
+    else:
+        if rows:
+            state["Rows"] = {"projections": [projection(t, c) for t, c in rows]}
+        if group:
+            state["Category"] = {"projections": [projection(*group)]}
+        if series:
+            state["Series"] = {"projections": [projection(*series)]}
+        if x:
+            state["X"] = {"projections": [projection("Ventas", x, True)]}
+        if columns:
+            state["Values"] = {
+                "projections": [projection(t, c) for t, c in columns]
+            }
+        if measures:
+            role = ("Values" if kind in ("tableEx", "pivotTable")
+                    else "Data" if kind == "card" else "Y")
+            state.setdefault(role, {"projections": []})
+            state[role]["projections"].extend(
+                projection("Ventas", measure, True) for measure in measures)
+        if y2:
+            state["Y2"] = {"projections": [projection("Ventas", y2, True)]}
+        if size:
+            state["Size"] = {"projections": [projection("Ventas", size, True)]}
+        if active_projections:
+            for role in state.values():
+                for item in role["projections"]:
+                    item["active"] = True
     visual = {
-        "visualType": kind, "query": {"queryState": state},
+        "visualType": kind,
+        "query": {"queryState": state},
         "drillFilterOtherVisuals": True,
     }
-    if group:
-        time_axis = group[0] == "Calendario"
+    if objects:
+        visual["objects"] = objects
+    if group and kind in CARTESIAN:
+        by_group = sort == "group" or (
+            sort is None and (group[0] == "Calendario" or not measures))
         visual["query"]["sortDefinition"] = {
             "sort": [{
-                "field": field(*group) if time_axis or not measures
-                else field("Ventas", measures[0], True),
-                "direction": "Ascending" if time_axis or not measures
-                else "Descending",
+                "field": (field(*group) if by_group
+                          else field("Ventas", measures[0], True)),
+                "direction": "Ascending" if by_group else "Descending",
             }],
             "isDefaultSort": False,
         }
-    if kind in ("barChart", "lineChart") and measures != ["Ventas por Fecha de Envio"]:
-        visual["query"]["queryState"]["Tooltips"] = {
-            "projections": [
-                projection("Ventas", m, True)
-                for m in ("Ventas Netas", "Unidades Vendidas", "Pedidos")
-                if m not in measures
-            ]
-        }
+    if tooltips is None and kind in CARTESIAN + ("scatterChart",) \
+            and list(measures) != ["Ventas por Fecha de Envio"]:
+        tooltips = [m for m in TOOLTIP_TRIO if m not in measures]
+    if tooltips:
+        state["Tooltips"] = {"projections": [
+            projection("Ventas", measure, True) for measure in tooltips]}
     if kind == "slicer":
         visual["syncGroup"] = {
             "groupName": f"{group[0]}_{group[1]}",
             "fieldChanges": True, "filterChanges": True,
         }
-    result = {
-        "name": name, "title": title, "rect": rect, "visual": visual,
-    }
+    result = {"name": name, "title": title, "rect": rect, "visual": visual}
     if top:
         result["filterConfig"] = top_filter(*group, measures[0], top)
+    if hidden:
+        result["hidden"] = True
+    if swap_group:
+        result["swap_group"] = swap_group
     return result
 
 
-def make_page(name, title, filters, cards, charts, drillthrough=None):
+def button(name, label, rect, action_type, target=None, selected=False):
+    action = {"type": action_type}
+    if target:
+        action["target"] = target
+    return {
+        "name": name, "title": label, "rect": rect,
+        "visual": {"visualType": "actionButton"},
+        "action": action, "selected": selected,
+    }
+
+
+def make_page(name, title, story, cards, charts, *, drillthrough=None,
+              visibility=None, chrome=True):
     visuals = []
-    for i, (label, table, column) in enumerate(filters):
-        visuals.append(chart(
-            f"{name}_filter_{i}", label, "slicer",
-            [32 + i * 348, 76, 332, 62], (table, column),
-        ))
+    if chrome:
+        for i, target in enumerate(VISIBLE_PAGES):
+            visuals.append(button(
+                f"{name}_nav_{target}", NAV_LABELS[target],
+                [624 + i * 156, 18, 146, 44], "PageNavigation", target,
+                selected=(target == name)))
+        for i, (label, table, column) in enumerate(FILTERS):
+            visuals.append(chart(
+                f"{name}_filter_{i}", label, "slicer",
+                [32 + i * 276, 76, 260, 62], (table, column)))
+        visuals.append(button(
+            f"{name}_clear", "Limpiar filtros", [1136, 85, 272, 44],
+            "ClearAllSlicers"))
     for i, measure in enumerate(cards):
         visuals.append(chart(
-            f"{name}_kpi_{i}", measure, "card",
-            [32 + i * 278, 154, 264, 100], measures=[measure],
-        ))
+            f"{name}_kpi_{i}", measure, "card", [32 + i * 278, 154, 264, 100],
+            measures=[measure]))
     visuals.extend(charts)
+    if chrome:
+        index = VISIBLE_PAGES.index(name)
+        if index > 0:
+            visuals.append(button(
+                f"{name}_prev", "◀ Anterior", [1136, 766, 130, 40],
+                "Bookmark", STORY_BOOKMARKS[index - 1]))
+        if index < len(VISIBLE_PAGES) - 1:
+            visuals.append(button(
+                f"{name}_next", "Siguiente ▶", [1278, 766, 130, 40],
+                "Bookmark", STORY_BOOKMARKS[index + 1]))
     result = {
-        "name": name, "title": title, "width": 1440, "height": 810,
+        "name": name, "title": title, "story": story,
+        "width": 1440, "height": 810,
         "visuals": visuals,
     }
+    if visibility:
+        result["visibility"] = visibility
     if drillthrough:
         table, column = drillthrough
         filter_name = f"{name}_drill"
@@ -150,84 +242,248 @@ def make_page(name, title, filters, cards, charts, drillthrough=None):
 
 
 def pages():
-    period = ("Periodo (mes-año)", "Calendario", "MesAño")
-    country = ("Pais del cliente", "Clientes", "Pais")
-    category = ("Categoria", "Productos", "Categoria")
-    seller = ("Vendedor", "Vendedores", "Vendedor")
-    net = ["Ventas Netas"]
-    return copy.deepcopy([
-        make_page("panorama", "Panorama de ventas",
-                  [period, country, category, seller], DEFAULT_MEASURES, [
-            chart("panorama_trend", "Evolucion de ventas netas", "lineChart",
-                  [32, 270, 840, 246], ("Calendario", "MesAño"), net),
-            chart("panorama_categories", "Ventas por categoria", "barChart",
-                  [888, 270, 520, 246], ("Productos", "Categoria"), net),
-            chart("panorama_clients", "Top 5 clientes por ventas netas", "barChart",
-                  [32, 532, 440, 246], ("Clientes", "Cliente"), net, top=5),
-            chart("panorama_products", "Top 5 productos por ventas netas",
-                  "barChart", [488, 532, 440, 246],
-                  ("Productos", "Producto"), net, top=5),
-            chart("panorama_countries", "Resultados por pais del cliente",
-                  "tableEx", [944, 532, 464, 246],
-                  ("Clientes", "Pais"), ["Ventas Netas", "Pedidos",
-                                        "Ticket Promedio"]),
-        ]),
-        make_page("productos", "Productos y categorias", [
-            period, country, category, ("Producto", "Productos", "Producto"),
-        ], ["Ventas Netas", "Unidades Vendidas", "Ventas Brutas", "Descuentos",
-            "Tasa de Descuento"], [
-            chart("productos_trend", "Evolucion de ventas netas", "lineChart",
-                  [32, 270, 840, 246], ("Calendario", "MesAño"), net),
-            chart("productos_categories", "Unidades por categoria", "barChart",
-                  [888, 270, 520, 246], ("Productos", "Categoria"),
-                  ["Unidades Vendidas"]),
-            chart("productos_detail", "Detalle por producto", "tableEx",
-                  [32, 532, 840, 246], ("Productos", "Producto"),
+    return [
+        make_page("resumen", "Resumen ejecutivo",
+                  "Cómo vamos: evolución mensual frente al año anterior y "
+                  "quiénes concentran las ventas. Mayo de 1998 es un mes "
+                  "parcial.",
+                  ["Ventas Netas", "Pedidos", "Clientes Activos",
+                   "Ticket Promedio", "Tasa de Descuento"],
+                  [button("resumen_view_ventas", "Ver ventas",
+                          [32, 270, 150, 40], "Bookmark", "vista_ventas"),
+                   button("resumen_view_pedidos", "Ver pedidos",
+                          [194, 270, 150, 40], "Bookmark", "vista_pedidos"),
+                   chart("resumen_trend",
+                         "Ventas netas mensuales vs. año anterior",
+                         "lineChart", [32, 318, 880, 190],
+                         ("Calendario", "MesAño"),
+                         ["Ventas Netas", "Ventas Año Anterior"],
+                         tooltips=["Crecimiento Interanual", "Pedidos"],
+                         swap_group="resumen_trend"),
+                   chart("resumen_trend_orders",
+                         "Pedidos y clientes activos por mes",
+                         "clusteredColumnChart", [32, 318, 880, 190],
+                         ("Calendario", "MesAño"),
+                         ["Pedidos", "Clientes Activos"],
+                         hidden=True, swap_group="resumen_trend"),
+                   chart("resumen_products",
+                         "Top 5 productos por ventas netas",
+                         "barChart", [928, 270, 480, 238],
+                         ("Productos", "Producto"), ["Ventas Netas"], top=5),
+                   chart("resumen_categories",
+                         "Ventas netas por categoría",
+                         "barChart", [32, 522, 688, 236],
+                         ("Productos", "Categoria"), ["Ventas Netas"]),
+                   chart("resumen_clients",
+                         "Top 5 clientes por ventas netas",
+                         "barChart", [736, 522, 672, 236],
+                         ("Clientes", "Cliente"), ["Ventas Netas"], top=5)]),
+        make_page("producto", "Análisis por producto",
+                  "Qué vendemos: precio vs. volumen por producto y cómo "
+                  "responde la venta a cada nivel de descuento.",
+                  ["Ventas Netas", "Unidades Vendidas", "Precio Promedio",
+                   "Descuentos", "Tasa de Descuento"],
+                  [chart("producto_categories",
+                         "Ventas netas por categoría",
+                         "barChart", [32, 270, 560, 236],
+                         ("Productos", "Categoria"), ["Ventas Netas"]),
+                   chart("producto_scatter",
+                         "Precio promedio vs. ventas netas por producto",
+                         "scatterChart", [608, 270, 800, 236],
+                         ("Productos", "Producto"), ["Ventas Netas"],
+                         series=("Productos", "Categoria"),
+                         x="Precio Promedio", size="Unidades Vendidas"),
+                   chart("producto_discount",
+                         "Influencia del descuento en las ventas netas",
+                         "clusteredColumnChart", [32, 522, 456, 236],
+                         ("Ventas", "Nivel de Descuento"), ["Ventas Netas"],
+                         tooltips=["Unidades Vendidas", "Pedidos",
+                                   "Ticket Promedio"],
+                         sort="group"),
+                   chart("producto_discount_combo",
+                         "Unidades y ticket promedio por nivel de descuento",
+                         "lineClusteredColumnComboChart", [504, 522, 456, 236],
+                         ("Ventas", "Nivel de Descuento"),
+                         ["Unidades Vendidas"], y2="Ticket Promedio",
+                         sort="group"),
+                   chart("producto_detail", "Detalle por producto",
+                         "tableEx", [976, 522, 432, 236],
+                         columns=[("Productos", "Producto")],
+                         measures=["Ventas Netas", "Unidades Vendidas",
+                                   "Precio Promedio", "Tasa de Descuento"])],
+                  drillthrough=("Productos", "Producto")),
+        make_page("geografico", "Análisis geográfico",
+                  "Dónde vendemos: tamaño de la burbuja = ventas netas; "
+                  "seleccione un país para filtrar el detalle por ciudad.",
+                  ["Ventas Netas", "Clientes Activos", "Pedidos",
+                   "Ticket Promedio", "Flete Asignado"],
+                  [chart("geografico_map",
+                         "Ventas netas por país del cliente",
+                         "azureMap", [32, 270, 880, 488],
+                         ("Clientes", "Pais"), size="Ventas Netas",
+                         tooltips=["Pedidos", "Clientes Activos",
+                                   "Ticket Promedio"],
+                         objects={"bubbleLayer": [{"properties": {
+                             "show": lit("true"),
+                             "sizeByValue": lit("true")}}]},
+                         active_projections=True),
+                   chart("geografico_countries",
+                         "Ventas netas por país",
+                         "barChart", [928, 270, 480, 236],
+                         ("Clientes", "Pais"), ["Ventas Netas"]),
+                   chart("geografico_cities",
+                         "Detalle por país y ciudad",
+                         "pivotTable", [928, 522, 480, 236],
+                         rows=[("Clientes", "Pais"), ("Clientes", "Ciudad")],
+                         measures=["Ventas Netas", "Clientes Activos",
+                                   "Pedidos"])]),
+        make_page("detalle", "Detalle de ventas",
+                  "Quién y cuándo compra: use + en la matriz para bajar "
+                  "Año → Mes → Cliente → Pedido; seleccione un pedido y "
+                  "pulse Ver líneas.",
+                  ["Ventas Brutas", "Descuentos", "Ventas Netas",
+                   "Unidades Vendidas", "Pedidos"],
+                  [button("detalle_drill", "Ver líneas del pedido ▶",
+                          [32, 270, 300, 40], "Drillthrough",
+                          "transacciones"),
+                   chart("detalle_matrix",
+                         "Ventas por año, mes, cliente y pedido",
+                         "pivotTable", [32, 318, 1376, 440],
+                         rows=[("Calendario", "Año"),
+                               ("Calendario", "Mes"),
+                               ("Clientes", "Cliente"),
+                               ("Ventas", "Pedido")],
+                         measures=["Ventas Brutas", "Descuentos",
+                                   "Ventas Netas", "Unidades Vendidas",
+                                   "Pedidos"],
+                         objects={"rowHeaders": [{"properties": {
+                             "showExpandCollapseButtons": lit("true")}}]})]),
+        make_page("logistica", "Logística: pedido a envío",
+                  "Cómo entregamos: días pedido-envío y flete por "
+                  "transportista.",
+                  ["Flete Asignado", "Pedidos Enviados",
+                   "Dias Promedio Hasta Envio", "Pedidos", "Ventas Netas"],
+                  [chart("logistica_days", "Días entre pedido y envío",
+                         "barChart", [32, 270, 880, 236],
+                         ("Transportistas", "Transportista"),
+                         ["Dias Promedio Hasta Envio"]),
+                   chart("logistica_freight", "Flete asignado por "
+                                              "transportista",
+                         "barChart", [928, 270, 480, 236],
+                         ("Transportistas", "Transportista"),
+                         ["Flete Asignado"]),
+                   chart("logistica_trend", "Ventas netas por fecha de envío",
+                         "lineChart", [32, 522, 880, 236],
+                         ("Calendario", "MesAño"),
+                         ["Ventas por Fecha de Envio"]),
+                   chart("logistica_detail", "Resumen por transportista",
+                         "tableEx", [928, 522, 480, 236],
+                         columns=[("Transportistas", "Transportista")],
+                         measures=["Pedidos Enviados", "Flete Asignado",
+                                   "Dias Promedio Hasta Envio"])]),
+        make_page("transacciones", "Transacciones del pedido",
+                  "Líneas del pedido seleccionado: producto, cantidad, "
+                  "precio y descuento.",
                   ["Ventas Netas", "Unidades Vendidas", "Descuentos",
-                   "Tasa de Descuento"]),
-            chart("productos_suppliers", "Top 5 proveedores por ventas netas",
-                  "barChart", [888, 532, 520, 246],
-                  ("Proveedores", "Proveedor"), net, top=5),
-        ], drillthrough=("Productos", "Producto")),
-        make_page("clientes", "Clientes y vendedores", [
-            period, country, ("Cliente", "Clientes", "Cliente"), seller,
-        ], DEFAULT_MEASURES, [
-            chart("clientes_ranking", "Top 10 clientes por ventas netas",
-                  "barChart", [32, 270, 840, 246],
-                  ("Clientes", "Cliente"), net, top=10),
-            chart("clientes_sellers", "Ventas por vendedor", "barChart",
-                  [888, 270, 520, 246], ("Vendedores", "Vendedor"), net),
-            chart("clientes_detail", "Resultados por cliente", "tableEx",
-                  [32, 532, 840, 246], ("Clientes", "Cliente"),
-                  ["Ventas Netas", "Pedidos", "Ticket Promedio",
-                   "Unidades Vendidas"]),
-            chart("clientes_countries", "Ventas por pais del cliente", "barChart",
-                  [888, 532, 520, 246], ("Clientes", "Pais"), net),
-        ], drillthrough=("Clientes", "Cliente")),
-        make_page("logistica", "Logistica: pedido a envio", [
-            period, country, category,
-            ("Transportista", "Transportistas", "Transportista"),
-        ], ["Flete Asignado", "Pedidos Enviados", "Dias Promedio Hasta Envio",
-            "Pedidos", "Ventas Netas"], [
-            chart("logistica_days", "Dias entre pedido y envio", "barChart",
-                  [32, 270, 840, 246], ("Transportistas", "Transportista"),
-                  ["Dias Promedio Hasta Envio"]),
-            chart("logistica_freight", "Flete asignado por transportista",
-                  "barChart", [888, 270, 520, 246],
-                  ("Transportistas", "Transportista"), ["Flete Asignado"]),
-            chart("logistica_trend", "Ventas netas por fecha de envio",
-                  "lineChart", [32, 532, 840, 246],
-                  ("Calendario", "MesAño"), ["Ventas por Fecha de Envio"]),
-            chart("logistica_detail", "Resumen por transportista", "tableEx",
-                  [888, 532, 520, 246], ("Transportistas", "Transportista"),
-                  ["Pedidos Enviados", "Flete Asignado",
-                   "Dias Promedio Hasta Envio"]),
-        ]),
-    ])
+                   "Flete Asignado"],
+                  [button("transacciones_back", "◀ Volver",
+                          [32, 270, 150, 40], "Back"),
+                   chart("transacciones_lines", "Líneas del pedido",
+                         "tableEx", [32, 318, 1376, 440],
+                         columns=[("Ventas", "Pedido"),
+                                  ("Calendario", "Fecha"),
+                                  ("Clientes", "Cliente"),
+                                  ("Vendedores", "Vendedor"),
+                                  ("Productos", "Producto"),
+                                  ("Ventas", "Nivel de Descuento")],
+                         measures=["Unidades Vendidas", "Precio Promedio",
+                                   "Ventas Brutas", "Descuentos",
+                                   "Ventas Netas"])],
+                  drillthrough=("Ventas", "Pedido"),
+                  visibility="HiddenInViewMode", chrome=False),
+    ]
+
+
+def _container(hidden=False):
+    state = {"singleVisual": {}}
+    if hidden:
+        state["singleVisual"]["display"] = {"mode": "hidden"}
+    return state
+
+
+def bookmarks():
+    """Bookmark index groups plus the per-bookmark documents."""
+    files = {}
+    for i, page in enumerate(VISIBLE_PAGES):
+        name = STORY_BOOKMARKS[i]
+        files[name] = {
+            "name": name,
+            "displayName": STORY_DISPLAY[i],
+            "options": {
+                "targetVisualNames": [],
+                "suppressData": True,
+                "suppressDisplay": True,
+                "suppressActiveSection": False,
+                "applyOnlyToTargetVisuals": False,
+            },
+            "explorationState": {
+                "version": "1.3",
+                "activeSection": page,
+                "sections": {page: {"visualContainers": {}}},
+            },
+        }
+    trend, orders = "resumen_trend", "resumen_trend_orders"
+    files["vista_ventas"] = {
+        "name": "vista_ventas",
+        "displayName": "Tendencia: ventas",
+        "options": {
+            "targetVisualNames": [trend, orders],
+            "suppressData": True,
+            "suppressDisplay": False,
+            "suppressActiveSection": True,
+            "applyOnlyToTargetVisuals": False,
+        },
+        "explorationState": {
+            "version": "1.3",
+            "activeSection": "resumen",
+            "sections": {"resumen": {"visualContainers": {
+                trend: _container(),
+                orders: _container(hidden=True),
+            }}},
+        },
+    }
+    files["vista_pedidos"] = {
+        "name": "vista_pedidos",
+        "displayName": "Tendencia: pedidos",
+        "options": {
+            "targetVisualNames": [trend, orders],
+            "suppressData": True,
+            "suppressDisplay": False,
+            "suppressActiveSection": True,
+            "applyOnlyToTargetVisuals": False,
+        },
+        "explorationState": {
+            "version": "1.3",
+            "activeSection": "resumen",
+            "sections": {"resumen": {"visualContainers": {
+                trend: _container(hidden=True),
+                orders: _container(),
+            }}},
+        },
+    }
+    return {
+        "items": [
+            {"name": "recorrido", "displayName": "Recorrido del negocio",
+             "children": STORY_BOOKMARKS},
+            {"name": "vista_tendencia", "displayName": "Vista de tendencia",
+             "children": ["vista_ventas", "vista_pedidos"]},
+        ],
+        "files": files,
+    }
 
 
 def connection_files(server="localhost", database="NorthWindOLAP"):
-    """SSAS references must use modelReference, not Fabric-only byConnection."""
+    """Live SSAS connection payload; the local model is never imported."""
     return {
         "NorthWind.pbip": {
             "$schema": (

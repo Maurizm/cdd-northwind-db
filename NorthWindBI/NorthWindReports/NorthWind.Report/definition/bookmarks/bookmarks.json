@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmarksMetadata/1.0.0/schema.json",
+  "items": [
+    {
+      "name": "recorrido",
+      "displayName": "Recorrido del negocio",
+      "children": [
+        "historia_1_resumen",
+        "historia_2_producto",
+        "historia_3_geografico",
+        "historia_4_detalle",
+        "historia_5_logistica"
+      ]
+    },
+    {
+      "name": "vista_tendencia",
+      "displayName": "Vista de tendencia",
+      "children": [
+        "vista_ventas",
+        "vista_pedidos"
+      ]
+    }
+  ]
+}

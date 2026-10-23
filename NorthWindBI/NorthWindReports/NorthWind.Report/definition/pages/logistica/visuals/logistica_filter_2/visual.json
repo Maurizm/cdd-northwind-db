@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "logistica_filter_2",
   "position": {
-    "x": 728,
+    "x": 584,
     "y": 76,
-    "z": 3,
-    "width": 332,
+    "z": 8,
+    "width": 260,
     "height": 62,
-    "tabOrder": 3
+    "tabOrder": 8
   },
   "visual": {
     "visualType": "slicer",
@@ -20,40 +20,22 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Productos"
+                      "Entity": "Clientes"
                     }
                   },
-                  "Property": "Categoria"
+                  "Property": "Pais"
                 }
               },
-              "queryRef": "Productos.Categoria",
-              "nativeQueryRef": "Categoria"
+              "queryRef": "Clientes.Pais",
+              "nativeQueryRef": "Pais"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Productos"
-                  }
-                },
-                "Property": "Categoria"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
     "syncGroup": {
-      "groupName": "Productos_Categoria",
+      "groupName": "Clientes_Pais",
       "fieldChanges": true,
       "filterChanges": true
     },
@@ -64,7 +46,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Categoria'"
+                  "Value": "'País del cliente'"
                 }
               }
             },

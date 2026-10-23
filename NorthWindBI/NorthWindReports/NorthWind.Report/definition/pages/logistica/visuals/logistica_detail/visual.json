@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "logistica_detail",
   "position": {
-    "x": 888,
-    "y": 532,
-    "z": 13,
-    "width": 520,
-    "height": 246,
-    "tabOrder": 13
+    "x": 928,
+    "y": 522,
+    "z": 19,
+    "width": 480,
+    "height": 236,
+    "tabOrder": 19
   },
   "visual": {
     "visualType": "tableEx",
@@ -73,24 +73,6 @@
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Ventas"
-                  }
-                },
-                "Property": "Pedidos Enviados"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,

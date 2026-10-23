@@ -1,0 +1,21 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "name": "historia_2_producto",
+  "displayName": "2. Qué vendemos",
+  "options": {
+    "targetVisualNames": [],
+    "suppressData": true,
+    "suppressDisplay": true,
+    "suppressActiveSection": false,
+    "applyOnlyToTargetVisuals": false
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "producto",
+    "sections": {
+      "producto": {
+        "visualContainers": {}
+      }
+    }
+  }
+}

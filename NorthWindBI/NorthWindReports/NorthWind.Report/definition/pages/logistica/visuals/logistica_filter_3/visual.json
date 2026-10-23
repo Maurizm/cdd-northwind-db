@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "logistica_filter_3",
   "position": {
-    "x": 1076,
+    "x": 860,
     "y": 76,
-    "z": 4,
-    "width": 332,
+    "z": 9,
+    "width": 260,
     "height": 62,
-    "tabOrder": 4
+    "tabOrder": 9
   },
   "visual": {
     "visualType": "slicer",
@@ -20,40 +20,22 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Transportistas"
+                      "Entity": "Productos"
                     }
                   },
-                  "Property": "Transportista"
+                  "Property": "Categoria"
                 }
               },
-              "queryRef": "Transportistas.Transportista",
-              "nativeQueryRef": "Transportista"
+              "queryRef": "Productos.Categoria",
+              "nativeQueryRef": "Categoria"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Transportistas"
-                  }
-                },
-                "Property": "Transportista"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
     "syncGroup": {
-      "groupName": "Transportistas_Transportista",
+      "groupName": "Productos_Categoria",
       "fieldChanges": true,
       "filterChanges": true
     },
@@ -64,7 +46,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Transportista'"
+                  "Value": "'Categoría'"
                 }
               }
             },

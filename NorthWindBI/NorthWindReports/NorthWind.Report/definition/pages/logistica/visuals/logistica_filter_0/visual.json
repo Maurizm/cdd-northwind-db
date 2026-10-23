@@ -4,10 +4,10 @@
   "position": {
     "x": 32,
     "y": 76,
-    "z": 1,
-    "width": 332,
+    "z": 6,
+    "width": 260,
     "height": 62,
-    "tabOrder": 1
+    "tabOrder": 6
   },
   "visual": {
     "visualType": "slicer",
@@ -23,37 +23,19 @@
                       "Entity": "Calendario"
                     }
                   },
-                  "Property": "MesAño"
+                  "Property": "Año"
                 }
               },
-              "queryRef": "Calendario.MesAño",
-              "nativeQueryRef": "MesAño"
+              "queryRef": "Calendario.Año",
+              "nativeQueryRef": "Año"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Calendario"
-                  }
-                },
-                "Property": "MesAño"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
     "syncGroup": {
-      "groupName": "Calendario_MesAño",
+      "groupName": "Calendario_Año",
       "fieldChanges": true,
       "filterChanges": true
     },
@@ -64,7 +46,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Periodo (mes-año)'"
+                  "Value": "'Año'"
                 }
               }
             },

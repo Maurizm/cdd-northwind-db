@@ -1,0 +1,502 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
+  "name": "producto",
+  "displayName": "Análisis por producto",
+  "displayOption": "FitToPage",
+  "width": 1440,
+  "height": 810,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F5F3EE'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "producto_filter_0",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_scatter",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_discount",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_detail",
+      "target": "producto_discount_combo",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_0",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_1",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_2",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_filter_3",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_categories",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_scatter",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    },
+    {
+      "source": "producto_discount_combo",
+      "target": "producto_detail",
+      "type": "DataFilter"
+    }
+  ],
+  "type": "Drillthrough",
+  "pageBinding": {
+    "name": "producto_binding",
+    "type": "Drillthrough",
+    "acceptsFilterContext": "Default",
+    "parameters": [
+      {
+        "name": "producto_drill",
+        "boundFilter": "producto_drill",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Productos"
+              }
+            },
+            "Property": "Producto"
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "producto_drill",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Productos"
+              }
+            },
+            "Property": "Producto"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  }
+}

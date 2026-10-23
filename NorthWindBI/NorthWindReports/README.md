@@ -31,11 +31,10 @@ paginas o visuales que no espera (no borra trabajo ajeno).
    `Integrated Security=SSPI`). No se publica a Fabric ni a Power BI
    Service y no se exporta data de origen al proyecto.
 
-Estado de validacion: 32 pruebas offline aprobadas y 72 archivos validados
-contra 15 documentos de esquemas publicos de Microsoft, sin errores.
-La vista previa HTML se comprobo en escritorio y movil. Esto valida la
-estructura, no sustituye la apertura/renderizado en Power BI Desktop ni
-la ejecucion de DAX y el cuadre de importes con datos reales en SSAS.
+Estado de validacion: 46 pruebas unitarias aprobadas y los archivos
+validados contra documentos de esquemas publicos de Microsoft, sin
+errores. Esto valida la estructura, no sustituye la apertura/renderizado
+en Power BI Desktop ni el cuadre de importes contra el SSAS desplegado.
 
 ## Reproducir en otro equipo
 
@@ -74,25 +73,49 @@ python NorthWindBI/NorthWindReports/validate_report_schemas.py
 
 ## Contenido
 
-Cuatro paginas navegables por pestanas:
+Seis paginas; las cinco primeras son visibles y se navegan con la barra
+de botones superior de cada una (`PageNavigation`):
 
 | Pagina | Titulo | Notas |
 |---|---|---|
-| `panorama` | Panorama de ventas | 5 KPI + tendencia, categorias, top clientes/productos, tabla por pais |
-| `productos` | Productos y categorias | Drillthrough visible por `Producto` |
-| `clientes` | Clientes y vendedores | Drillthrough visible por `Cliente` |
+| `resumen` | Resumen ejecutivo | 5 KPI + tendencia mensual vs. ano anterior (alterna ventas/pedidos por marcadores), top productos, categorias y clientes |
+| `producto` | Analisis por producto | Drillthrough por `Producto`; dispersion precio-ventas y analisis por nivel de descuento |
+| `geografico` | Analisis geografico | Azure Maps por pais del cliente + matriz pais/ciudad |
+| `detalle` | Detalle de ventas | Matriz expandible Ano -> Mes -> Cliente -> Pedido y boton drillthrough a `transacciones` |
 | `logistica` | Logistica: pedido a envio | Flete, dias pedido-envio, ventas por fecha de envio |
+| `transacciones` | Transacciones del pedido | Drillthrough por `Pedido`; `HiddenInViewMode` (solo se llega por drillthrough) |
+
+Cada pagina visible lleva: encabezado `NORTHWIND / <titulo>`, barra de 5
+botones de navegacion (la pagina actual marcada), 4 segmentaciones
+sincronizadas (Ano, Periodo mes-ano, Pais del cliente, Categoria) en modo
+desplegable, boton **Limpiar filtros** (accion `ClearAllSlicers`),
+tarjetas KPI y una banda de historia con botones **Anterior/Siguiente**
+que recorren los marcadores del grupo `recorrido`.
+
+Marcadores (`definition/bookmarks/`): grupo `recorrido` ("Recorrido del
+negocio", 5 puntos de historia, uno por pagina visible) y grupo
+`vista_tendencia` (`vista_ventas`/`vista_pedidos`, que alternan la
+visibilidad de `resumen_trend` y `resumen_trend_orders`; ambos comparten
+posicion y el segundo esta oculto por defecto con `isHidden`).
 
 - Los visuales usan las **medidas SSAS heredadas** del modelo; no hay DAX
   copiado en el reporte.
-- Slicers en modo lista desplegable con grupos de sincronizacion del
-  contrato; la navegacion es por pestanas nativas (sin bookmarks).
-- Para limpiar filtros usar el **borrador nativo del slicer** (icono de
-  borrador); no existe marcador de "reset" fabricado.
 - Los filtros temporales cubren fechas historicas del origen; no hay
   nocion de "hoy"/fecha actual.
 - Sin simbolos de moneda (origen no la identifica), sin costos, margenes
   ni metas, y sin fecha real de entrega al cliente.
+
+### Notas de diseno
+
+- **Sin Key Influencers ni Decomposition Tree**: estos visuales no son
+  compatibles con conexiones en vivo a SSAS (documentacion oficial de
+  Power BI), asi que `producto` analiza el descuento como driver con un
+  grafico de columnas por `Ventas[Nivel de Descuento]` y un combinado
+  unidades/ticket promedio.
+- **Azure Maps** necesita internet y que el visual este habilitado en
+  Power BI Desktop (Opciones > Seguridad) o a nivel de tenant. Si no esta
+  disponible, el grafico de barras "Ventas netas por pais" junto al mapa
+  sirve como alternativa.
 
 ## Archivos generados
 
@@ -102,6 +125,8 @@ Cuatro paginas navegables por pestanas:
   `definition/version.json`, `definition/pages/pages.json`,
   `definition/pages/<pagina>/page.json`,
   `definition/pages/<pagina>/visuals/<visual>/visual.json`,
+  `definition/bookmarks/bookmarks.json` +
+  `definition/bookmarks/<nombre>.bookmark.json`,
   `StaticResources/RegisteredResources/NorthWind.json` (tema).
 - `NorthWind.SemanticModel/` - `definition.pbism` + `modelReference.json`
   (referencia en vivo a SSAS, no un modelo importado).

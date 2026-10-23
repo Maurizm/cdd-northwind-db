@@ -1,0 +1,461 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
+  "name": "resumen",
+  "displayName": "Resumen ejecutivo",
+  "displayOption": "FitToPage",
+  "width": 1440,
+  "height": 810,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F5F3EE'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_trend",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_trend_orders",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_products",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_clients",
+      "target": "resumen_categories",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_0",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_1",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_2",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_filter_3",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_trend_orders",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_products",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    },
+    {
+      "source": "resumen_categories",
+      "target": "resumen_clients",
+      "type": "DataFilter"
+    }
+  ]
+}

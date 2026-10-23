@@ -1,0 +1,181 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
+  "name": "detalle",
+  "displayName": "Detalle de ventas",
+  "displayOption": "FitToPage",
+  "width": 1440,
+  "height": 810,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F5F3EE'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "detalle_filter_0",
+      "target": "detalle_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_1",
+      "target": "detalle_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_2",
+      "target": "detalle_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_3",
+      "target": "detalle_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_matrix",
+      "target": "detalle_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_0",
+      "target": "detalle_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_1",
+      "target": "detalle_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_2",
+      "target": "detalle_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_3",
+      "target": "detalle_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_matrix",
+      "target": "detalle_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_0",
+      "target": "detalle_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_1",
+      "target": "detalle_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_2",
+      "target": "detalle_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_3",
+      "target": "detalle_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_matrix",
+      "target": "detalle_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_0",
+      "target": "detalle_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_1",
+      "target": "detalle_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_2",
+      "target": "detalle_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_3",
+      "target": "detalle_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_matrix",
+      "target": "detalle_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_0",
+      "target": "detalle_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_1",
+      "target": "detalle_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_2",
+      "target": "detalle_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_3",
+      "target": "detalle_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_matrix",
+      "target": "detalle_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_0",
+      "target": "detalle_matrix",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_1",
+      "target": "detalle_matrix",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_2",
+      "target": "detalle_matrix",
+      "type": "DataFilter"
+    },
+    {
+      "source": "detalle_filter_3",
+      "target": "detalle_matrix",
+      "type": "DataFilter"
+    }
+  ]
+}

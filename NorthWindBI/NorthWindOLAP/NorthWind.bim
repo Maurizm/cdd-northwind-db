@@ -140,19 +140,22 @@
             "name": "Pais",
             "dataType": "string",
             "sourceColumn": "Pais",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "Country"
           },
           {
             "name": "Region",
             "dataType": "string",
             "sourceColumn": "Region",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "StateOrProvince"
           },
           {
             "name": "Ciudad",
             "dataType": "string",
             "sourceColumn": "Ciudad",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "City"
           }
         ],
         "partitions": [
@@ -286,19 +289,22 @@
             "name": "Pais",
             "dataType": "string",
             "sourceColumn": "Pais",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "Country"
           },
           {
             "name": "Region",
             "dataType": "string",
             "sourceColumn": "Region",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "StateOrProvince"
           },
           {
             "name": "Ciudad",
             "dataType": "string",
             "sourceColumn": "Ciudad",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "City"
           }
         ],
         "partitions": [
@@ -334,19 +340,22 @@
             "name": "Pais",
             "dataType": "string",
             "sourceColumn": "Pais",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "Country"
           },
           {
             "name": "Region",
             "dataType": "string",
             "sourceColumn": "Region",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "StateOrProvince"
           },
           {
             "name": "Ciudad",
             "dataType": "string",
             "sourceColumn": "Ciudad",
-            "summarizeBy": "none"
+            "summarizeBy": "none",
+            "dataCategory": "City"
           }
         ],
         "partitions": [
@@ -401,6 +410,27 @@
             "summarizeBy": "none",
             "isHidden": true,
             "isKey": true
+          },
+          {
+            "name": "Pedido",
+            "dataType": "int64",
+            "sourceColumn": "Pedido",
+            "summarizeBy": "none",
+            "formatString": "0"
+          },
+          {
+            "name": "Nivel de Descuento",
+            "dataType": "string",
+            "sourceColumn": "Nivel de Descuento",
+            "summarizeBy": "none",
+            "sortByColumn": "OrdenDescuento"
+          },
+          {
+            "name": "OrdenDescuento",
+            "dataType": "int64",
+            "sourceColumn": "OrdenDescuento",
+            "summarizeBy": "none",
+            "isHidden": true
           },
           {
             "name": "OrderID",
@@ -526,7 +556,7 @@
             "source": {
               "type": "query",
               "dataSource": "NorthWindDW",
-              "query": "SELECT f.[SalesKey], f.[OrderID], f.[OrderLineNum],\n       f.[OrderDateKey], f.[ShippedDateKey], f.[RequiredDateKey],\n       f.[CustomerKey], f.[EmployeeKey], f.[ProductKey],\n       f.[SupplierKey], f.[ShipperKey], f.[Quantity],\n       f.[GrossAmount], f.[DiscountAmount], f.[NetAmount], f.[AllocatedFreight],\n       CASE WHEN f.[OrderDateKey] <> -1 AND f.[ShippedDateKey] <> -1\n            THEN DATEDIFF(DAY, od.[FullDate], sd.[FullDate]) END\n            AS [DiasHastaEnvio]\nFROM [dbo].[FactSales] f\nLEFT JOIN [dbo].[DimDate] od ON f.[OrderDateKey] = od.[DateKey]\nLEFT JOIN [dbo].[DimDate] sd ON f.[ShippedDateKey] = sd.[DateKey]"
+              "query": "SELECT f.[SalesKey], f.[OrderID], f.[OrderLineNum],\n       f.[OrderID] AS [Pedido],\n       f.[OrderDateKey], f.[ShippedDateKey], f.[RequiredDateKey],\n       f.[CustomerKey], f.[EmployeeKey], f.[ProductKey],\n       f.[SupplierKey], f.[ShipperKey], f.[Quantity],\n       f.[GrossAmount], f.[DiscountAmount], f.[NetAmount], f.[AllocatedFreight],\n       CASE WHEN d.[Pct] = 0 THEN N'Sin descuento'\n            WHEN d.[Pct] <= 5 THEN N'1-5%'\n            WHEN d.[Pct] <= 10 THEN N'6-10%'\n            WHEN d.[Pct] <= 15 THEN N'11-15%'\n            WHEN d.[Pct] <= 20 THEN N'16-20%'\n            ELSE N'Más de 20%' END AS [Nivel de Descuento],\n       CASE WHEN d.[Pct] = 0 THEN 0 WHEN d.[Pct] <= 5 THEN 1\n            WHEN d.[Pct] <= 10 THEN 2 WHEN d.[Pct] <= 15 THEN 3\n            WHEN d.[Pct] <= 20 THEN 4 ELSE 5 END AS [OrdenDescuento],\n       CASE WHEN f.[OrderDateKey] <> -1 AND f.[ShippedDateKey] <> -1\n            THEN DATEDIFF(DAY, od.[FullDate], sd.[FullDate]) END\n            AS [DiasHastaEnvio]\nFROM [dbo].[FactSales] f\nLEFT JOIN [dbo].[DimDate] od ON f.[OrderDateKey] = od.[DateKey]\nLEFT JOIN [dbo].[DimDate] sd ON f.[ShippedDateKey] = sd.[DateKey]\nCROSS APPLY (SELECT CAST(ROUND(f.[Discount] * 100, 0) AS INT) AS [Pct]) d"
             }
           }
         ],
@@ -614,6 +644,34 @@
             "formatString": "#,0.00",
             "displayFolder": "Fechas",
             "description": "Ventas netas agrupadas por fecha requerida."
+          },
+          {
+            "name": "Clientes Activos",
+            "expression": "DISTINCTCOUNT(Ventas[CustomerKey])",
+            "formatString": "#,0",
+            "displayFolder": "Actividad",
+            "description": "Clientes distintos con al menos una linea de pedido en el contexto."
+          },
+          {
+            "name": "Precio Promedio",
+            "expression": "DIVIDE([Ventas Brutas], [Unidades Vendidas])",
+            "formatString": "#,0.00",
+            "displayFolder": "Importes",
+            "description": "Precio unitario medio ponderado por unidades, antes de descuentos."
+          },
+          {
+            "name": "Ventas Año Anterior",
+            "expression": "VAR UltimaVenta = CALCULATE(MAX(Ventas[OrderDateKey]), REMOVEFILTERS())\nRETURN\n    IF(HASONEVALUE(Calendario[MesAño]) && MIN(Calendario[DateKey]) <= UltimaVenta,\n        VAR FechasPrevias =\n            SELECTCOLUMNS(\n                FILTER(VALUES(Calendario[Fecha]), NOT ISBLANK(Calendario[Fecha])),\n                \"Fecha\", EDATE(Calendario[Fecha], -12))\n        RETURN\n            CALCULATE([Ventas Netas], REMOVEFILTERS(Calendario),\n                      TREATAS(FechasPrevias, Calendario[Fecha])))",
+            "formatString": "#,0.00",
+            "displayFolder": "Fechas",
+            "description": "Ventas netas del mismo mes del año anterior (fecha de pedido). Solo se calcula para un mes dentro del rango de ventas."
+          },
+          {
+            "name": "Crecimiento Interanual",
+            "expression": "DIVIDE([Ventas Netas] - [Ventas Año Anterior], [Ventas Año Anterior])",
+            "formatString": "0.0%",
+            "displayFolder": "Fechas",
+            "description": "Variacion contra el mismo mes del año anterior; vacio si no hay mes previo."
           }
         ]
       }
@@ -828,7 +886,14 @@
           },
           {
             "name": "Ventas",
-            "columns": [],
+            "columns": [
+              {
+                "name": "Pedido"
+              },
+              {
+                "name": "Nivel de Descuento"
+              }
+            ],
             "measures": [
               {
                 "name": "Ventas Brutas"
@@ -865,6 +930,18 @@
               },
               {
                 "name": "Ventas por Fecha Requerida"
+              },
+              {
+                "name": "Clientes Activos"
+              },
+              {
+                "name": "Precio Promedio"
+              },
+              {
+                "name": "Ventas Año Anterior"
+              },
+              {
+                "name": "Crecimiento Interanual"
               }
             ]
           }

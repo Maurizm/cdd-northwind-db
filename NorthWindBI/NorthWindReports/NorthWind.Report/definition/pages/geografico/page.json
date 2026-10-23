@@ -1,0 +1,301 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
+  "name": "geografico",
+  "displayName": "Análisis geográfico",
+  "displayOption": "FitToPage",
+  "width": 1440,
+  "height": 810,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F5F3EE'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_map",
+      "target": "geografico_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_countries",
+      "target": "geografico_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_cities",
+      "target": "geografico_kpi_0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_map",
+      "target": "geografico_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_countries",
+      "target": "geografico_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_cities",
+      "target": "geografico_kpi_1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_map",
+      "target": "geografico_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_countries",
+      "target": "geografico_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_cities",
+      "target": "geografico_kpi_2",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_map",
+      "target": "geografico_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_countries",
+      "target": "geografico_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_cities",
+      "target": "geografico_kpi_3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_map",
+      "target": "geografico_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_countries",
+      "target": "geografico_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_cities",
+      "target": "geografico_kpi_4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_map",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_map",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_map",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_map",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_countries",
+      "target": "geografico_map",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_cities",
+      "target": "geografico_map",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_map",
+      "target": "geografico_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_cities",
+      "target": "geografico_countries",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_0",
+      "target": "geografico_cities",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_1",
+      "target": "geografico_cities",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_2",
+      "target": "geografico_cities",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_filter_3",
+      "target": "geografico_cities",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_map",
+      "target": "geografico_cities",
+      "type": "DataFilter"
+    },
+    {
+      "source": "geografico_countries",
+      "target": "geografico_cities",
+      "type": "DataFilter"
+    }
+  ]
+}

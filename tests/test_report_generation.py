@@ -23,8 +23,12 @@ CONTRACT = load_module("report_contract", REPORTS / "report_contract.py")
 sys.modules.setdefault("report_contract", CONTRACT)
 BUILD = load_module("build_report", REPORTS / "build_report.py")
 PAGES = CONTRACT.pages()
-SOURCES = {"slicer", "barChart", "lineChart", "tableEx"}
-TARGETS = {"card", "barChart", "lineChart", "tableEx"}
+SOURCES = {
+    "slicer", "barChart", "clusteredBarChart", "columnChart",
+    "clusteredColumnChart", "lineChart", "lineClusteredColumnComboChart",
+    "tableEx", "pivotTable", "scatterChart", "azureMap",
+}
+TARGETS = (SOURCES - {"slicer"}) | {"card"}
 
 
 def snapshot(root):
@@ -100,6 +104,8 @@ class ReportGenerationTests(unittest.TestCase):
                 f"NORTHWIND / {PAGES[0]['title']}")
 
     def test_page_interactions_reference_known_visuals(self):
+        self.assertEqual(BUILD.FILTERING_SOURCES, SOURCES)
+        self.assertEqual(BUILD.FILTERING_TARGETS, TARGETS)
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             BUILD.build("localhost", "NorthWindOLAP", root)
@@ -121,7 +127,7 @@ class ReportGenerationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             stray = (root / "NorthWind.Report" / "definition" / "pages"
-                     / "panorama" / "visuals" / "user_visual")
+                     / "resumen" / "visuals" / "user_visual")
             stray.mkdir(parents=True)
             (stray / "visual.json").write_text("{}", encoding="utf-8")
             with self.assertRaises(SystemExit):
@@ -165,6 +171,78 @@ class ReportGenerationTests(unittest.TestCase):
                     self.assertEqual(
                         gv["t"], entry["visual"]["visualType"])
                     self.assertEqual(gv["r"], entry["rect"])
+                    self.assertEqual(gv.get("h", False),
+                                     bool(entry.get("hidden")))
+
+    def test_bookmarks_written_with_matching_names(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            BUILD.build("localhost", "NorthWindOLAP", root)
+            expected = CONTRACT.bookmarks()
+            bookmarks_dir = (root / "NorthWind.Report" / "definition"
+                             / "bookmarks")
+            index = read_json(bookmarks_dir / "bookmarks.json")
+            self.assertTrue(index["$schema"].endswith(
+                "/bookmarksMetadata/1.0.0/schema.json"))
+            indexed = [child for item in index["items"]
+                       for child in item["children"]]
+            self.assertEqual(sorted(indexed), sorted(expected["files"]))
+            for name, payload in expected["files"].items():
+                doc = read_json(bookmarks_dir / f"{name}.bookmark.json")
+                self.assertEqual(doc["name"], name)
+                self.assertTrue(doc["$schema"].endswith(
+                    "/bookmark/2.1.0/schema.json"))
+                self.assertEqual(doc["options"], payload["options"])
+                self.assertEqual(doc["explorationState"],
+                                 payload["explorationState"])
+
+    def test_action_button_renders_visual_link(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            BUILD.build("localhost", "NorthWindOLAP", root)
+            doc = visual_doc(root, "resumen", "resumen_nav_producto")
+            self.assertEqual(doc["visual"]["visualType"], "actionButton")
+            self.assertIn("objects", doc["visual"])
+            link = doc["visual"]["visualContainerObjects"]["visualLink"][
+                0]["properties"]
+            self.assertEqual(link["type"]["expr"]["Literal"]["Value"],
+                             "'PageNavigation'")
+            self.assertEqual(
+                link["navigationSection"]["expr"]["Literal"]["Value"],
+                "'producto'")
+            back = visual_doc(root, "transacciones", "transacciones_back")
+            props = back["visual"]["visualContainerObjects"]["visualLink"][
+                0]["properties"]
+            self.assertEqual(props["type"]["expr"]["Literal"]["Value"],
+                             "'Back'")
+            self.assertNotIn("navigationSection", props)
+
+    def test_hidden_visual_and_hidden_page_flags(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            BUILD.build("localhost", "NorthWindOLAP", root)
+            doc = visual_doc(root, "resumen", "resumen_trend_orders")
+            self.assertTrue(doc["isHidden"])
+            self.assertNotIn(
+                "isHidden", visual_doc(root, "resumen", "resumen_trend"))
+            page = read_json(root / "NorthWind.Report" / "definition"
+                             / "pages" / "transacciones" / "page.json")
+            self.assertEqual(page["visibility"], "HiddenInViewMode")
+            resumen = read_json(root / "NorthWind.Report" / "definition"
+                                / "pages" / "resumen" / "page.json")
+            self.assertNotIn("visibility", resumen)
+
+    def test_story_textbox_carries_page_story(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            BUILD.build("localhost", "NorthWindOLAP", root)
+            for page in PAGES:
+                doc = visual_doc(
+                    root, page["name"], f"{page['name']}_story")
+                value = doc["visual"]["objects"]["general"][0][
+                    "properties"]["paragraphs"][0]["textRuns"][0]["value"]
+                self.assertEqual(value,
+                                 page["story"] + BUILD.STORY_SUFFIX)
 
 
 if __name__ == "__main__":

@@ -93,6 +93,58 @@ class ModelContractTests(unittest.TestCase):
         self.assertNotRegex(MODEL.SOURCES["Ventas"], r"\[Freight\]|\[UnitPrice\]")
         self.assertNotIn("AVG(", MODEL.SOURCES["Ventas"])
 
+    def test_new_measures_have_exact_expressions(self):
+        expected = {
+            "Clientes Activos": "DISTINCTCOUNT(Ventas[CustomerKey])",
+            "Precio Promedio":
+                "DIVIDE([Ventas Brutas], [Unidades Vendidas])",
+            "Ventas Año Anterior":
+                "VAR UltimaVenta = CALCULATE(MAX(Ventas[OrderDateKey]), "
+                "REMOVEFILTERS())\n"
+                "RETURN\n"
+                "    IF(HASONEVALUE(Calendario[MesAño]) && "
+                "MIN(Calendario[DateKey]) <= UltimaVenta,\n"
+                "        VAR FechasPrevias =\n"
+                "            SELECTCOLUMNS(\n"
+                "                FILTER(VALUES(Calendario[Fecha]), "
+                "NOT ISBLANK(Calendario[Fecha])),\n"
+                '                "Fecha", EDATE(Calendario[Fecha], -12))\n'
+                "        RETURN\n"
+                "            CALCULATE([Ventas Netas], "
+                "REMOVEFILTERS(Calendario),\n"
+                "                      TREATAS(FechasPrevias, "
+                "Calendario[Fecha])))",
+            "Crecimiento Interanual":
+                "DIVIDE([Ventas Netas] - [Ventas Año Anterior], "
+                "[Ventas Año Anterior])",
+        }
+        for name, expression in expected.items():
+            self.assertEqual(self.measures[name]["expression"], expression)
+
+    def test_pedido_and_discount_band_columns(self):
+        columns = {c["name"]: c for c in self.tables["Ventas"]["columns"]}
+        self.assertFalse(columns["Pedido"].get("isHidden", False))
+        self.assertEqual(columns["Pedido"]["dataType"], "int64")
+        self.assertEqual(columns["Pedido"]["formatString"], "0")
+        self.assertEqual(columns["Pedido"]["sourceColumn"], "Pedido")
+        query = MODEL.SOURCES["Ventas"]
+        self.assertIn("f.[OrderID] AS [Pedido]", query)
+        self.assertIn("CROSS APPLY", query)
+        self.assertIn("N'Sin descuento'", query)
+        self.assertIn("N'Más de 20%'", query)
+        self.assertEqual(columns["Nivel de Descuento"]["sortByColumn"],
+                         "OrdenDescuento")
+        self.assertTrue(columns["OrdenDescuento"]["isHidden"])
+        self.assertEqual(columns["OrdenDescuento"]["dataType"], "int64")
+
+    def test_geography_columns_have_data_categories(self):
+        for name in ("Clientes", "Vendedores", "Proveedores"):
+            columns = {c["name"]: c for c in self.tables[name]["columns"]}
+            self.assertEqual(columns["Pais"]["dataCategory"], "Country")
+            self.assertEqual(columns["Region"]["dataCategory"],
+                             "StateOrProvince")
+            self.assertEqual(columns["Ciudad"]["dataCategory"], "City")
+
     def test_unknown_dates_remain_but_not_as_year_1900(self):
         query = MODEL.SOURCES["Calendario"]
         self.assertIn("CASE WHEN [DateKey] <> -1 THEN [FullDate] END", query)
@@ -136,19 +188,26 @@ class ModelContractTests(unittest.TestCase):
         self.assertEqual({m["name"] for m in sales["measures"]}, set(self.measures))
 
 
+VISIBLE = ["resumen", "producto", "geografico", "detalle", "logistica"]
+PAGE_ORDER = VISIBLE + ["transacciones"]
+
+
 class ReportContractTests(unittest.TestCase):
     def setUp(self):
         self.pages = REPORT.pages()
+        self.by_name = {p["name"]: p for p in self.pages}
         self.tables = {t["name"]: t for t in MODEL.build_model()["model"]["tables"]}
+        self.bookmarks = REPORT.bookmarks()
 
-    def test_four_pages_in_expected_order(self):
-        self.assertEqual([p["name"] for p in self.pages],
-                         ["panorama", "productos", "clientes", "logistica"])
+    def test_six_pages_in_expected_order(self):
+        self.assertEqual([p["name"] for p in self.pages], PAGE_ORDER)
 
     def test_every_projection_binds_to_existing_model_field(self):
         for page in self.pages:
             for visual in page["visuals"]:
-                query = visual["visual"]["query"]
+                query = visual["visual"].get("query")
+                if not query:
+                    continue
                 for role in query["queryState"].values():
                     for projection in role["projections"]:
                         kind, reference = next(iter(projection["field"].items()))
@@ -167,9 +226,24 @@ class ReportContractTests(unittest.TestCase):
                 self.assertLessEqual(x + width, page["width"])
                 self.assertLessEqual(y + height, page["height"])
                 for other in page["visuals"][i + 1:]:
+                    if visual.get("swap_group") and \
+                            visual.get("swap_group") == other.get("swap_group"):
+                        continue
                     ox, oy, ow, oh = other["rect"]
                     self.assertFalse(x < ox + ow and ox < x + width
                                      and y < oy + oh and oy < y + height)
+
+    def test_hidden_visuals_share_rect_with_visible_swap_partner(self):
+        for page in self.pages:
+            for visual in page["visuals"]:
+                if not visual.get("hidden"):
+                    continue
+                partners = [v for v in page["visuals"]
+                            if v is not visual
+                            and not v.get("hidden")
+                            and v.get("swap_group") == visual["swap_group"]
+                            and v["rect"] == visual["rect"]]
+                self.assertTrue(partners, f"{visual['name']} has no partner")
 
     def test_top_n_has_deterministic_measure_then_label_order(self):
         for page in self.pages:
@@ -180,6 +254,11 @@ class ReportContractTests(unittest.TestCase):
                     self.assertEqual(subquery["OrderBy"][0]["Direction"], 2)
                     self.assertEqual(subquery["OrderBy"][1]["Direction"], 1)
                     self.assertIn("Measure", subquery["OrderBy"][0]["Expression"])
+                    alias = subquery["OrderBy"][0]["Expression"]["Measure"][
+                        "Expression"]["SourceRef"]["Source"]
+                    entities = {s["Name"]: s["Entity"]
+                                for s in subquery["From"] if "Entity" in s}
+                    self.assertEqual(entities[alias], "Ventas")
 
     def test_shipping_chart_does_not_mix_order_date_tooltips(self):
         page = next(p for p in self.pages if p["name"] == "logistica")
@@ -201,14 +280,110 @@ class ReportContractTests(unittest.TestCase):
         self.assertIn("Initial Catalog=NorthWindOLAP", reference["connectionString"])
 
     def test_drillthrough_pages_keep_context(self):
-        for name in ("productos", "clientes"):
-            page = next(p for p in self.pages if p["name"] == name)
+        self.assertEqual(
+            {p["name"] for p in self.pages
+             if p.get("type") == "Drillthrough"},
+            {"producto", "transacciones"})
+        for name in ("producto", "transacciones"):
+            page = self.by_name[name]
             self.assertEqual(page["pageBinding"]["type"], "Drillthrough")
             self.assertEqual(page["pageBinding"]["acceptsFilterContext"], "Default")
             self.assertEqual(
                 page["pageBinding"]["parameters"][0]["boundFilter"],
                 page["filterConfig"]["filters"][0]["name"],
             )
+        self.assertEqual(self.by_name["transacciones"].get("visibility"),
+                         "HiddenInViewMode")
+
+    def _actions(self, page):
+        return [
+            (v["name"], v["action"]["type"], v["action"].get("target"))
+            for v in page["visuals"] if "action" in v
+        ]
+
+    def test_every_visible_page_navigates_to_all_five(self):
+        for name in VISIBLE:
+            targets = {target for _, kind, target in
+                       self._actions(self.by_name[name])
+                       if kind == "PageNavigation"}
+            self.assertEqual(targets, set(VISIBLE), name)
+        self.assertFalse([a for a in self._actions(self.by_name["transacciones"])
+                          if a[1] == "PageNavigation"])
+
+    def test_action_targets_are_valid(self):
+        for page in self.pages:
+            for _, kind, target in self._actions(page):
+                if kind == "PageNavigation":
+                    self.assertIn(target, VISIBLE)
+                elif kind == "Drillthrough":
+                    self.assertEqual(
+                        self.by_name[target].get("type"), "Drillthrough")
+                elif kind == "Bookmark":
+                    self.assertIn(target, self.bookmarks["files"])
+        backs = [page["name"] for page in self.pages
+                 for _, kind, _ in self._actions(page) if kind == "Back"]
+        self.assertEqual(backs, ["transacciones"])
+
+    def test_story_buttons_follow_page_order(self):
+        for i, name in enumerate(VISIBLE):
+            actions = {n: t for n, kind, t in self._actions(self.by_name[name])
+                       if n.endswith(("_prev", "_next"))}
+            if i == 0:
+                self.assertNotIn(f"{name}_prev", actions)
+            else:
+                self.assertEqual(actions[f"{name}_prev"],
+                                 REPORT.STORY_BOOKMARKS[i - 1])
+            if i == len(VISIBLE) - 1:
+                self.assertNotIn(f"{name}_next", actions)
+            else:
+                self.assertEqual(actions[f"{name}_next"],
+                                 REPORT.STORY_BOOKMARKS[i + 1])
+
+    def test_bookmark_names_are_unique_and_indexed_once(self):
+        files = self.bookmarks["files"]
+        self.assertEqual(len(files), len(set(files)))
+        indexed = [child for item in self.bookmarks["items"]
+                   for child in item["children"]]
+        self.assertEqual(sorted(indexed), sorted(files))
+        self.assertEqual({item["name"] for item in self.bookmarks["items"]},
+                         {"recorrido", "vista_tendencia"})
+
+    def test_bookmark_state_references_existing_visuals(self):
+        page_visuals = {p["name"]: {v["name"] for v in p["visuals"]}
+                        for p in self.pages}
+        for name, doc in self.bookmarks["files"].items():
+            self.assertEqual(doc["name"], name)
+            state = doc["explorationState"]
+            self.assertIn(state["activeSection"], page_visuals)
+            for section, body in state["sections"].items():
+                self.assertIn(section, page_visuals)
+                for visual in body.get("visualContainers", {}):
+                    self.assertIn(visual, page_visuals[section])
+            for target in doc["options"]["targetVisualNames"]:
+                self.assertIn(target, page_visuals[state["activeSection"]])
+
+    def test_story_suppress_data_and_toggles_invert(self):
+        for name in REPORT.STORY_BOOKMARKS:
+            options = self.bookmarks["files"][name]["options"]
+            self.assertTrue(options["suppressData"])
+            self.assertEqual(options["targetVisualNames"], [])
+        ventas = self.bookmarks["files"]["vista_ventas"]
+        pedidos = self.bookmarks["files"]["vista_pedidos"]
+        self.assertEqual(ventas["options"]["targetVisualNames"],
+                         pedidos["options"]["targetVisualNames"])
+        a = ventas["explorationState"]["sections"]["resumen"][
+            "visualContainers"]
+        b = pedidos["explorationState"]["sections"]["resumen"][
+            "visualContainers"]
+
+        def hidden(containers, name):
+            return containers[name]["singleVisual"].get(
+                "display", {}).get("mode") == "hidden"
+
+        for visual in ("resumen_trend", "resumen_trend_orders"):
+            self.assertNotEqual(hidden(a, visual), hidden(b, visual))
+        self.assertFalse(hidden(a, "resumen_trend"))
+        self.assertTrue(hidden(a, "resumen_trend_orders"))
 
 
 if __name__ == "__main__":
