@@ -123,7 +123,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dias entre pedido y envio'"
+                  "Value": "'D\u00edas entre pedido y env\u00edo'"
                 }
               }
             },

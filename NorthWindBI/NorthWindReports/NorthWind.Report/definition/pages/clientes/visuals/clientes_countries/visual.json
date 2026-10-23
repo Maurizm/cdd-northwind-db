@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ventas por pais del cliente'"
+                  "Value": "'Ventas por pa\u00eds del cliente'"
                 }
               }
             },

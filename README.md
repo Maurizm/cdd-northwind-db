@@ -2,11 +2,11 @@
 
 Integrantes:
 
-1. Garcia Rojas Lizeth
+1. García Rojas Lizeth
 2. Mérida Ojalvo Daniel Fernando
 3. Moya Cardona William
 4. Zambrana Revollo Samantha
-5. Zurita Mendoza Jose Mauricio
+5. Zurita Mendoza José Mauricio
 
 ## Modelo OLAP y reporte Power BI
 
@@ -26,9 +26,9 @@ Pruebas:
 python -m unittest discover -s tests -v
 ```
 
-Solucion actual: `NorthWindBI/NorthWindBI.slnx` (el `.sln` heredado queda
+Solución actual: `NorthWindBI/NorthWindBI.slnx` (el `.sln` heredado queda
 sin cambios).
 
-**Advertencia: compilar solo `NorthWindOLAP`. No desplegar la solucion
+**Advertencia: compilar solo `NorthWindOLAP`. No desplegar la solución
 completa, porque el script postdeploy original de `NorthWindDW` limpia y
 recarga el DW.**

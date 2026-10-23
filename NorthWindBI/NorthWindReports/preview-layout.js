@@ -6,7 +6,7 @@ const PAGES = [
     "visuals": [
       {
         "name": "panorama_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Per\u00edodo (mes-a\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -17,7 +17,7 @@ const PAGES = [
       },
       {
         "name": "panorama_filter_1",
-        "title": "Pais del cliente",
+        "title": "Pa\u00eds del cliente",
         "t": "slicer",
         "r": [
           380,
@@ -28,7 +28,7 @@ const PAGES = [
       },
       {
         "name": "panorama_filter_2",
-        "title": "Categoria",
+        "title": "Categor\u00eda",
         "t": "slicer",
         "r": [
           728,
@@ -106,7 +106,7 @@ const PAGES = [
       },
       {
         "name": "panorama_trend",
-        "title": "Evolucion de ventas netas",
+        "title": "Evoluci\u00f3n de ventas netas",
         "t": "lineChart",
         "r": [
           32,
@@ -117,7 +117,7 @@ const PAGES = [
       },
       {
         "name": "panorama_categories",
-        "title": "Ventas por categoria",
+        "title": "Ventas por categor\u00eda",
         "t": "barChart",
         "r": [
           888,
@@ -150,7 +150,7 @@ const PAGES = [
       },
       {
         "name": "panorama_countries",
-        "title": "Resultados por pais del cliente",
+        "title": "Resultados por pa\u00eds del cliente",
         "t": "tableEx",
         "r": [
           944,
@@ -163,11 +163,11 @@ const PAGES = [
   },
   {
     "name": "productos",
-    "title": "Productos y categorias",
+    "title": "Productos y categor\u00edas",
     "visuals": [
       {
         "name": "productos_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Per\u00edodo (mes-a\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -178,7 +178,7 @@ const PAGES = [
       },
       {
         "name": "productos_filter_1",
-        "title": "Pais del cliente",
+        "title": "Pa\u00eds del cliente",
         "t": "slicer",
         "r": [
           380,
@@ -189,7 +189,7 @@ const PAGES = [
       },
       {
         "name": "productos_filter_2",
-        "title": "Categoria",
+        "title": "Categor\u00eda",
         "t": "slicer",
         "r": [
           728,
@@ -268,7 +268,7 @@ const PAGES = [
       },
       {
         "name": "productos_trend",
-        "title": "Evolucion de ventas netas",
+        "title": "Evoluci\u00f3n de ventas netas",
         "t": "lineChart",
         "r": [
           32,
@@ -279,7 +279,7 @@ const PAGES = [
       },
       {
         "name": "productos_categories",
-        "title": "Unidades por categoria",
+        "title": "Unidades por categor\u00eda",
         "t": "barChart",
         "r": [
           888,
@@ -318,7 +318,7 @@ const PAGES = [
     "visuals": [
       {
         "name": "clientes_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Per\u00edodo (mes-a\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -329,7 +329,7 @@ const PAGES = [
       },
       {
         "name": "clientes_filter_1",
-        "title": "Pais del cliente",
+        "title": "Pa\u00eds del cliente",
         "t": "slicer",
         "r": [
           380,
@@ -451,7 +451,7 @@ const PAGES = [
       },
       {
         "name": "clientes_countries",
-        "title": "Ventas por pais del cliente",
+        "title": "Ventas por pa\u00eds del cliente",
         "t": "barChart",
         "r": [
           888,
@@ -464,11 +464,11 @@ const PAGES = [
   },
   {
     "name": "logistica",
-    "title": "Logistica: pedido a envio",
+    "title": "Log\u00edstica: pedido a env\u00edo",
     "visuals": [
       {
         "name": "logistica_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Per\u00edodo (mes-a\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -479,7 +479,7 @@ const PAGES = [
       },
       {
         "name": "logistica_filter_1",
-        "title": "Pais del cliente",
+        "title": "Pa\u00eds del cliente",
         "t": "slicer",
         "r": [
           380,
@@ -490,7 +490,7 @@ const PAGES = [
       },
       {
         "name": "logistica_filter_2",
-        "title": "Categoria",
+        "title": "Categor\u00eda",
         "t": "slicer",
         "r": [
           728,
@@ -567,7 +567,7 @@ const PAGES = [
       },
       {
         "name": "logistica_days",
-        "title": "Dias entre pedido y envio",
+        "title": "D\u00edas entre pedido y env\u00edo",
         "t": "barChart",
         "r": [
           32,
@@ -589,7 +589,7 @@ const PAGES = [
       },
       {
         "name": "logistica_trend",
-        "title": "Ventas netas por fecha de envio",
+        "title": "Ventas netas por fecha de env\u00edo",
         "t": "lineChart",
         "r": [
           32,

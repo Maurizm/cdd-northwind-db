@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Unidades por categoria'"
+                  "Value": "'Unidades por categor\u00eda'"
                 }
               }
             },

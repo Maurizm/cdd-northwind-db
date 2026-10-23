@@ -20,7 +20,7 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "NORTHWIND / Logistica: pedido a envio",
+                    "value": "NORTHWIND / Log\u00edstica: pedido a env\u00edo",
                     "textStyle": {
                       "fontFamily": "Georgia",
                       "fontSize": "20pt",

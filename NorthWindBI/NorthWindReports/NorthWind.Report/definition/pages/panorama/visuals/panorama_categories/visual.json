@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ventas por categoria'"
+                  "Value": "'Ventas por categor\u00eda'"
                 }
               }
             },

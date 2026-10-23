@@ -30,7 +30,7 @@ LABEL_FONT = "DIN"
 HEADING_FONT = "Georgia"
 HEADING_RECT = (32, 16, 1120, 48)
 FOOTER_RECT = (32, 784, 760, 18)
-FOOTER_TEXT = "Importes sin moneda definida | Fechas historicas del origen"
+FOOTER_TEXT = "Importes sin moneda definida | Fechas históricas del origen"
 
 # Selection sources/targets for native cross-filtering interactions.
 FILTERING_SOURCES = {"slicer", "barChart", "lineChart", "tableEx"}

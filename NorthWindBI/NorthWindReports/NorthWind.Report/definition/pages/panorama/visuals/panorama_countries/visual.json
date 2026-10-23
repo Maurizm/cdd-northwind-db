@@ -101,7 +101,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Resultados por pais del cliente'"
+                  "Value": "'Resultados por pa\u00eds del cliente'"
                 }
               }
             },

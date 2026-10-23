@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Evolucion de ventas netas'"
+                  "Value": "'Evoluci\u00f3n de ventas netas'"
                 }
               }
             },

@@ -20,7 +20,7 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "NORTHWIND / Productos y categorias",
+                    "value": "NORTHWIND / Productos y categor\u00edas",
                     "textStyle": {
                       "fontFamily": "Georgia",
                       "fontSize": "20pt",

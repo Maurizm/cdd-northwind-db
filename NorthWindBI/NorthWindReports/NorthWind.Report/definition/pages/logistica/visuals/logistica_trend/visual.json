@@ -77,7 +77,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ventas netas por fecha de envio'"
+                  "Value": "'Ventas netas por fecha de env\u00edo'"
                 }
               }
             },
