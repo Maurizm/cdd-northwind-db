@@ -37,6 +37,34 @@ La vista previa HTML se comprobo en escritorio y movil. Esto valida la
 estructura, no sustituye la apertura/renderizado en Power BI Desktop ni
 la ejecucion de DAX y el cuadre de importes con datos reales en SSAS.
 
+## Reproducir en otro equipo
+
+Para visualizar el dashboard en un ambiente propio (SQL Server + SSAS
+Tabular 2022+ y Power BI Desktop con soporte PBIP):
+
+1. **Cargar el DW**: desplegar `../NorthWindDW/NorthWindDW.sqlproj`
+   (VS: clic derecho > Deploy) y ejecutar el ETL para llenarlo, o
+   restaurar un backup de `NorthWindDW`.
+2. **Generar el modelo apuntando a tu servidor**:
+   `python ../NorthWindOLAP/build_model.py --sql-server TU-SERVIDOR --sql-database NorthWindDW`
+3. **Permiso de lectura**: la cuenta de servicio de SSAS necesita login
+   en SQL Server y `db_datareader` en `NorthWindDW` (script exacto en
+   [../NorthWindOLAP/README.md](../NorthWindOLAP/README.md)).
+4. **Desplegar el modelo**: VS > clic derecho en `NorthWindOLAP` >
+   Deploy; o la via TMSL `createOrReplace` con `bin/NorthWind.asdatabase`
+   desde una ventana XMLA de SSMS.
+5. **Procesar**: SSMS > Process Database > Process Full, o TMSL
+   `{"refresh":{"type":"full","objects":[{"database":"NorthWindOLAP"}]}}`.
+6. **Apuntar el reporte a tu servidor** si no es `localhost`:
+   `python build_report.py --ssas-server TU-SERVIDOR`
+   (o editar `NorthWind.SemanticModel/modelReference.json` a mano).
+7. Abrir `NorthWind.pbip` en Power BI Desktop con autenticacion Windows.
+
+Si en cambio el dashboard consume **tu** servidor SSAS, los companeros
+solo necesitan Power BI Desktop, el `modelReference.json` apuntando a tu
+equipo, y permiso de lectura en el modelo (SSMS > servidor AS >
+Properties > Security > agregar sus usuarios).
+
 Validacion opcional de esquemas (requiere `jsonschema` + `referencing`
 instalados y red solo hacia GitHub de Microsoft; no instala nada):
 
