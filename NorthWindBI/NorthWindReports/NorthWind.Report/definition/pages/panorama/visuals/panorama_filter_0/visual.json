@@ -23,11 +23,11 @@
                       "Entity": "Calendario"
                     }
                   },
-                  "Property": "MesAnio"
+                  "Property": "MesAño"
                 }
               },
-              "queryRef": "Calendario.MesAnio",
-              "nativeQueryRef": "MesAnio"
+              "queryRef": "Calendario.MesAño",
+              "nativeQueryRef": "MesAño"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "Calendario"
                   }
                 },
-                "Property": "MesAnio"
+                "Property": "MesAño"
               }
             },
             "direction": "Ascending"
@@ -53,7 +53,7 @@
     },
     "drillFilterOtherVisuals": true,
     "syncGroup": {
-      "groupName": "Calendario_MesAnio",
+      "groupName": "Calendario_MesAño",
       "fieldChanges": true,
       "filterChanges": true
     },
@@ -64,7 +64,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Periodo (mes-anio)'"
+                  "Value": "'Periodo (mes-año)'"
                 }
               }
             },

@@ -6,7 +6,7 @@ const PAGES = [
     "visuals": [
       {
         "name": "panorama_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Periodo (mes-año)",
         "t": "slicer",
         "r": [
           32,
@@ -167,7 +167,7 @@ const PAGES = [
     "visuals": [
       {
         "name": "productos_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Periodo (mes-año)",
         "t": "slicer",
         "r": [
           32,
@@ -318,7 +318,7 @@ const PAGES = [
     "visuals": [
       {
         "name": "clientes_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Periodo (mes-año)",
         "t": "slicer",
         "r": [
           32,
@@ -468,7 +468,7 @@ const PAGES = [
     "visuals": [
       {
         "name": "logistica_filter_0",
-        "title": "Periodo (mes-anio)",
+        "title": "Periodo (mes-año)",
         "t": "slicer",
         "r": [
           32,

@@ -150,7 +150,7 @@ def make_page(name, title, filters, cards, charts, drillthrough=None):
 
 
 def pages():
-    period = ("Periodo (mes-anio)", "Calendario", "MesAnio")
+    period = ("Periodo (mes-año)", "Calendario", "MesAño")
     country = ("Pais del cliente", "Clientes", "Pais")
     category = ("Categoria", "Productos", "Categoria")
     seller = ("Vendedor", "Vendedores", "Vendedor")
@@ -159,7 +159,7 @@ def pages():
         make_page("panorama", "Panorama de ventas",
                   [period, country, category, seller], DEFAULT_MEASURES, [
             chart("panorama_trend", "Evolucion de ventas netas", "lineChart",
-                  [32, 270, 840, 246], ("Calendario", "MesAnio"), net),
+                  [32, 270, 840, 246], ("Calendario", "MesAño"), net),
             chart("panorama_categories", "Ventas por categoria", "barChart",
                   [888, 270, 520, 246], ("Productos", "Categoria"), net),
             chart("panorama_clients", "Top 5 clientes por ventas netas", "barChart",
@@ -177,7 +177,7 @@ def pages():
         ], ["Ventas Netas", "Unidades Vendidas", "Ventas Brutas", "Descuentos",
             "Tasa de Descuento"], [
             chart("productos_trend", "Evolucion de ventas netas", "lineChart",
-                  [32, 270, 840, 246], ("Calendario", "MesAnio"), net),
+                  [32, 270, 840, 246], ("Calendario", "MesAño"), net),
             chart("productos_categories", "Unidades por categoria", "barChart",
                   [888, 270, 520, 246], ("Productos", "Categoria"),
                   ["Unidades Vendidas"]),
@@ -217,7 +217,7 @@ def pages():
                   ("Transportistas", "Transportista"), ["Flete Asignado"]),
             chart("logistica_trend", "Ventas netas por fecha de envio",
                   "lineChart", [32, 532, 840, 246],
-                  ("Calendario", "MesAnio"), ["Ventas por Fecha de Envio"]),
+                  ("Calendario", "MesAño"), ["Ventas por Fecha de Envio"]),
             chart("logistica_detail", "Resumen por transportista", "tableEx",
                   [888, 532, 520, 246], ("Transportistas", "Transportista"),
                   ["Pedidos Enviados", "Flete Asignado",

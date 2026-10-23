@@ -109,7 +109,7 @@ class ModelContractTests(unittest.TestCase):
     def test_month_names_and_year_months_sort_chronologically(self):
         columns = {c["name"]: c for c in self.tables["Calendario"]["columns"]}
         self.assertEqual(columns["Mes"]["sortByColumn"], "MesNumero")
-        self.assertEqual(columns["MesAnio"]["sortByColumn"], "OrdenMesAnio")
+        self.assertEqual(columns["MesAño"]["sortByColumn"], "OrdenMesAño")
         self.assertIn("[Year] * 100 + [MonthOfYear]", MODEL.SOURCES["Calendario"])
 
     def test_queries_are_read_only_and_reference_existing_dw_tables(self):

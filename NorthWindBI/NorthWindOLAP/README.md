@@ -50,7 +50,7 @@ Siete tablas: `Ventas` (hechos) mas las dimensiones `Calendario`,
 ## Fecha desconocida (-1)
 
 La fila desconocida `DateKey = -1` se conserva para que los pedidos sin
-fecha sigan contando en los totales, pero `Fecha` y `Ano` se proyectan como
+fecha sigan contando en los totales, pero `Fecha` y `Año` se proyectan como
 NULL para evitar un falso grupo "1900". `Calendario` no esta marcada como
 tabla de fechas continua para DAX (sin Mark as Date Table), asi que las
 funciones de inteligencia de tiempo no deben asumir continuidad.

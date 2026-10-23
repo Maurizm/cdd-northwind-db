@@ -14,13 +14,13 @@ SOURCES = {
     "Calendario": """
 SELECT [DateKey],
        CASE WHEN [DateKey] <> -1 THEN [FullDate] END AS [Fecha],
-       CASE WHEN [DateKey] <> -1 THEN [Year] END AS [Ano],
+       CASE WHEN [DateKey] <> -1 THEN [Year] END AS [Año],
        [QuarterName] AS [Trimestre], [Quarter] AS [TrimestreNumero],
        [MonthName] AS [Mes], [MonthOfYear] AS [MesNumero],
        CASE WHEN [DateKey] = -1 THEN N'Desconocido'
-            ELSE CONVERT(NVARCHAR(7), [FullDate], 126) END AS [MesAnio],
+            ELSE CONVERT(NVARCHAR(7), [FullDate], 126) END AS [MesAño],
        CASE WHEN [DateKey] = -1 THEN 0
-            ELSE [Year] * 100 + [MonthOfYear] END AS [OrdenMesAnio]
+            ELSE [Year] * 100 + [MonthOfYear] END AS [OrdenMesAño]
 FROM [dbo].[DimDate]
 """,
     "Clientes": """
@@ -158,14 +158,14 @@ def build_model(server="localhost", database="NorthWindDW"):
     tables = [
         table("Calendario", [
             key("DateKey"), column("Fecha", "dateTime"),
-            column("Ano", "int64"),
+            column("Año", "int64"),
             column("Trimestre", sort="TrimestreNumero"),
             column("TrimestreNumero", "int64", hidden=True),
             column("Mes", sort="MesNumero"),
             column("MesNumero", "int64", hidden=True),
-            column("MesAnio", sort="OrdenMesAnio"),
-            column("OrdenMesAnio", "int64", hidden=True),
-        ], [hierarchy("Calendario", ["Ano", "Trimestre", "Mes", "Fecha"])]),
+            column("MesAño", sort="OrdenMesAño"),
+            column("OrdenMesAño", "int64", hidden=True),
+        ], [hierarchy("Calendario", ["Año", "Trimestre", "Mes", "Fecha"])]),
         table("Clientes", [key("CustomerKey"), column("Cliente"), *geography()],
               [hierarchy("Ubicacion del Cliente",
                          ["Pais", "Region", "Ciudad", "Cliente"])]),
@@ -256,6 +256,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     model = build_model(args.sql_server, args.sql_database)
     args.output.write_text(
-        json.dumps(model, ensure_ascii=True, indent=2) + "\n", encoding="utf-8"
+        json.dumps(model, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(f"Generated {args.output}")

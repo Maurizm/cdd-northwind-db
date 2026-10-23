@@ -32,9 +32,9 @@
             "formatString": "yyyy-MM-dd"
           },
           {
-            "name": "Ano",
+            "name": "Año",
             "dataType": "int64",
-            "sourceColumn": "Ano",
+            "sourceColumn": "Año",
             "summarizeBy": "none"
           },
           {
@@ -66,16 +66,16 @@
             "isHidden": true
           },
           {
-            "name": "MesAnio",
+            "name": "MesAño",
             "dataType": "string",
-            "sourceColumn": "MesAnio",
+            "sourceColumn": "MesAño",
             "summarizeBy": "none",
-            "sortByColumn": "OrdenMesAnio"
+            "sortByColumn": "OrdenMesAño"
           },
           {
-            "name": "OrdenMesAnio",
+            "name": "OrdenMesAño",
             "dataType": "int64",
-            "sourceColumn": "OrdenMesAnio",
+            "sourceColumn": "OrdenMesAño",
             "summarizeBy": "none",
             "isHidden": true
           }
@@ -87,7 +87,7 @@
             "source": {
               "type": "query",
               "dataSource": "NorthWindDW",
-              "query": "SELECT [DateKey],\n       CASE WHEN [DateKey] <> -1 THEN [FullDate] END AS [Fecha],\n       CASE WHEN [DateKey] <> -1 THEN [Year] END AS [Ano],\n       [QuarterName] AS [Trimestre], [Quarter] AS [TrimestreNumero],\n       [MonthName] AS [Mes], [MonthOfYear] AS [MesNumero],\n       CASE WHEN [DateKey] = -1 THEN N'Desconocido'\n            ELSE CONVERT(NVARCHAR(7), [FullDate], 126) END AS [MesAnio],\n       CASE WHEN [DateKey] = -1 THEN 0\n            ELSE [Year] * 100 + [MonthOfYear] END AS [OrdenMesAnio]\nFROM [dbo].[DimDate]"
+              "query": "SELECT [DateKey],\n       CASE WHEN [DateKey] <> -1 THEN [FullDate] END AS [Fecha],\n       CASE WHEN [DateKey] <> -1 THEN [Year] END AS [Año],\n       [QuarterName] AS [Trimestre], [Quarter] AS [TrimestreNumero],\n       [MonthName] AS [Mes], [MonthOfYear] AS [MesNumero],\n       CASE WHEN [DateKey] = -1 THEN N'Desconocido'\n            ELSE CONVERT(NVARCHAR(7), [FullDate], 126) END AS [MesAño],\n       CASE WHEN [DateKey] = -1 THEN 0\n            ELSE [Year] * 100 + [MonthOfYear] END AS [OrdenMesAño]\nFROM [dbo].[DimDate]"
             }
           }
         ],
@@ -96,9 +96,9 @@
             "name": "Calendario",
             "levels": [
               {
-                "name": "Ano",
+                "name": "Año",
                 "ordinal": 0,
-                "column": "Ano"
+                "column": "Año"
               },
               {
                 "name": "Trimestre",
@@ -719,7 +719,7 @@
                 "name": "Fecha"
               },
               {
-                "name": "Ano"
+                "name": "Año"
               },
               {
                 "name": "Trimestre"
@@ -728,7 +728,7 @@
                 "name": "Mes"
               },
               {
-                "name": "MesAnio"
+                "name": "MesAño"
               }
             ],
             "hierarchies": [
