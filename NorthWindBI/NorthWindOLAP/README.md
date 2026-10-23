@@ -63,6 +63,17 @@ funciones de inteligencia de tiempo no deben asumir continuidad.
   usa la cuenta de servicio de SSAS, que necesita `SELECT` sobre
   `NorthWindDW`. No se usa `sa` ni contrasenas en el modelo.
 
+  En un SSAS cuya cuenta de servicio es `NT SERVICE\MSSQLServerOLAPService`
+  el permiso se concede asi:
+
+  ```sql
+  CREATE LOGIN [NT SERVICE\MSSQLServerOLAPService] FROM WINDOWS;
+  USE NorthWindDW;
+  CREATE USER [NT SERVICE\MSSQLServerOLAPService]
+      FOR LOGIN [NT SERVICE\MSSQLServerOLAPService];
+  ALTER ROLE db_datareader ADD MEMBER [NT SERVICE\MSSQLServerOLAPService];
+  ```
+
 ## Requisitos y despliegue
 
 - `compatibilityLevel` 1600: requiere SQL Server Analysis Services 2022 o
@@ -74,5 +85,10 @@ funciones de inteligencia de tiempo no deben asumir continuidad.
 - Compilar solo `NorthWindOLAP`. No desplegar la solucion completa: el
   script postdeploy existente del proyecto `NorthWindDW` limpia y recarga
   el DW (la compilacion en si no lo ejecuta).
-- Hasta ahora no se hizo ningun cambio en el servidor; el modelo solo existe
-  como archivos versionados.
+- Si el Deploy de Visual Studio falla con "Failed to create the ADOMD
+  Connection ... database does not exist", la alternativa es enviar el
+  `bin\NorthWind.asdatabase` compilado como TMSL `createOrReplace`
+  (TOM `Server.Execute`, SSMS o `Invoke-ASCmd`) y luego procesar con
+  `{"refresh":{"type":"full","objects":[{"database":"NorthWindOLAP"}]}}`.
+- Verificado end-to-end: el modelo se desplego y proceso en el SSAS local
+  con 2.155 filas en `Ventas` y `[Ventas Netas]` = 1.265.793,04.
