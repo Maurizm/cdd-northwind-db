@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
   "name": "logistica",
-  "displayName": "Log\u00edstica: pedido a env\u00edo",
+  "displayName": "An\u00e1lisis de Log\u00edstica y Env\u00edos",
   "displayOption": "FitToPage",
   "width": 1440,
   "height": 810,

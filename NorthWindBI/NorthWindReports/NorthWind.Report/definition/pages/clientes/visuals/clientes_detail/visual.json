@@ -115,7 +115,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Resultados por cliente'"
+                  "Value": "'Detalle de Clientes'"
                 }
               }
             },

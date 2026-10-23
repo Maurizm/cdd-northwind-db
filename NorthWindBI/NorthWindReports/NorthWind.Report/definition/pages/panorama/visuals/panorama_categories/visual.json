@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ventas por categor\u00eda'"
+                  "Value": "'Ventas por Categor\u00eda'"
                 }
               }
             },
@@ -230,6 +230,19 @@
                       "Value": "'#118DFF'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

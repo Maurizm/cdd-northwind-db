@@ -78,10 +78,10 @@ Cuatro páginas navegables por pestañas:
 
 | Página | Título | Notas |
 |---|---|---|
-| `panorama` | Panorama de ventas | 5 KPI + tendencia, categorías, top clientes/productos, tabla por país |
-| `productos` | Productos y categorías | Drillthrough visible por `Producto` |
-| `clientes` | Clientes y vendedores | Drillthrough visible por `Cliente` |
-| `logistica` | Logística: pedido a envío | Flete, días pedido-envío, ventas por fecha de envío |
+| `panorama` | Dashboard de Ventas | 5 KPI + tendencia, categorías, top clientes/productos, tabla por país |
+| `productos` | Productos y Categorías | Drillthrough visible por `Producto` |
+| `clientes` | Clientes y Vendedores | Drillthrough visible por `Cliente` |
+| `logistica` | Análisis de Logística y Envíos | Flete, días pedido-envío, ventas por fecha de envío |
 
 - Los visuales usan las **medidas SSAS heredadas** del modelo; no hay DAX
   copiado en el reporte.

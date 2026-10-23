@@ -2,11 +2,11 @@
 const PAGES = [
   {
     "name": "panorama",
-    "title": "Panorama de ventas",
+    "title": "Dashboard de Ventas",
     "visuals": [
       {
         "name": "panorama_filter_0",
-        "title": "Per\u00edodo (mes-a\u00f1o)",
+        "title": "Per\u00edodo (Mes/A\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -18,7 +18,7 @@ const PAGES = [
       },
       {
         "name": "panorama_filter_1",
-        "title": "Pa\u00eds del cliente",
+        "title": "Pa\u00eds",
         "t": "slicer",
         "r": [
           380,
@@ -114,7 +114,7 @@ const PAGES = [
       },
       {
         "name": "panorama_trend",
-        "title": "Evoluci\u00f3n de ventas netas",
+        "title": "Tendencia Mensual de Ventas",
         "t": "lineChart",
         "r": [
           32,
@@ -126,7 +126,7 @@ const PAGES = [
       },
       {
         "name": "panorama_categories",
-        "title": "Ventas por categor\u00eda",
+        "title": "Ventas por Categor\u00eda",
         "t": "barChart",
         "r": [
           888,
@@ -138,7 +138,7 @@ const PAGES = [
       },
       {
         "name": "panorama_clients",
-        "title": "Top 5 clientes por ventas netas",
+        "title": "Top 5 Clientes",
         "t": "barChart",
         "r": [
           32,
@@ -150,7 +150,7 @@ const PAGES = [
       },
       {
         "name": "panorama_products",
-        "title": "Top 5 productos por ventas netas",
+        "title": "Top 5 Productos m\u00e1s Vendidos",
         "t": "barChart",
         "r": [
           488,
@@ -162,7 +162,7 @@ const PAGES = [
       },
       {
         "name": "panorama_countries",
-        "title": "Resultados por pa\u00eds del cliente",
+        "title": "Ventas y Pedidos por Pa\u00eds",
         "t": "tableEx",
         "r": [
           944,
@@ -176,11 +176,11 @@ const PAGES = [
   },
   {
     "name": "productos",
-    "title": "Productos y categor\u00edas",
+    "title": "Productos y Categor\u00edas",
     "visuals": [
       {
         "name": "productos_filter_0",
-        "title": "Per\u00edodo (mes-a\u00f1o)",
+        "title": "Per\u00edodo (Mes/A\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -192,7 +192,7 @@ const PAGES = [
       },
       {
         "name": "productos_filter_1",
-        "title": "Pa\u00eds del cliente",
+        "title": "Pa\u00eds",
         "t": "slicer",
         "r": [
           380,
@@ -288,7 +288,7 @@ const PAGES = [
       },
       {
         "name": "productos_trend",
-        "title": "Evoluci\u00f3n de ventas netas",
+        "title": "Tendencia Mensual de Ventas",
         "t": "lineChart",
         "r": [
           32,
@@ -300,7 +300,7 @@ const PAGES = [
       },
       {
         "name": "productos_categories",
-        "title": "Unidades por categor\u00eda",
+        "title": "Unidades Vendidas por Categor\u00eda",
         "t": "barChart",
         "r": [
           888,
@@ -312,7 +312,7 @@ const PAGES = [
       },
       {
         "name": "productos_detail",
-        "title": "Detalle por producto",
+        "title": "Detalle de Productos",
         "t": "tableEx",
         "r": [
           32,
@@ -324,7 +324,7 @@ const PAGES = [
       },
       {
         "name": "productos_suppliers",
-        "title": "Top 5 proveedores por ventas netas",
+        "title": "Top 5 Proveedores",
         "t": "barChart",
         "r": [
           888,
@@ -338,11 +338,11 @@ const PAGES = [
   },
   {
     "name": "clientes",
-    "title": "Clientes y vendedores",
+    "title": "Clientes y Vendedores",
     "visuals": [
       {
         "name": "clientes_filter_0",
-        "title": "Per\u00edodo (mes-a\u00f1o)",
+        "title": "Per\u00edodo (Mes/A\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -354,7 +354,7 @@ const PAGES = [
       },
       {
         "name": "clientes_filter_1",
-        "title": "Pa\u00eds del cliente",
+        "title": "Pa\u00eds",
         "t": "slicer",
         "r": [
           380,
@@ -450,7 +450,7 @@ const PAGES = [
       },
       {
         "name": "clientes_ranking",
-        "title": "Top 10 clientes por ventas netas",
+        "title": "Top 10 Clientes",
         "t": "barChart",
         "r": [
           32,
@@ -462,7 +462,7 @@ const PAGES = [
       },
       {
         "name": "clientes_sellers",
-        "title": "Ventas por vendedor",
+        "title": "Ventas por Vendedor",
         "t": "barChart",
         "r": [
           888,
@@ -474,7 +474,7 @@ const PAGES = [
       },
       {
         "name": "clientes_detail",
-        "title": "Resultados por cliente",
+        "title": "Detalle de Clientes",
         "t": "tableEx",
         "r": [
           32,
@@ -486,7 +486,7 @@ const PAGES = [
       },
       {
         "name": "clientes_countries",
-        "title": "Ventas por pa\u00eds del cliente",
+        "title": "Ventas por Pa\u00eds",
         "t": "barChart",
         "r": [
           888,
@@ -500,11 +500,11 @@ const PAGES = [
   },
   {
     "name": "logistica",
-    "title": "Log\u00edstica: pedido a env\u00edo",
+    "title": "An\u00e1lisis de Log\u00edstica y Env\u00edos",
     "visuals": [
       {
         "name": "logistica_filter_0",
-        "title": "Per\u00edodo (mes-a\u00f1o)",
+        "title": "Per\u00edodo (Mes/A\u00f1o)",
         "t": "slicer",
         "r": [
           32,
@@ -516,7 +516,7 @@ const PAGES = [
       },
       {
         "name": "logistica_filter_1",
-        "title": "Pa\u00eds del cliente",
+        "title": "Pa\u00eds",
         "t": "slicer",
         "r": [
           380,
@@ -612,7 +612,7 @@ const PAGES = [
       },
       {
         "name": "logistica_days",
-        "title": "D\u00edas entre pedido y env\u00edo",
+        "title": "D\u00edas Promedio de Env\u00edo por Transportista",
         "t": "barChart",
         "r": [
           32,
@@ -624,7 +624,7 @@ const PAGES = [
       },
       {
         "name": "logistica_freight",
-        "title": "Flete asignado por transportista",
+        "title": "Costo de Flete por Transportista",
         "t": "barChart",
         "r": [
           888,
@@ -636,7 +636,7 @@ const PAGES = [
       },
       {
         "name": "logistica_trend",
-        "title": "Ventas netas por fecha de env\u00edo",
+        "title": "Ventas por Fecha de Env\u00edo",
         "t": "lineChart",
         "r": [
           32,
@@ -648,7 +648,7 @@ const PAGES = [
       },
       {
         "name": "logistica_detail",
-        "title": "Resumen por transportista",
+        "title": "Resumen por Transportista",
         "t": "tableEx",
         "r": [
           888,

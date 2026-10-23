@@ -123,7 +123,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'D\u00edas entre pedido y env\u00edo'"
+                  "Value": "'D\u00edas Promedio de Env\u00edo por Transportista'"
                 }
               }
             },
@@ -244,6 +244,19 @@
                       "Value": "'#744DA9'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

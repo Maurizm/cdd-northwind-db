@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Unidades por categor\u00eda'"
+                  "Value": "'Unidades Vendidas por Categor\u00eda'"
                 }
               }
             },
@@ -230,6 +230,19 @@
                       "Value": "'#01B8AA'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

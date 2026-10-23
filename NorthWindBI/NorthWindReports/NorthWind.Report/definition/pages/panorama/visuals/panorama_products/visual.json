@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top 5 productos por ventas netas'"
+                  "Value": "'Top 5 Productos m\u00e1s Vendidos'"
                 }
               }
             },
@@ -230,6 +230,19 @@
                       "Value": "'#118DFF'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

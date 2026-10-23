@@ -64,7 +64,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Per\u00edodo (mes-a\u00f1o)'"
+                  "Value": "'Per\u00edodo (Mes/A\u00f1o)'"
                 }
               }
             },

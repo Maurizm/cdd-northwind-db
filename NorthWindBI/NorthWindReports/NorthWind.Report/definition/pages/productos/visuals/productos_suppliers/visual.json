@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top 5 proveedores por ventas netas'"
+                  "Value": "'Top 5 Proveedores'"
                 }
               }
             },
@@ -230,6 +230,19 @@
                       "Value": "'#118DFF'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

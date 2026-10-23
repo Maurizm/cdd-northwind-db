@@ -5,7 +5,7 @@
     "x": 32,
     "y": 784,
     "z": 14,
-    "width": 760,
+    "width": 1376,
     "height": 18,
     "tabOrder": 14
   },
@@ -20,7 +20,7 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "Importes sin moneda definida | Fechas hist\u00f3ricas del origen",
+                    "value": "Proyecto NorthWind BI - Grupo 5 | Business Intelligence",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "8pt",

@@ -26,9 +26,9 @@ TEXT = "#252423"
 BORDER = "#D2D0CE"
 LABEL_FONT = "Segoe UI"
 HEADING_FONT = "Segoe UI"
-HEADING_RECT = (32, 16, 1120, 48)
-FOOTER_RECT = (32, 784, 760, 18)
-FOOTER_TEXT = "Importes sin moneda definida | Fechas históricas del origen"
+HEADING_RECT = (32, 16, 1376, 44)
+FOOTER_RECT = (32, 784, 1376, 18)
+FOOTER_TEXT = "Proyecto NorthWind BI - Grupo 5 | Business Intelligence"
 
 # Paleta estándar clásica de Power BI con colores semánticos por métrica:
 BLUE_SALES = "#118DFF"       # Azul clásico Power BI para Ventas / Facturación
@@ -114,6 +114,9 @@ def visual_doc(entry, z):
         objects["dataPoint"] = [
             {"properties": {"defaultColor": solid(color)}}
         ]
+        objects["labels"] = [
+            {"properties": {"show": lit("true")}}
+        ]
     elif kind == "card":
         objects["labels"] = [{"properties": {"color": solid(color)}}]
     elif kind == "slicer":
@@ -132,7 +135,16 @@ def visual_doc(entry, z):
     return doc
 
 
-def textbox_doc(name, rect, text, style, z):
+def textbox_doc(name, rect, text, style, z, bg_color=None, border_color=None):
+    show_box = "true" if bg_color else "false"
+    bg_props = {"show": lit(show_box)}
+    if bg_color:
+        bg_props["color"] = solid(bg_color)
+        bg_props["transparency"] = lit("0D")
+    border_props = {"show": lit(show_box)}
+    if border_color or bg_color:
+        border_props["color"] = solid(border_color or bg_color)
+        border_props["radius"] = lit("4D")
     return {
         "$schema": SCHEMA + "visualContainer/2.1.0/schema.json",
         "name": name,
@@ -148,8 +160,8 @@ def textbox_doc(name, rect, text, style, z):
             }]}}]},
             "visualContainerObjects": {
                 "title": [{"properties": {"show": lit("false")}}],
-                "background": [{"properties": {"show": lit("false")}}],
-                "border": [{"properties": {"show": lit("false")}}],
+                "background": [{"properties": bg_props}],
+                "border": [{"properties": border_props}],
             },
         },
     }
@@ -277,8 +289,9 @@ def build(server, database, output):
         heading = textbox_doc(
             f"{page['name']}_heading", HEADING_RECT,
             f"NORTHWIND / {page['title']}",
-            {"fontFamily": HEADING_FONT, "fontSize": "20pt",
-             "fontWeight": "bold", "color": TEXT}, 0)
+            {"fontFamily": HEADING_FONT, "fontSize": "16pt",
+             "fontWeight": "bold", "color": "#FFFFFF"}, 0,
+            bg_color=BLUE_SALES, border_color=BLUE_SALES)
         write_json(visuals_dir / heading["name"] / "visual.json", heading)
         for z, entry in enumerate(page["visuals"], start=1):
             doc = visual_doc(entry, z)

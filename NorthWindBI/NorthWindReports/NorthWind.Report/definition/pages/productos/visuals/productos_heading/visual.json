@@ -5,8 +5,8 @@
     "x": 32,
     "y": 16,
     "z": 0,
-    "width": 1120,
-    "height": 48,
+    "width": 1376,
+    "height": 44,
     "tabOrder": 0
   },
   "visual": {
@@ -20,12 +20,12 @@
                 "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
-                    "value": "NORTHWIND / Productos y categor\u00edas",
+                    "value": "NORTHWIND / Productos y Categor\u00edas",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "20pt",
+                      "fontSize": "16pt",
                       "fontWeight": "bold",
-                      "color": "#252423"
+                      "color": "#FFFFFF"
                     }
                   }
                 ]
@@ -55,7 +55,25 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#118DFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
                 }
               }
             }
@@ -68,7 +86,25 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#118DFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
                 }
               }
             }

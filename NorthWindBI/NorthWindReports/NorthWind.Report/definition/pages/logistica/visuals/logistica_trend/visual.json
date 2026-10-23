@@ -77,7 +77,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ventas netas por fecha de env\u00edo'"
+                  "Value": "'Ventas por Fecha de Env\u00edo'"
                 }
               }
             },
@@ -198,6 +198,19 @@
                       "Value": "'#744DA9'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

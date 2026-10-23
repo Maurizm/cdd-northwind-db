@@ -150,75 +150,75 @@ def make_page(name, title, filters, cards, charts, drillthrough=None):
 
 
 def pages():
-    period = ("Período (mes-año)", "Calendario", "MesAnio")
-    country = ("País del cliente", "Clientes", "Pais")
+    period = ("Período (Mes/Año)", "Calendario", "MesAnio")
+    country = ("País", "Clientes", "Pais")
     category = ("Categoría", "Productos", "Categoria")
     seller = ("Vendedor", "Vendedores", "Vendedor")
     net = ["Ventas Netas"]
     return copy.deepcopy([
-        make_page("panorama", "Panorama de ventas",
+        make_page("panorama", "Dashboard de Ventas",
                   [period, country, category, seller], DEFAULT_MEASURES, [
-            chart("panorama_trend", "Evolución de ventas netas", "lineChart",
+            chart("panorama_trend", "Tendencia Mensual de Ventas", "lineChart",
                   [32, 270, 840, 246], ("Calendario", "MesAnio"), net),
-            chart("panorama_categories", "Ventas por categoría", "barChart",
+            chart("panorama_categories", "Ventas por Categoría", "barChart",
                   [888, 270, 520, 246], ("Productos", "Categoria"), net),
-            chart("panorama_clients", "Top 5 clientes por ventas netas", "barChart",
+            chart("panorama_clients", "Top 5 Clientes", "barChart",
                   [32, 532, 440, 246], ("Clientes", "Cliente"), net, top=5),
-            chart("panorama_products", "Top 5 productos por ventas netas",
+            chart("panorama_products", "Top 5 Productos más Vendidos",
                   "barChart", [488, 532, 440, 246],
                   ("Productos", "Producto"), net, top=5),
-            chart("panorama_countries", "Resultados por país del cliente",
+            chart("panorama_countries", "Ventas y Pedidos por País",
                   "tableEx", [944, 532, 464, 246],
                   ("Clientes", "Pais"), ["Ventas Netas", "Pedidos",
                                         "Ticket Promedio"]),
         ]),
-        make_page("productos", "Productos y categorías", [
+        make_page("productos", "Productos y Categorías", [
             period, country, category, ("Producto", "Productos", "Producto"),
         ], ["Ventas Netas", "Unidades Vendidas", "Ventas Brutas", "Descuentos",
             "Tasa de Descuento"], [
-            chart("productos_trend", "Evolución de ventas netas", "lineChart",
+            chart("productos_trend", "Tendencia Mensual de Ventas", "lineChart",
                   [32, 270, 840, 246], ("Calendario", "MesAnio"), net),
-            chart("productos_categories", "Unidades por categoría", "barChart",
+            chart("productos_categories", "Unidades Vendidas por Categoría", "barChart",
                   [888, 270, 520, 246], ("Productos", "Categoria"),
                   ["Unidades Vendidas"]),
-            chart("productos_detail", "Detalle por producto", "tableEx",
+            chart("productos_detail", "Detalle de Productos", "tableEx",
                   [32, 532, 840, 246], ("Productos", "Producto"),
                   ["Ventas Netas", "Unidades Vendidas", "Descuentos",
                    "Tasa de Descuento"]),
-            chart("productos_suppliers", "Top 5 proveedores por ventas netas",
+            chart("productos_suppliers", "Top 5 Proveedores",
                   "barChart", [888, 532, 520, 246],
                   ("Proveedores", "Proveedor"), net, top=5),
         ], drillthrough=("Productos", "Producto")),
-        make_page("clientes", "Clientes y vendedores", [
+        make_page("clientes", "Clientes y Vendedores", [
             period, country, ("Cliente", "Clientes", "Cliente"), seller,
         ], DEFAULT_MEASURES, [
-            chart("clientes_ranking", "Top 10 clientes por ventas netas",
+            chart("clientes_ranking", "Top 10 Clientes",
                   "barChart", [32, 270, 840, 246],
                   ("Clientes", "Cliente"), net, top=10),
-            chart("clientes_sellers", "Ventas por vendedor", "barChart",
+            chart("clientes_sellers", "Ventas por Vendedor", "barChart",
                   [888, 270, 520, 246], ("Vendedores", "Vendedor"), net),
-            chart("clientes_detail", "Resultados por cliente", "tableEx",
+            chart("clientes_detail", "Detalle de Clientes", "tableEx",
                   [32, 532, 840, 246], ("Clientes", "Cliente"),
                   ["Ventas Netas", "Pedidos", "Ticket Promedio",
                    "Unidades Vendidas"]),
-            chart("clientes_countries", "Ventas por país del cliente", "barChart",
+            chart("clientes_countries", "Ventas por País", "barChart",
                   [888, 532, 520, 246], ("Clientes", "Pais"), net),
         ], drillthrough=("Clientes", "Cliente")),
-        make_page("logistica", "Logística: pedido a envío", [
+        make_page("logistica", "Análisis de Logística y Envíos", [
             period, country, category,
             ("Transportista", "Transportistas", "Transportista"),
         ], ["Flete Asignado", "Pedidos Enviados", "Dias Promedio Hasta Envio",
             "Pedidos", "Ventas Netas"], [
-            chart("logistica_days", "Días entre pedido y envío", "barChart",
+            chart("logistica_days", "Días Promedio de Envío por Transportista", "barChart",
                   [32, 270, 840, 246], ("Transportistas", "Transportista"),
                   ["Dias Promedio Hasta Envio"]),
-            chart("logistica_freight", "Flete asignado por transportista",
+            chart("logistica_freight", "Costo de Flete por Transportista",
                   "barChart", [888, 270, 520, 246],
                   ("Transportistas", "Transportista"), ["Flete Asignado"]),
-            chart("logistica_trend", "Ventas netas por fecha de envío",
+            chart("logistica_trend", "Ventas por Fecha de Envío",
                   "lineChart", [32, 532, 840, 246],
                   ("Calendario", "MesAnio"), ["Ventas por Fecha de Envio"]),
-            chart("logistica_detail", "Resumen por transportista", "tableEx",
+            chart("logistica_detail", "Resumen por Transportista", "tableEx",
                   [888, 532, 520, 246], ("Transportistas", "Transportista"),
                   ["Pedidos Enviados", "Flete Asignado",
                    "Dias Promedio Hasta Envio"]),

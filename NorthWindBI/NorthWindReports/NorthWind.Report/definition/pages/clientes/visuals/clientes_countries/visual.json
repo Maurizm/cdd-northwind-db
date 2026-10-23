@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ventas por pa\u00eds del cliente'"
+                  "Value": "'Ventas por Pa\u00eds'"
                 }
               }
             },
@@ -230,6 +230,19 @@
                       "Value": "'#118DFF'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

@@ -115,7 +115,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Detalle por producto'"
+                  "Value": "'Detalle de Productos'"
                 }
               }
             },

@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Evoluci\u00f3n de ventas netas'"
+                  "Value": "'Tendencia Mensual de Ventas'"
                 }
               }
             },
@@ -230,6 +230,19 @@
                       "Value": "'#118DFF'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
