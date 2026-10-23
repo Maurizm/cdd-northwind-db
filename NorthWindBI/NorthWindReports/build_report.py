@@ -103,24 +103,189 @@ def panel_objects(title):
     }
 
 
+# Contract action type -> visualLink property that carries the target.
+ACTION_PROPS = {"PageNavigation": "navigationSection"}
+
+
+def button_visual(entry):
+    """Action-button objects in the dual-entry pattern the engine requires."""
+    action = entry["action"]
+    link = {"show": lit("true"), "type": lit(f"'{action['type']}'")}
+    if action.get("target"):
+        link[ACTION_PROPS[action["type"]]] = lit(f"'{action['target']}'")
+    if entry.get("tooltip"):
+        link["tooltip"] = lit(f"'{entry['tooltip']}'")
+    selected = entry.get("selected")
+    accent = (entry.get("appearance") or {}).get("accent")
+    if accent and not selected:
+        fill_color, font_color = accent, "#FFFFFF"
+        font_size, icon_show, icon_place = "16D", "true", "'right'"
+        icon_props = {
+            "shapeType": lit("'rightArrow'"),
+            "placement": lit(icon_place),
+            "lineColor": solid("#FFFFFF"),
+        }
+        outline = [{"properties": {"show": lit("false")}}]
+        fill = [
+            {"properties": {"show": lit("true")}},
+            {"properties": {"fillColor": solid(fill_color)},
+             "selector": {"id": "default"}},
+            {"properties": {"fillColor": solid(
+                entry["appearance"].get("hover", accent))},
+             "selector": {"id": "hover"}},
+        ]
+    else:
+        fill_color = BLUE_SALES if selected else PANEL_BG
+        font_color = PANEL_BG if selected else BLUE_SALES
+        font_size, icon_show, icon_place = "11D", "false", "'left'"
+        icon_props = {
+            "shapeType": lit("'rightArrow'"),
+            "placement": lit(icon_place),
+        }
+        outline = [{"properties": {"show": lit("false")}}] if selected else [
+            {"properties": {"show": lit("true")}},
+            {"properties": {"color": solid(BLUE_SALES)},
+             "selector": {"id": "default"}},
+        ]
+        fill = [
+            {"properties": {"show": lit("true")}},
+            {"properties": {"fillColor": solid(fill_color)},
+             "selector": {"id": "default"}},
+        ]
+    return {
+        "visualType": "actionButton",
+        "objects": {
+            "text": [
+                {"properties": {"show": lit("true")}},
+                {"properties": {
+                    "text": lit(f"'{entry['title']}'"),
+                    "fontSize": lit(font_size),
+                    "fontFamily": lit(f"'{LABEL_FONT}'"),
+                    "fontColor": solid(font_color),
+                    "horizontalAlignment": lit("'center'"),
+                }, "selector": {"id": "default"}},
+            ],
+            "icon": [
+                {"properties": {"show": lit(icon_show)}},
+                {"properties": icon_props,
+                 "selector": {"id": "default"}},
+            ],
+            "fill": fill,
+            "outline": outline,
+            "shape": [
+                {"properties": {
+                    "tileShape": lit("'rectangleRounded'"),
+                    "roundEdge": lit("8L")}},
+                {"properties": {
+                    "tileShape": lit("'rectangleRounded'")},
+                 "selector": {"id": "default"}},
+            ],
+        },
+        "visualContainerObjects": {
+            "background": [{"properties": {"show": lit("false")}}],
+            "border": [{"properties": {"show": lit("false")}}],
+            "visualLink": [{"properties": link}],
+        },
+        "drillFilterOtherVisuals": True,
+    }
+
+
+def image_visual(entry):
+    """Packaged PNG via ResourcePackageItem; visualLink when actionable."""
+    info = entry["image"]
+    container = {
+        "title": [{"properties": {"show": lit("false")}}],
+        "background": [{"properties": {"show": lit("false")}}],
+        "border": [{"properties": {"show": lit("false")}}],
+        "general": [{"properties": {
+            "altText": lit(f"'{info['alt']}'")}}],
+    }
+    action = entry.get("action")
+    if action:
+        link = {"show": lit("true"), "type": lit(f"'{action['type']}'")}
+        if action.get("target"):
+            link[ACTION_PROPS[action["type"]]] = lit(
+                f"'{action['target']}'")
+        container["visualLink"] = [{"properties": link}]
+    return {
+        "visualType": "image",
+        "objects": {
+            "general": [{"properties": {"imageUrl": {"expr": {
+                "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": info["resource"],
+                }}}}}],
+            "imageScaling": [{"properties": {
+                "imageScalingType": lit("'Normal'")}}],
+        },
+        "visualContainerObjects": container,
+    }
+
+
+def text_visual(entry):
+    """Narrative textbox: separate bold title and regular body paragraphs."""
+    info = entry["text"]
+    strong = info.get("strong", True)
+    paragraphs = [{
+        "horizontalTextAlignment": "left",
+        "textRuns": [{"value": info["title"], "textStyle": {
+            "fontFamily": LABEL_FONT,
+            "fontSize": "12pt" if strong else "10pt",
+            "fontWeight": "bold" if strong else "normal",
+            "color": TEXT}}],
+    }]
+    if info.get("body"):
+        paragraphs.append({
+            "horizontalTextAlignment": "left",
+            "textRuns": [{"value": info["body"], "textStyle": {
+                "fontFamily": LABEL_FONT, "fontSize": "10pt",
+                "color": TEXT}}],
+        })
+    boxed = bool(info.get("panel"))
+    background = {"show": lit("true" if boxed else "false")}
+    border = {"show": lit("true" if boxed else "false")}
+    if boxed:
+        background["color"] = solid(PANEL_BG)
+        background["transparency"] = lit("0D")
+        border["color"] = solid(BORDER)
+        border["radius"] = lit("4D")
+    return {
+        "visualType": "textbox",
+        "objects": {"general": [{"properties": {"paragraphs": paragraphs}}]},
+        "visualContainerObjects": {
+            "title": [{"properties": {"show": lit("false")}}],
+            "background": [{"properties": background}],
+            "border": [{"properties": border}],
+        },
+    }
+
+
 def visual_doc(entry, z):
     rect = entry["rect"]
-    visual = copy.deepcopy(entry["visual"])
-    visual["visualContainerObjects"] = panel_objects(entry["title"])
-    objects = visual.setdefault("objects", {})
-    kind = visual["visualType"]
-    color, _ = visual_theme(entry)
-    if kind in ("barChart", "lineChart"):
-        objects["dataPoint"] = [
-            {"properties": {"defaultColor": solid(color)}}
-        ]
-        objects["labels"] = [
-            {"properties": {"show": lit("true")}}
-        ]
-    elif kind == "card":
-        objects["labels"] = [{"properties": {"color": solid(color)}}]
-    elif kind == "slicer":
-        objects["data"] = [{"properties": {"mode": lit("'Dropdown'")}}]
+    kind = entry["visual"]["visualType"]
+    if kind == "actionButton":
+        visual = button_visual(entry)
+    elif kind == "image":
+        visual = image_visual(entry)
+    elif kind == "textbox":
+        visual = text_visual(entry)
+    else:
+        visual = copy.deepcopy(entry["visual"])
+        visual["visualContainerObjects"] = panel_objects(entry["title"])
+        objects = visual.setdefault("objects", {})
+        color, _ = visual_theme(entry)
+        if kind in ("barChart", "lineChart"):
+            objects["dataPoint"] = [
+                {"properties": {"defaultColor": solid(color)}}
+            ]
+            objects["labels"] = [
+                {"properties": {"show": lit("true")}}
+            ]
+        elif kind == "card":
+            objects["labels"] = [{"properties": {"color": solid(color)}}]
+        elif kind == "slicer":
+            objects["data"] = [{"properties": {"mode": lit("'Dropdown'")}}]
     doc = {
         "$schema": SCHEMA + "visualContainer/2.1.0/schema.json",
         "name": entry["name"],
@@ -222,12 +387,17 @@ def layout_js(model_pages):
     data = [{
         "name": page["name"],
         "title": page["title"],
+        "hr": page.get("heading_rect", list(HEADING_RECT)),
         "visuals": [{
             "name": v["name"],
             "title": v["title"],
             "t": v["visual"]["visualType"],
             "r": v["rect"],
             "cls": visual_theme(v)[1],
+            "text": v.get("text"),
+            "image": v.get("image"),
+            "action": v.get("action"),
+            "appearance": v.get("appearance"),
         } for v in page["visuals"]],
     } for page in model_pages]
     return (
@@ -255,6 +425,20 @@ def build(server, database, output):
         guard_dirs(pages_dir / page["name"] / "visuals",
                    expected_names[page["name"]], "visual directories")
 
+    # Every packaged image must exist before a single byte is written.
+    resources = {}
+    for page in model_pages:
+        for entry in page["visuals"]:
+            info = entry.get("image")
+            if info:
+                name = info["resource"]
+                if name in resources:
+                    continue
+                path = HERE / "assets" / "home" / name
+                if not path.is_file():
+                    sys.exit(f"missing image asset: {path}")
+                resources[name] = path
+
     for rel, payload in connection_files(server, database).items():
         write_json(output / rel, payload)
 
@@ -270,10 +454,14 @@ def build(server, database, output):
         "resourcePackages": [{
             "name": "RegisteredResources", "type": "RegisteredResources",
             "items": [{"name": "NorthWind", "path": "NorthWind.json",
-                       "type": "CustomTheme"}]}],
+                       "type": "CustomTheme"}] + [
+                {"name": r, "path": r, "type": "Image"}
+                for r in sorted(resources)]}],
     })
-    write_json(report / "StaticResources" / "RegisteredResources" /
-               "NorthWind.json", THEME)
+    static_dir = report / "StaticResources" / "RegisteredResources"
+    write_json(static_dir / "NorthWind.json", THEME)
+    for name, path in sorted(resources.items()):
+        (static_dir / name).write_bytes(path.read_bytes())
     write_json(pages_dir / "pages.json", {
         "$schema": SCHEMA + "pagesMetadata/1.0.0/schema.json",
         "pageOrder": names, "activePageName": names[0],
@@ -287,7 +475,8 @@ def build(server, database, output):
         visuals_dir = page_dir / "visuals"
         write_json(page_dir / "page.json", page_doc(page))
         heading = textbox_doc(
-            f"{page['name']}_heading", HEADING_RECT,
+            f"{page['name']}_heading",
+            page.get("heading_rect", HEADING_RECT),
             f"NORTHWIND / {page['title']}",
             {"fontFamily": HEADING_FONT, "fontSize": "16pt",
              "fontWeight": "bold", "color": "#FFFFFF"}, 0,

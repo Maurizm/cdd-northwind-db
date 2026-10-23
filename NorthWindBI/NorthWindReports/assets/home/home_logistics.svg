@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1352" height="360" viewBox="0 0 676 180">
+  <!-- 04 Logística: delivery van, parcel and dotted route on blue-lavender. -->
+  <defs>
+    <style>
+      .ord  { font: 800 64px 'Segoe UI', Arial, sans-serif; fill: #3656A3; }
+      .q    { font: 700 27px 'Segoe UI', Arial, sans-serif; fill: #1F3864; }
+      .st   { stroke: #1F3864; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="676" height="180" rx="18" fill="#E9ECFB"/>
+
+  <text class="ord" x="44" y="86">04</text>
+  <text class="q" x="44" y="132">¿Cómo despachamos?</text>
+
+  <!-- dotted route behind the van -->
+  <path d="M330 60 C 390 30, 460 40, 500 30 S 590 20, 628 40"
+        fill="none" stroke="#3656A3" stroke-width="4"
+        stroke-dasharray="3 10" stroke-linecap="round"/>
+  <!-- destination pin -->
+  <path class="st" fill="#FFFFFF"
+        d="M622 26 c-9 0 -15 7 -15 15 c0 11 15 23 15 23 c0 0 15 -12 15 -23 c0 -8 -6 -15 -15 -15 z"/>
+  <circle cx="622" cy="41" r="5" fill="#3656A3"/>
+
+  <!-- road -->
+  <line class="st" x1="330" y1="150" x2="640" y2="150"/>
+
+  <!-- van: cargo box -->
+  <rect x="380" y="76" width="150" height="64" rx="8" fill="#9FB2E8" class="st"/>
+  <!-- cab -->
+  <path class="st" fill="#6E86CF"
+        d="M530 96 L560 96 L584 118 L584 140 L530 140 z"/>
+  <path class="st" fill="#DDE5FA" d="M540 102 L556 102 L574 118 L540 118 z"/>
+  <!-- wheels -->
+  <circle class="st" cx="416" cy="146" r="14" fill="#FFFFFF"/>
+  <circle class="st" cx="416" cy="146" r="5" fill="#1F3864"/>
+  <circle class="st" cx="548" cy="146" r="14" fill="#FFFFFF"/>
+  <circle class="st" cx="548" cy="146" r="5" fill="#1F3864"/>
+
+  <!-- parcel in the cargo door area -->
+  <rect x="398" y="92" width="40" height="32" rx="3" fill="#F2C66D" class="st"/>
+  <line class="st" x1="418" y1="92" x2="418" y2="124"/>
+</svg>

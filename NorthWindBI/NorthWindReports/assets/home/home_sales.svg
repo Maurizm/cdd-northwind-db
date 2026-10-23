@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1352" height="360" viewBox="0 0 676 180">
+  <!-- 01 Ventas: growth columns, trend line and magnifier on blue ice. -->
+  <defs>
+    <style>
+      .ord  { font: 800 64px 'Segoe UI', Arial, sans-serif; fill: #118DFF; }
+      .q    { font: 700 27px 'Segoe UI', Arial, sans-serif; fill: #1F3864; }
+      .st   { stroke: #1F3864; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="676" height="180" rx="18" fill="#EAF3FE"/>
+
+  <text class="ord" x="44" y="86">01</text>
+  <text class="q" x="44" y="132">¿Cómo vamos?</text>
+
+  <!-- ground line -->
+  <line class="st" x1="330" y1="148" x2="620" y2="148"/>
+
+  <!-- ascending columns -->
+  <rect x="352" y="106" width="34" height="42" rx="5" fill="#BDD9FB" class="st"/>
+  <rect x="404" y="88"  width="34" height="60" rx="5" fill="#8CC0F5" class="st"/>
+  <rect x="456" y="66"  width="34" height="82" rx="5" fill="#4FA2F0" class="st"/>
+  <rect x="508" y="44"  width="34" height="104" rx="5" fill="#118DFF" class="st"/>
+
+  <!-- trend line with arrowhead -->
+  <path class="st" fill="none"
+        d="M352 96 L404 76 L456 58 L508 34 L560 20"/>
+  <path class="st" fill="#1F3864"
+        d="M560 20 l-16 -2 l6 12 z"/>
+
+  <!-- magnifier over the tallest bar -->
+  <circle class="st" cx="585" cy="52" r="24" fill="#FFFFFF" fill-opacity="0.55"/>
+  <line class="st" x1="602" y1="70" x2="622" y2="92"/>
+</svg>

@@ -23,11 +23,11 @@
                       "Entity": "Calendario"
                     }
                   },
-                  "Property": "MesAnio"
+                  "Property": "MesA\u00f1o"
                 }
               },
-              "queryRef": "Calendario.MesAnio",
-              "nativeQueryRef": "MesAnio"
+              "queryRef": "Calendario.MesA\u00f1o",
+              "nativeQueryRef": "MesA\u00f1o"
             }
           ]
         },
@@ -92,7 +92,7 @@
                     "Entity": "Calendario"
                   }
                 },
-                "Property": "MesAnio"
+                "Property": "MesA\u00f1o"
               }
             },
             "direction": "Ascending"

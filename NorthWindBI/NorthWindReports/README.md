@@ -31,11 +31,13 @@ páginas o visuales que no espera (no borra trabajo ajeno).
    `Integrated Security=SSPI`). No se publica a Fabric ni a Power BI
    Service y no se exporta data de origen al proyecto.
 
-Estado de validación: 32 pruebas offline aprobadas y 72 archivos validados
-contra 15 documentos de esquemas públicos de Microsoft, sin errores.
-La vista previa HTML se comprobó en escritorio y móvil. Esto valida la
-estructura, no sustituye la apertura/renderizado en Power BI Desktop ni
-la ejecución de DAX y el cuadre de importes con datos reales en SSAS.
+Estado de validación: 64 pruebas offline aprobadas (contrato, mecánica
+del generador y ETL). La validación de esquemas de Microsoft no se
+re-ejecutó en este cambio por requerir red, y el reporte no se abrió en
+Power BI Desktop para verificación de render.
+Esto valida la estructura, no sustituye la apertura/renderizado en
+Power BI Desktop ni la ejecución de DAX y el cuadre de importes con
+datos reales en SSAS.
 
 ## Reproducir en otro equipo
 
@@ -74,10 +76,12 @@ python NorthWindBI/NorthWindReports/validate_report_schemas.py
 
 ## Contenido
 
-Cuatro páginas navegables por pestañas:
+Cinco páginas navegables por pestañas; `inicio` es la página activa al
+abrir:
 
 | Página | Título | Notas |
 |---|---|---|
+| `inicio` | Inicio | Menú visual: ilustración de portada + 4 tarjetas ilustradas con botón de navegación; sin KPI ni slicers |
 | `panorama` | Dashboard de Ventas | 5 KPI + tendencia, categorías, top clientes/productos, tabla por país |
 | `productos` | Productos y Categorías | Drillthrough visible por `Producto` |
 | `clientes` | Clientes y Vendedores | Drillthrough visible por `Cliente` |
@@ -85,14 +89,52 @@ Cuatro páginas navegables por pestañas:
 
 - Los visuales usan las **medidas SSAS heredadas** del modelo; no hay DAX
   copiado en el reporte.
+- Inicio es un **menú ilustrado**: cada tarjeta navega haciendo clic en
+  la **imagen o en el botón** (ambos llevan `visualLink`
+  PageNavigation); cada sección tiene un botón `Inicio` junto al
+  encabezado para volver. En el **modo de edición** de Power BI Desktop
+  los enlaces se activan con **Ctrl+clic**; en modo lectura basta un
+  clic normal. La alternativa sin botones es la fila de pestañas nativa.
+- Las ilustraciones son **originales y locales**: fuentes SVG editables
+  en `assets/home/` y PNG empaquetados en
+  `NorthWind.Report/StaticResources/RegisteredResources/`; no requieren
+  red ni recursos externos (los PNG se regeneran con Chrome headless
+  sobre el SVG si se edita el arte).
+- Inicio no lleva slicers ni visuales de datos; los slicers de las
+  secciones conservan su estado al navegar (volver a Inicio no
+  restablece filtros).
 - Slicers en modo lista desplegable con grupos de sincronización del
-  contrato; la navegación es por pestañas nativas (sin bookmarks).
-- Para limpiar filtros usar el **borrador nativo del slicer** (icono de
-  borrador); no existe marcador de "reset" fabricado.
+  contrato; para limpiar filtros usar el **borrador nativo del slicer**
+  (icono de borrador); no existe marcador de "reset" fabricado.
 - Los filtros temporales cubren fechas históricas del origen; no hay
   noción de "hoy"/fecha actual.
 - Sin símbolos de moneda (origen no la identifica), sin costos, márgenes
   ni metas, y sin fecha real de entrega al cliente.
+
+Prueba de humo sugerida en Power BI Desktop: abrir `NorthWind.pbip`
+(cae en `Inicio`), visitar las cuatro secciones con los botones
+(Ctrl+clic en edición), volver con el botón `Inicio` de cada página y
+confirmar que datos, slicers y drillthrough siguen funcionando igual.
+
+## Solución de problemas
+
+- **Nombres de campos**: el contrato debe usar los mismos nombres
+  semánticos que el modelo desplegado. Las columnas de `Calendario` se
+  llaman `Año`, `MesAño` y `OrdenMesAño` (con ñ); si el modelo cambia,
+  regenerar el reporte con `build_report.py` antes de reabrirlo.
+- **Un visual muestra "Corregir esto"/"Fix this"**: suele significar que
+  el reporte referencia un campo que no existe en el modelo cargado.
+  Cierra y vuelve a abrir el `.pbip` actualizado (no guardes un Desktop
+  con archivos viejos sobre los generados) y verifica los filtros.
+- **Tendencia con un solo punto**: las tendencias agrupan por mes; con
+  un solo mes seleccionado en el slicer o por filtro cruzado de otro
+  visual, un punto es el comportamiento correcto. Quita la marca
+  seleccionada haciendo clic en el área vacía del gráfico o con el
+  borrador del slicer.
+- **Los filtros persisten al navegar**: volver a `Inicio` no restablece
+  slicers ni selecciones.
+- Si un error persiste, usa **"Ver detalles"** en el visual afectado y
+  reporta el mensaje exacto; no todos los casos fueron reproducidos.
 
 ## Archivos generados
 
