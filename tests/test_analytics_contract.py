@@ -195,7 +195,8 @@ class ReportContractTests(unittest.TestCase):
         self.assertEqual(definition["datasetReference"],
                          {"byPath": {"path": "../NorthWind.SemanticModel"}})
         reference = files["NorthWind.SemanticModel/modelReference.json"]
-        self.assertEqual(reference["connectionType"], "ssas")
+        self.assertEqual(reference["connectionType"],
+                         "analysisServicesDatabaseLive")
         self.assertFalse(reference["isMultiDimentional"])
         self.assertIn("Initial Catalog=NorthWindOLAP", reference["connectionString"])
 

@@ -251,8 +251,9 @@ def connection_files(server="localhost", database="NorthWindOLAP"):
             "$schema": SCHEMA + "semanticModel/modelReference/2.0.0/schema.json",
             "connectionString": (
                 f"Data Source={server};Initial Catalog={database};"
-                "Integrated Security=SSPI"
+                "Cube=Model;Integrated Security=SSPI"
             ),
-            "connectionType": "ssas", "isMultiDimentional": False,
+            "connectionType": "analysisServicesDatabaseLive",
+            "isMultiDimentional": False,
         },
     }
