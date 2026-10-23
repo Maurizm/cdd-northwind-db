@@ -149,6 +149,46 @@ def make_page(name, title, filters, cards, charts, drillthrough=None):
     return result
 
 
+def make_home_page():
+    net = ["Ventas Netas"]
+    return {
+        "name": "home",
+        "title": "Inicio - Portal Ejecutivo",
+        "width": 1440,
+        "height": 810,
+        "visuals": [
+            # 4 Executive KPI Cards across width
+            chart("home_kpi_0", "Ventas Netas", "card",
+                  [32, 76, 326, 96], measures=["Ventas Netas"]),
+            chart("home_kpi_1", "Pedidos", "card",
+                  [382, 76, 326, 96], measures=["Pedidos"]),
+            chart("home_kpi_2", "Ticket Promedio", "card",
+                  [732, 76, 326, 96], measures=["Ticket Promedio"]),
+            chart("home_kpi_3", "Unidades Vendidas", "card",
+                  [1082, 76, 326, 96], measures=["Unidades Vendidas"]),
+
+            # 4 Large Navigation & Business Summary Modules (2x2 Grid)
+            chart("home_module_panorama",
+                  "Módulo 1: Panorama General de Ventas (Tendencia Mensual)",
+                  "lineChart", [32, 188, 676, 286],
+                  ("Calendario", "MesAnio"), net),
+            chart("home_module_productos",
+                  "Módulo 2: Productos y Categorías (Ventas por Categoría)",
+                  "barChart", [732, 188, 676, 286],
+                  ("Productos", "Categoria"), net),
+            chart("home_module_clientes",
+                  "Módulo 3: Clientes y Vendedores (Top 5 Clientes)",
+                  "barChart", [32, 486, 676, 286],
+                  ("Clientes", "Cliente"), net, top=5),
+            chart("home_module_logistica",
+                  "Módulo 4: Análisis de Logística y Envíos (Días por Transportista)",
+                  "barChart", [732, 486, 676, 286],
+                  ("Transportistas", "Transportista"),
+                  ["Dias Promedio Hasta Envio"]),
+        ],
+    }
+
+
 def pages():
     period = ("Período (Mes/Año)", "Calendario", "MesAnio")
     country = ("País", "Clientes", "Pais")
@@ -156,6 +196,7 @@ def pages():
     seller = ("Vendedor", "Vendedores", "Vendedor")
     net = ["Ventas Netas"]
     return copy.deepcopy([
+        make_home_page(),
         make_page("panorama", "Dashboard de Ventas",
                   [period, country, category, seller], DEFAULT_MEASURES, [
             chart("panorama_trend", "Tendencia Mensual de Ventas", "lineChart",

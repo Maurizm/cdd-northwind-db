@@ -74,10 +74,11 @@ python NorthWindBI/NorthWindReports/validate_report_schemas.py
 
 ## Contenido
 
-Cuatro páginas navegables por pestañas:
+Cinco páginas navegables estructuradas para usuarios ejecutivos y analíticos:
 
 | Página | Título | Notas |
 |---|---|---|
+| `home` | Inicio - Portal Ejecutivo | Landing Page con 4 KPIs de alto nivel y 4 módulos interactivos con navegación directa |
 | `panorama` | Dashboard de Ventas | 5 KPI + tendencia, categorías, top clientes/productos, tabla por país |
 | `productos` | Productos y Categorías | Drillthrough visible por `Producto` |
 | `clientes` | Clientes y Vendedores | Drillthrough visible por `Cliente` |

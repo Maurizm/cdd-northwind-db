@@ -38,7 +38,12 @@
            width: var(--w); height: var(--h);
            background: var(--panel-bg); border: 1px solid var(--border);
            border-radius: 4px; overflow: hidden; display: flex;
-           flex-direction: column; }
+           flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
+  .panel.nav-module:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(17, 141, 255, 0.15);
+    border-color: var(--blue);
+  }
   .panel .vtitle { font-size: max(12px, .8vw); font-weight: 600;
                    padding: 6px 8px; color: var(--text); }
   .panel .vbody { flex: 1; display: flex; align-items: center;
@@ -78,7 +83,10 @@
              background: var(--blue); color: #FFFFFF; border-radius: 4px;
              font-family: var(--heading-font); font-weight: 600;
              font-size: clamp(14px, 1.4vw, 18px);
-             display: flex; align-items: center; }
+             display: flex; align-items: center; justify-content: space-between; }
+  .btn-home { background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4);
+              padding: 4px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; text-decoration: none; }
+  .btn-home:hover { background: rgba(255, 255, 255, 0.35); }
   .footnote { position: absolute; left: var(--x); top: var(--y);
               width: var(--w); height: var(--h); font-size: 10px;
               color: var(--muted); display: flex; align-items: center; }
@@ -96,11 +104,11 @@
 <body>
 <header class="banner">
   <strong>Vista previa de diseño - Proyecto NorthWind BI</strong>
-  <span class="warn">| Maquetación del dashboard (Grupo 5)</span>
+  <span class="warn">| Portal Analítico y Landing Page (Grupo 5)</span>
 </header>
 <nav class="tabs" id="tabs"></nav>
 <div class="wrap" id="pages"></div>
-<p class="hint">El layout proviene de <code>preview-layout.js</code>, generado por <code>build_report.py</code>.</p>
+<p class="hint">El layout proviene de <code>preview-layout.js</code>, generado por <code>build_report.py</code>. Haga clic en los módulos de la página de Inicio para navegar.</p>
 <script src="preview-layout.js"></script>
 <script>
 // PAGES comes from generated preview-layout.js (name/title/type/rect only).
@@ -112,33 +120,47 @@ function pos(r){
   return `--x:${r[0]/PW*100}%;--y:${r[1]/PH*100}%;`
        + `--w:${r[2]/PW*100}%;--h:${r[3]/PH*100}%;`;
 }
+function goToPage(pageName){
+  const btn = document.querySelector(`.tabs button[data-page="${pageName}"]`);
+  if(btn) btn.click();
+}
 function body(v){
   if(v.t==="slicer") return `<div class="vbody"><span>${v.title} --</span></div>`;
-  if(v.t==="card") return `<div class="vbody">--<span class="kind">sin datos</span></div>`;
+  if(v.t==="card") return `<div class="vbody">--<span class="kind">métrica kpi</span></div>`;
   if(v.t==="tableEx") return `<div class="vbody">
       <div class="trow head"><span>--</span><span>--</span><span>--</span></div>
       <div class="trow"><span>--</span><span>--</span><span>--</span></div>
       <div class="trow"><span>--</span><span>--</span><span>--</span></div>
       <div class="trow"><span>--</span><span>--</span><span>--</span></div></div>`;
   return `<div class="vbody"><div class="axis"></div>
-      <span style="font-size:11px;font-weight:600;">[Etiquetas activas]</span><span class="kind">${v.t}</span></div>`;
+      <span style="font-size:11px;font-weight:600;">[Visual interactivo]</span><span class="kind">${v.t}</span></div>`;
 }
 function panel(v){
   const cls = v.t==="barChart" ? "bar" : v.t;
-  return `<div class="panel ${cls} ${v.cls||""}" style="${pos(v.r)}" title="${v.name}">
-    <div class="vtitle">${v.title}</div>${body(v)}</div>`;
+  const isNav = v.name.startsWith("home_module_");
+  const target = isNav ? v.name.replace("home_module_", "") : "";
+  const navAttr = isNav ? ` onclick="goToPage('${target}')" style="${pos(v.r)}cursor:pointer;"` : ` style="${pos(v.r)}"`;
+  const navBadge = isNav ? `<div style="padding:4px 10px;font-size:11px;font-weight:bold;color:var(--blue);text-align:right;background:#f8f9fa;border-top:1px solid var(--border);">Explorar Módulo &rarr;</div>` : "";
+  return `<div class="panel ${cls} ${v.cls||""} ${isNav?"nav-module":""}" ${navAttr} title="${v.name}">
+    <div class="vtitle">${v.title}</div>${body(v)}${navBadge}</div>`;
 }
 PAGES.forEach((p,i)=>{
   const b=document.createElement("button");
-  b.textContent=p.title; if(i===0)b.classList.add("active");
-  b.onclick=()=>{document.querySelectorAll(".tabs button,.page")
-    .forEach(e=>e.classList.remove("active"));
+  b.textContent=p.title;
+  b.setAttribute("data-page", p.name);
+  if(i===0) b.classList.add("active");
+  b.onclick=()=>{
+    document.querySelectorAll(".tabs button,.page").forEach(e=>e.classList.remove("active"));
     b.classList.add("active");
-    document.getElementById("pg_"+p.name).classList.add("active");};
+    document.getElementById("pg_"+p.name).classList.add("active");
+  };
   document.getElementById("tabs").appendChild(b);
+
+  const homeBtn = p.name !== "home" ? `<button class="btn-home" onclick="goToPage('home')">&#8962; Volver a Inicio</button>` : `<span style="font-size:12px;opacity:0.9;">Portal de Bienvenida Ejecutivo</span>`;
+
   const d=document.createElement("section");
   d.className="page"+(i===0?" active":""); d.id="pg_"+p.name;
-  d.innerHTML=`<h2 class="heading" style="${pos(HEADING)}">NORTHWIND / ${p.title}</h2>`
+  d.innerHTML=`<h2 class="heading" style="${pos(HEADING)}"><span>NORTHWIND / ${p.title}</span>${homeBtn}</h2>`
     +p.visuals.map(panel).join("")
     +`<span class="footnote" style="${pos(FOOTER)}">${FOOTER_TEXT}</span>`;
   document.getElementById("pages").appendChild(d);
