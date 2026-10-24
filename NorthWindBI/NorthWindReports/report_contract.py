@@ -156,24 +156,24 @@ def make_home_page():
         "width": 1440,
         "height": 810,
         "visuals": [
-            # Fila 1: 4 Módulos de Dirección Ejecutiva
-            chart("home_mod_1", "1. Executive Summary (Ventas Netas)", "card",
+            # Fila 1: 4 Módulos Ejecutivos con iconos y métricas de negocio
+            chart("home_mod_1", "🧭 Executive Summary", "card",
                   [32, 80, 326, 320], measures=["Ventas Netas"]),
-            chart("home_mod_2", "2. Revenue Growth (Ventas Brutas)", "card",
+            chart("home_mod_2", "📈 Revenue Growth", "card",
                   [382, 80, 326, 320], measures=["Ventas Brutas"]),
-            chart("home_mod_3", "3. Commercial Execution (Pedidos)", "card",
+            chart("home_mod_3", "🤝 Commercial Execution", "card",
                   [732, 80, 326, 320], measures=["Pedidos"]),
-            chart("home_mod_4", "4. Customer Intelligence (Ticket Promedio)", "card",
+            chart("home_mod_4", "👥 Customer Intelligence", "card",
                   [1082, 80, 326, 320], measures=["Ticket Promedio"]),
 
             # Fila 2: 4 Módulos de Operación y Logística
-            chart("home_mod_5", "5. Product Management (Unidades)", "card",
+            chart("home_mod_5", "📦 Product Management", "card",
                   [32, 430, 326, 320], measures=["Unidades Vendidas"]),
-            chart("home_mod_6", "6. Discount Management (Descuentos)", "card",
+            chart("home_mod_6", "🏷️ Discount Impact", "card",
                   [382, 430, 326, 320], measures=["Descuentos"]),
-            chart("home_mod_7", "7. Logistics Performance (Flete)", "card",
+            chart("home_mod_7", "🚢 Logistics Performance", "card",
                   [732, 430, 326, 320], measures=["Flete Asignado"]),
-            chart("home_mod_8", "8. Shipping Operations (Envíos)", "card",
+            chart("home_mod_8", "🚚 Shipping Operations", "card",
                   [1082, 430, 326, 320], measures=["Pedidos Enviados"]),
         ],
     }

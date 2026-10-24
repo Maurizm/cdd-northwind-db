@@ -25,7 +25,7 @@
                       "fontFamily": "Segoe UI",
                       "fontSize": "16pt",
                       "fontWeight": "bold",
-                      "color": "#FFFFFF"
+                      "color": "#F4E5A8"
                     }
                   }
                 ]
@@ -95,7 +95,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0E2A47'"
+                      "Value": "'#D4AF37'"
                     }
                   }
                 }

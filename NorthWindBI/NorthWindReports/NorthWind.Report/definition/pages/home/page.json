@@ -14,7 +14,31 @@
               "color": {
                 "expr": {
                   "Literal": {
-                    "Value": "'#F0F2F5'"
+                    "Value": "'#0B192C'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#0B192C'"
                   }
                 }
               }

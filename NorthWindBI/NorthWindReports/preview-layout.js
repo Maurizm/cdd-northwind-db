@@ -6,7 +6,7 @@ const PAGES = [
     "visuals": [
       {
         "name": "home_mod_1",
-        "title": "1. Executive Summary (Ventas Netas)",
+        "title": "\ud83e\udded Executive Summary",
         "t": "card",
         "r": [
           32,
@@ -18,7 +18,7 @@ const PAGES = [
       },
       {
         "name": "home_mod_2",
-        "title": "2. Revenue Growth (Ventas Brutas)",
+        "title": "\ud83d\udcc8 Revenue Growth",
         "t": "card",
         "r": [
           382,
@@ -30,7 +30,7 @@ const PAGES = [
       },
       {
         "name": "home_mod_3",
-        "title": "3. Commercial Execution (Pedidos)",
+        "title": "\ud83e\udd1d Commercial Execution",
         "t": "card",
         "r": [
           732,
@@ -42,7 +42,7 @@ const PAGES = [
       },
       {
         "name": "home_mod_4",
-        "title": "4. Customer Intelligence (Ticket Promedio)",
+        "title": "\ud83d\udc65 Customer Intelligence",
         "t": "card",
         "r": [
           1082,
@@ -54,7 +54,7 @@ const PAGES = [
       },
       {
         "name": "home_mod_5",
-        "title": "5. Product Management (Unidades)",
+        "title": "\ud83d\udce6 Product Management",
         "t": "card",
         "r": [
           32,
@@ -62,11 +62,11 @@ const PAGES = [
           326,
           320
         ],
-        "cls": "volume"
+        "cls": "sales"
       },
       {
         "name": "home_mod_6",
-        "title": "6. Discount Management (Descuentos)",
+        "title": "\ud83c\udff7\ufe0f Discount Impact",
         "t": "card",
         "r": [
           382,
@@ -74,11 +74,11 @@ const PAGES = [
           326,
           320
         ],
-        "cls": "discount"
+        "cls": "sales"
       },
       {
         "name": "home_mod_7",
-        "title": "7. Logistics Performance (Flete)",
+        "title": "\ud83d\udea2 Logistics Performance",
         "t": "card",
         "r": [
           732,
@@ -86,11 +86,11 @@ const PAGES = [
           326,
           320
         ],
-        "cls": "freight"
+        "cls": "sales"
       },
       {
         "name": "home_mod_8",
-        "title": "8. Shipping Operations (Env\u00edos)",
+        "title": "\ud83d\ude9a Shipping Operations",
         "t": "card",
         "r": [
           1082,
@@ -98,7 +98,7 @@ const PAGES = [
           326,
           320
         ],
-        "cls": "logistics"
+        "cls": "sales"
       }
     ]
   },
