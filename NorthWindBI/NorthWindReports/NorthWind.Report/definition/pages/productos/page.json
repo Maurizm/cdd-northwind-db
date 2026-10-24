@@ -29,30 +29,6 @@
           }
         }
       }
-    ],
-    "outspace": [
-      {
-        "properties": {
-          "color": {
-            "solid": {
-              "color": {
-                "expr": {
-                  "Literal": {
-                    "Value": "'#F0F2F5'"
-                  }
-                }
-              }
-            }
-          },
-          "transparency": {
-            "expr": {
-              "Literal": {
-                "Value": "0D"
-              }
-            }
-          }
-        }
-      }
     ]
   },
   "visualInteractions": [

@@ -31,7 +31,6 @@ FOOTER_RECT = (32, 784, 1376, 18)
 FOOTER_TEXT = "Proyecto NorthWind BI - Grupo 5 | Business Intelligence"
 
 # Paleta estándar clásica de Power BI con colores semánticos por métrica:
-NAVY_HEADING = "#0E2A47"     # Azul marino corporativo NorthWind para encabezados
 BLUE_SALES = "#118DFF"       # Azul clásico Power BI para Ventas / Facturación
 GREEN_VOLUME = "#01B8AA"     # Verde agua para Unidades / Pedidos
 ORANGE_DISCOUNT = "#FD625E"  # Rojo/Coral para Descuentos
@@ -81,28 +80,7 @@ def solid(hex_color):
     return {"solid": {"color": lit(f"'{hex_color}'")}}
 
 
-def panel_objects(title, is_home=False):
-    if is_home:
-        return {
-            "title": [{"properties": {
-                "text": lit(f"'{title}'"),
-                "show": lit("true"),
-                "fontColor": solid("#D4AF37"),
-                "fontFamily": lit(f"'{HEADING_FONT}'"),
-                "fontSize": lit("11D"),
-                "alignment": lit("'center'"),
-            }}],
-            "background": [{"properties": {
-                "show": lit("true"),
-                "color": solid("#10253F"),
-                "transparency": lit("0D"),
-            }}],
-            "border": [{"properties": {
-                "show": lit("true"),
-                "color": solid("#D4AF37"),
-                "radius": lit("10D"),
-            }}],
-        }
+def panel_objects(title):
     return {
         "title": [{"properties": {
             "text": lit(f"'{title}'"),
@@ -125,19 +103,14 @@ def panel_objects(title, is_home=False):
     }
 
 
-def visual_doc(entry, z, is_home=False):
+def visual_doc(entry, z):
     rect = entry["rect"]
     visual = copy.deepcopy(entry["visual"])
-    visual["visualContainerObjects"] = panel_objects(entry["title"], is_home)
+    visual["visualContainerObjects"] = panel_objects(entry["title"])
     objects = visual.setdefault("objects", {})
     kind = visual["visualType"]
     color, _ = visual_theme(entry)
-    if is_home and kind == "card":
-        objects["labels"] = [{"properties": {"color": solid("#FFFFFF")}}]
-        objects["categoryLabels"] = [
-            {"properties": {"color": solid("#F4E5A8"), "show": lit("true")}}
-        ]
-    elif kind in ("barChart", "lineChart"):
+    if kind in ("barChart", "lineChart"):
         objects["dataPoint"] = [
             {"properties": {"defaultColor": solid(color)}}
         ]
@@ -195,7 +168,6 @@ def textbox_doc(name, rect, text, style, z, bg_color=None, border_color=None):
 
 
 def page_doc(page):
-    bg = "#0B192C" if page["name"] == "home" else PAGE_BG
     doc = {
         "$schema": SCHEMA + "page/1.4.0/schema.json",
         "name": page["name"],
@@ -203,12 +175,8 @@ def page_doc(page):
         "displayOption": "FitToPage",
         "width": page["width"],
         "height": page["height"],
-        "objects": {
-            "background": [{"properties": {
-                "color": solid(bg), "transparency": lit("0D")}}],
-            "outspace": [{"properties": {
-                "color": solid(bg), "transparency": lit("0D")}}],
-        },
+        "objects": {"background": [{"properties": {
+            "color": solid(PAGE_BG), "transparency": lit("0D")}}]},
         "visualInteractions": page_interactions(page),
     }
     for key in ("type", "pageBinding", "filterConfig"):
@@ -315,28 +283,24 @@ def build(server, database, output):
 
     written = 0
     for page in model_pages:
-        is_home = (page["name"] == "home")
         page_dir = pages_dir / page["name"]
         visuals_dir = page_dir / "visuals"
         write_json(page_dir / "page.json", page_doc(page))
-        h_color = "#F4E5A8" if is_home else "#FFFFFF"
-        h_border = "#D4AF37" if is_home else NAVY_HEADING
         heading = textbox_doc(
             f"{page['name']}_heading", HEADING_RECT,
             f"NORTHWIND / {page['title']}",
             {"fontFamily": HEADING_FONT, "fontSize": "16pt",
-             "fontWeight": "bold", "color": h_color}, 0,
-            bg_color=NAVY_HEADING, border_color=h_border)
+             "fontWeight": "bold", "color": "#FFFFFF"}, 0,
+            bg_color=BLUE_SALES, border_color=BLUE_SALES)
         write_json(visuals_dir / heading["name"] / "visual.json", heading)
         for z, entry in enumerate(page["visuals"], start=1):
-            doc = visual_doc(entry, z, is_home=is_home)
+            doc = visual_doc(entry, z)
             write_json(visuals_dir / entry["name"] / "visual.json", doc)
             written += 1
-        f_color = "#94A3B8" if is_home else TEXT
         footer = textbox_doc(
             f"{page['name']}_footer", FOOTER_RECT, FOOTER_TEXT,
             {"fontFamily": LABEL_FONT, "fontSize": "8pt",
-             "color": f_color}, len(page["visuals"]) + 1)
+             "color": TEXT}, len(page["visuals"]) + 1)
         write_json(visuals_dir / footer["name"] / "visual.json", footer)
         written += 2
     return names, written

@@ -149,76 +149,6 @@ def make_page(name, title, filters, cards, charts, drillthrough=None):
     return result
 
 
-def make_home_page():
-    return {
-        "name": "home",
-        "title": "Inicio - Portada de Bienvenida",
-        "width": 1440,
-        "height": 810,
-        "visuals": [
-            # Fila 1: 4 Módulos Ejecutivos con iconos y métricas de negocio
-            chart("home_mod_1", "🧭 Executive Summary", "card",
-                  [32, 80, 326, 320], measures=["Ventas Netas"]),
-            chart("home_mod_2", "📈 Revenue Growth", "card",
-                  [382, 80, 326, 320], measures=["Ventas Brutas"]),
-            chart("home_mod_3", "🤝 Commercial Execution", "card",
-                  [732, 80, 326, 320], measures=["Pedidos"]),
-            chart("home_mod_4", "👥 Customer Intelligence", "card",
-                  [1082, 80, 326, 320], measures=["Ticket Promedio"]),
-
-            # Fila 2: 4 Módulos de Operación y Logística
-            chart("home_mod_5", "📦 Product Management", "card",
-                  [32, 430, 326, 320], measures=["Unidades Vendidas"]),
-            chart("home_mod_6", "🏷️ Discount Impact", "card",
-                  [382, 430, 326, 320], measures=["Descuentos"]),
-            chart("home_mod_7", "🚢 Logistics Performance", "card",
-                  [732, 430, 326, 320], measures=["Flete Asignado"]),
-            chart("home_mod_8", "🚚 Shipping Operations", "card",
-                  [1082, 430, 326, 320], measures=["Pedidos Enviados"]),
-        ],
-    }
-
-
-def make_ejecutivo_page():
-    net = ["Ventas Netas"]
-    return {
-        "name": "ejecutivo",
-        "title": "Portal Ejecutivo (KPIs y Resumen)",
-        "width": 1440,
-        "height": 810,
-        "visuals": [
-            # 4 Executive KPI Cards across width
-            chart("ejecutivo_kpi_0", "Ventas Netas", "card",
-                  [32, 76, 326, 96], measures=["Ventas Netas"]),
-            chart("ejecutivo_kpi_1", "Pedidos", "card",
-                  [382, 76, 326, 96], measures=["Pedidos"]),
-            chart("ejecutivo_kpi_2", "Ticket Promedio", "card",
-                  [732, 76, 326, 96], measures=["Ticket Promedio"]),
-            chart("ejecutivo_kpi_3", "Unidades Vendidas", "card",
-                  [1082, 76, 326, 96], measures=["Unidades Vendidas"]),
-
-            # 4 Large Navigation & Business Summary Modules (2x2 Grid)
-            chart("ejecutivo_module_panorama",
-                  "Módulo 1: Panorama General de Ventas (Tendencia Mensual)",
-                  "lineChart", [32, 188, 676, 286],
-                  ("Calendario", "MesAnio"), net),
-            chart("ejecutivo_module_productos",
-                  "Módulo 2: Productos y Categorías (Ventas por Categoría)",
-                  "barChart", [732, 188, 676, 286],
-                  ("Productos", "Categoria"), net),
-            chart("ejecutivo_module_clientes",
-                  "Módulo 3: Clientes y Vendedores (Top 5 Clientes)",
-                  "barChart", [32, 486, 676, 286],
-                  ("Clientes", "Cliente"), net, top=5),
-            chart("ejecutivo_module_logistica",
-                  "Módulo 4: Análisis de Logística y Envíos (Días por Transportista)",
-                  "barChart", [732, 486, 676, 286],
-                  ("Transportistas", "Transportista"),
-                  ["Dias Promedio Hasta Envio"]),
-        ],
-    }
-
-
 def pages():
     period = ("Período (Mes/Año)", "Calendario", "MesAnio")
     country = ("País", "Clientes", "Pais")
@@ -226,8 +156,6 @@ def pages():
     seller = ("Vendedor", "Vendedores", "Vendedor")
     net = ["Ventas Netas"]
     return copy.deepcopy([
-        make_home_page(),
-        make_ejecutivo_page(),
         make_page("panorama", "Dashboard de Ventas",
                   [period, country, category, seller], DEFAULT_MEASURES, [
             chart("panorama_trend", "Tendencia Mensual de Ventas", "lineChart",
