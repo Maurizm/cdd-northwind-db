@@ -62,6 +62,7 @@ ENV/
 .ruff_cache/
 
 # SSAS tabular y Power BI (NO subir)
+build_model.py
 .pbi/
 *.pbix
 *.abf
