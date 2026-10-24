@@ -286,6 +286,7 @@ def visual_doc(entry, z):
             objects["labels"] = [{"properties": {"color": solid(color)}}]
         elif kind == "slicer":
             objects["data"] = [{"properties": {"mode": lit("'Dropdown'")}}]
+            objects["header"] = [{"properties": {"show": lit("false")}}]
     doc = {
         "$schema": SCHEMA + "visualContainer/2.1.0/schema.json",
         "name": entry["name"],
