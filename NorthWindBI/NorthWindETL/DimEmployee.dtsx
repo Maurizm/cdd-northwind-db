@@ -275,7 +275,7 @@
                       dataType="dbDate"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Employee\Get rows from Employee.Outputs[OLE DB Source Output].Columns[HireDate]"
+                      externalMetadataColumnId="Package\Load Employee\Get rows from Employee.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
                       lineageId="Package\Load Employee\Get rows from Employee.Outputs[OLE DB Source Output].Columns[HireDate]"
                       name="HireDate"
                       truncationRowDisposition="FailComponent" />
@@ -1207,6 +1207,7 @@ where [refTable].[City] = ? and [refTable].[Region] = ? and [refTable].[Country]
                 <output
                   refId="Package\Load Employee\Lookup Geography.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\Load Employee\Lookup Geography.Inputs[Lookup Input]">

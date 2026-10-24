@@ -6,7 +6,23 @@ obj/
 *.jfm
 *.publish.xml
 *.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.rsuser
+*.dtproj.user
+*.smproj.user
+*.sqlproj.user
+*.ispac
+*.asdatabase
+*.pidb
+*.vspscc
+*.vssscc
 .vs/
+UpgradeLog*.XML
+UpgradeLog*.htm
+TestResults/
 
 # Bases de datos y backups (NO subir)
 *.mdf
@@ -16,10 +32,55 @@ obj/
 *.bacpac
 *.dacpac
 
-# Documentos internos y guías de estudio
+# Documentación interna y guías
 agent.md
 guia.md
 
-# Sistema
+# Documentación secundaria (solo se sube el README.md principal de la raíz)
+*/**/README.md
+*/**/readme.md
+*/**/README.*
+!/README.md
+
+# Pruebas y suites de testing (NO subir)
+tests/
+test/
+*.test.py
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Python y entornos virtuales (NO subir)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+ENV/
+.mypy_cache/
+.ruff_cache/
+
+# SSAS tabular y Power BI (NO subir)
+.pbi/
+*.pbix
+*.abf
+*.deploymentoptions
+*.deploymenttargets
+.playwright-mcp/
+
+# Logs y archivos temporales (NO subir)
+*.log
+*.tmp
+*.temp
+
+# Sistema operativo e IDEs
 Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
 .DS_Store
+.idea/
+.vscode/
+*.swp
+*~

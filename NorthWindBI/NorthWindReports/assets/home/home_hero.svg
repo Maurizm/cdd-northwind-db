@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2752" height="232" viewBox="0 0 1376 116">
+  <!-- Editorial masthead: dark navy type, subtle dotted route backdrop. -->
+  <defs>
+    <style>
+      .head { font: 700 31px 'Segoe UI', Arial, sans-serif; fill: #1F3864; }
+      .sub  { font: 400 15px 'Segoe UI', Arial, sans-serif; fill: #4A5A74; }
+    </style>
+  </defs>
+
+  <!-- faint dotted route across the right half -->
+  <path d="M720 96 C 800 60, 860 96, 930 70 S 1060 30, 1140 62 S 1290 96, 1348 55"
+        fill="none" stroke="#B9C6DB" stroke-width="3"
+        stroke-dasharray="2 10" stroke-linecap="round"/>
+  <!-- four waypoints, one per report section -->
+  <circle cx="905"  cy="74" r="11" fill="#118DFF"/>
+  <circle cx="1024" cy="52" r="11" fill="#C77810"/>
+  <circle cx="1140" cy="62" r="11" fill="#087F75"/>
+  <circle cx="1280" cy="72" r="11" fill="#3656A3"/>
+  <circle cx="905"  cy="74" r="11" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+  <circle cx="1024" cy="52" r="11" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+  <circle cx="1140" cy="62" r="11" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+  <circle cx="1280" cy="72" r="11" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+
+  <text class="head" x="40" y="56">Un negocio. Cuatro formas de explorarlo.</text>
+  <text class="sub"  x="40" y="92">Elige una sección y descubre qué cuenta.</text>
+</svg>

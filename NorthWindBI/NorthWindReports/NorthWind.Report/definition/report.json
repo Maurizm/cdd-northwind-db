@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.0.0/schema.json",
+  "themeCollection": {
+    "customTheme": {
+      "name": "NorthWind",
+      "reportVersionAtImport": "2.0.0",
+      "type": "RegisteredResources"
+    }
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "NorthWind",
+          "path": "NorthWind.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "home_customers.png",
+          "path": "home_customers.png",
+          "type": "Image"
+        },
+        {
+          "name": "home_hero.png",
+          "path": "home_hero.png",
+          "type": "Image"
+        },
+        {
+          "name": "home_logistics.png",
+          "path": "home_logistics.png",
+          "type": "Image"
+        },
+        {
+          "name": "home_products.png",
+          "path": "home_products.png",
+          "type": "Image"
+        },
+        {
+          "name": "home_sales.png",
+          "path": "home_sales.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1352" height="360" viewBox="0 0 676 180">
+  <!-- 02 Productos: stacked crates and open carton on cream. -->
+  <defs>
+    <style>
+      .ord  { font: 800 64px 'Segoe UI', Arial, sans-serif; fill: #C77810; }
+      .q    { font: 700 27px 'Segoe UI', Arial, sans-serif; fill: #1F3864; }
+      .st   { stroke: #1F3864; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="676" height="180" rx="18" fill="#FFF4E0"/>
+
+  <text class="ord" x="44" y="86">02</text>
+  <text class="q" x="44" y="132">¿Qué vendemos?</text>
+
+  <!-- ground -->
+  <line class="st" x1="330" y1="152" x2="620" y2="152"/>
+
+  <!-- bottom crate -->
+  <rect x="380" y="96" width="110" height="56" rx="4" fill="#F2C66D" class="st"/>
+  <line class="st" x1="380" y1="124" x2="490" y2="124"/>
+  <line class="st" x1="435" y1="96" x2="435" y2="152"/>
+
+  <!-- crate on top -->
+  <rect x="404" y="48" width="86" height="48" rx="4" fill="#F7D896" class="st"/>
+  <line class="st" x1="404" y1="72" x2="490" y2="72"/>
+
+  <!-- open carton, right -->
+  <rect x="516" y="88" width="92" height="64" rx="4" fill="#E8A94C" class="st"/>
+  <path class="st" fill="#F7D896"
+        d="M516 88 L494 66 L586 66 L608 88"/>
+  <path class="st" fill="none" d="M540 88 l10 -14 M584 88 l-10 -14"/>
+
+  <!-- price tag -->
+  <path class="st" fill="#FFFFFF"
+        d="M560 30 l26 0 l14 14 l0 22 l-26 0 l-14 -14 z"/>
+  <circle cx="574" cy="42" r="3.4" fill="#1F3864"/>
+</svg>
