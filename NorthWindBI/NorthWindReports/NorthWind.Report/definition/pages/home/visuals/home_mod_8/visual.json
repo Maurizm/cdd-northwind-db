@@ -1,37 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
-  "name": "home_module_productos",
+  "name": "home_mod_8",
   "position": {
-    "x": 732,
-    "y": 188,
-    "z": 6,
-    "width": 676,
-    "height": 286,
-    "tabOrder": 6
+    "x": 1082,
+    "y": 430,
+    "z": 8,
+    "width": 326,
+    "height": 320,
+    "tabOrder": 8
   },
   "visual": {
-    "visualType": "barChart",
+    "visualType": "card",
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Productos"
-                    }
-                  },
-                  "Property": "Categoria"
-                }
-              },
-              "queryRef": "Productos.Categoria",
-              "nativeQueryRef": "Categoria"
-            }
-          ]
-        },
-        "Y": {
+        "Data": {
           "projections": [
             {
               "field": {
@@ -41,64 +23,14 @@
                       "Entity": "Ventas"
                     }
                   },
-                  "Property": "Ventas Netas"
+                  "Property": "Pedidos Enviados"
                 }
               },
-              "queryRef": "Ventas.Ventas Netas",
-              "nativeQueryRef": "Ventas Netas"
-            }
-          ]
-        },
-        "Tooltips": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Ventas"
-                    }
-                  },
-                  "Property": "Unidades Vendidas"
-                }
-              },
-              "queryRef": "Ventas.Unidades Vendidas",
-              "nativeQueryRef": "Unidades Vendidas"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Ventas"
-                    }
-                  },
-                  "Property": "Pedidos"
-                }
-              },
-              "queryRef": "Ventas.Pedidos",
-              "nativeQueryRef": "Pedidos"
+              "queryRef": "Ventas.Pedidos Enviados",
+              "nativeQueryRef": "Pedidos Enviados"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Ventas"
-                  }
-                },
-                "Property": "Ventas Netas"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
@@ -109,7 +41,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'M\u00f3dulo 2: Productos y Categor\u00edas (Ventas por Categor\u00eda)'"
+                  "Value": "'8. Shipping Operations (Env\u00edos)'"
                 }
               }
             },
@@ -219,30 +151,17 @@
       ]
     },
     "objects": {
-      "dataPoint": [
+      "labels": [
         {
           "properties": {
-            "defaultColor": {
+            "color": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#118DFF'"
+                      "Value": "'#744DA9'"
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      ],
-      "labels": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
                 }
               }
             }

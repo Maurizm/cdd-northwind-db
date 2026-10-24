@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
-  "name": "home_module_panorama",
+  "name": "ejecutivo_module_productos",
   "position": {
-    "x": 32,
+    "x": 732,
     "y": 188,
-    "z": 5,
+    "z": 6,
     "width": 676,
     "height": 286,
-    "tabOrder": 5
+    "tabOrder": 6
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "barChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Calendario"
+                      "Entity": "Productos"
                     }
                   },
-                  "Property": "MesAnio"
+                  "Property": "Categoria"
                 }
               },
-              "queryRef": "Calendario.MesAnio",
-              "nativeQueryRef": "MesAnio"
+              "queryRef": "Productos.Categoria",
+              "nativeQueryRef": "Categoria"
             }
           ]
         },
@@ -86,16 +86,16 @@
         "sort": [
           {
             "field": {
-              "Column": {
+              "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Calendario"
+                    "Entity": "Ventas"
                   }
                 },
-                "Property": "MesAnio"
+                "Property": "Ventas Netas"
               }
             },
-            "direction": "Ascending"
+            "direction": "Descending"
           }
         ],
         "isDefaultSort": false
@@ -109,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'M\u00f3dulo 1: Panorama General de Ventas (Tendencia Mensual)'"
+                  "Value": "'M\u00f3dulo 2: Productos y Categor\u00edas (Ventas por Categor\u00eda)'"
                 }
               }
             },

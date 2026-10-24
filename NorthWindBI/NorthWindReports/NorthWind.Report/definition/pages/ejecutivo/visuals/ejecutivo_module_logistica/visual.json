@@ -1,20 +1,70 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
-  "name": "home_kpi_3",
+  "name": "ejecutivo_module_logistica",
   "position": {
-    "x": 1082,
-    "y": 76,
-    "z": 4,
-    "width": 326,
-    "height": 96,
-    "tabOrder": 4
+    "x": 732,
+    "y": 486,
+    "z": 8,
+    "width": 676,
+    "height": 286,
+    "tabOrder": 8
   },
   "visual": {
-    "visualType": "card",
+    "visualType": "barChart",
     "query": {
       "queryState": {
-        "Data": {
+        "Category": {
           "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Transportistas"
+                    }
+                  },
+                  "Property": "Transportista"
+                }
+              },
+              "queryRef": "Transportistas.Transportista",
+              "nativeQueryRef": "Transportista"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ventas"
+                    }
+                  },
+                  "Property": "Dias Promedio Hasta Envio"
+                }
+              },
+              "queryRef": "Ventas.Dias Promedio Hasta Envio",
+              "nativeQueryRef": "Dias Promedio Hasta Envio"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ventas"
+                    }
+                  },
+                  "Property": "Ventas Netas"
+                }
+              },
+              "queryRef": "Ventas.Ventas Netas",
+              "nativeQueryRef": "Ventas Netas"
+            },
             {
               "field": {
                 "Measure": {
@@ -28,9 +78,41 @@
               },
               "queryRef": "Ventas.Unidades Vendidas",
               "nativeQueryRef": "Unidades Vendidas"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ventas"
+                    }
+                  },
+                  "Property": "Pedidos"
+                }
+              },
+              "queryRef": "Ventas.Pedidos",
+              "nativeQueryRef": "Pedidos"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Ventas"
+                  }
+                },
+                "Property": "Dias Promedio Hasta Envio"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
@@ -41,7 +123,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Unidades Vendidas'"
+                  "Value": "'M\u00f3dulo 4: An\u00e1lisis de Log\u00edstica y Env\u00edos (D\u00edas por Transportista)'"
                 }
               }
             },
@@ -151,17 +233,30 @@
       ]
     },
     "objects": {
-      "labels": [
+      "dataPoint": [
         {
           "properties": {
-            "color": {
+            "defaultColor": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#01B8AA'"
+                      "Value": "'#744DA9'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

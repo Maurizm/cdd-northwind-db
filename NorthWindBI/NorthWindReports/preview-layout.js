@@ -2,10 +2,112 @@
 const PAGES = [
   {
     "name": "home",
-    "title": "Inicio - Portal Ejecutivo",
+    "title": "Inicio - Portada de Bienvenida",
     "visuals": [
       {
-        "name": "home_kpi_0",
+        "name": "home_mod_1",
+        "title": "1. Executive Summary (Ventas Netas)",
+        "t": "card",
+        "r": [
+          32,
+          80,
+          326,
+          320
+        ],
+        "cls": "sales"
+      },
+      {
+        "name": "home_mod_2",
+        "title": "2. Revenue Growth (Ventas Brutas)",
+        "t": "card",
+        "r": [
+          382,
+          80,
+          326,
+          320
+        ],
+        "cls": "sales"
+      },
+      {
+        "name": "home_mod_3",
+        "title": "3. Commercial Execution (Pedidos)",
+        "t": "card",
+        "r": [
+          732,
+          80,
+          326,
+          320
+        ],
+        "cls": "sales"
+      },
+      {
+        "name": "home_mod_4",
+        "title": "4. Customer Intelligence (Ticket Promedio)",
+        "t": "card",
+        "r": [
+          1082,
+          80,
+          326,
+          320
+        ],
+        "cls": "sales"
+      },
+      {
+        "name": "home_mod_5",
+        "title": "5. Product Management (Unidades)",
+        "t": "card",
+        "r": [
+          32,
+          430,
+          326,
+          320
+        ],
+        "cls": "volume"
+      },
+      {
+        "name": "home_mod_6",
+        "title": "6. Discount Management (Descuentos)",
+        "t": "card",
+        "r": [
+          382,
+          430,
+          326,
+          320
+        ],
+        "cls": "discount"
+      },
+      {
+        "name": "home_mod_7",
+        "title": "7. Logistics Performance (Flete)",
+        "t": "card",
+        "r": [
+          732,
+          430,
+          326,
+          320
+        ],
+        "cls": "freight"
+      },
+      {
+        "name": "home_mod_8",
+        "title": "8. Shipping Operations (Env\u00edos)",
+        "t": "card",
+        "r": [
+          1082,
+          430,
+          326,
+          320
+        ],
+        "cls": "logistics"
+      }
+    ]
+  },
+  {
+    "name": "ejecutivo",
+    "title": "Portal Ejecutivo (KPIs y Resumen)",
+    "visuals": [
+      {
+        "name": "ejecutivo_kpi_0",
         "title": "Ventas Netas",
         "t": "card",
         "r": [
@@ -17,7 +119,7 @@ const PAGES = [
         "cls": "sales"
       },
       {
-        "name": "home_kpi_1",
+        "name": "ejecutivo_kpi_1",
         "title": "Pedidos",
         "t": "card",
         "r": [
@@ -29,7 +131,7 @@ const PAGES = [
         "cls": "volume"
       },
       {
-        "name": "home_kpi_2",
+        "name": "ejecutivo_kpi_2",
         "title": "Ticket Promedio",
         "t": "card",
         "r": [
@@ -41,7 +143,7 @@ const PAGES = [
         "cls": "sales"
       },
       {
-        "name": "home_kpi_3",
+        "name": "ejecutivo_kpi_3",
         "title": "Unidades Vendidas",
         "t": "card",
         "r": [
@@ -53,7 +155,7 @@ const PAGES = [
         "cls": "volume"
       },
       {
-        "name": "home_module_panorama",
+        "name": "ejecutivo_module_panorama",
         "title": "M\u00f3dulo 1: Panorama General de Ventas (Tendencia Mensual)",
         "t": "lineChart",
         "r": [
@@ -65,7 +167,7 @@ const PAGES = [
         "cls": "sales"
       },
       {
-        "name": "home_module_productos",
+        "name": "ejecutivo_module_productos",
         "title": "M\u00f3dulo 2: Productos y Categor\u00edas (Ventas por Categor\u00eda)",
         "t": "barChart",
         "r": [
@@ -77,7 +179,7 @@ const PAGES = [
         "cls": "sales"
       },
       {
-        "name": "home_module_clientes",
+        "name": "ejecutivo_module_clientes",
         "title": "M\u00f3dulo 3: Clientes y Vendedores (Top 5 Clientes)",
         "t": "barChart",
         "r": [
@@ -89,7 +191,7 @@ const PAGES = [
         "cls": "sales"
       },
       {
-        "name": "home_module_logistica",
+        "name": "ejecutivo_module_logistica",
         "title": "M\u00f3dulo 4: An\u00e1lisis de Log\u00edstica y Env\u00edos (D\u00edas por Transportista)",
         "t": "barChart",
         "r": [

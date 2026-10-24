@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
-  "name": "home_kpi_2",
+  "name": "home_mod_6",
   "position": {
-    "x": 732,
-    "y": 76,
-    "z": 3,
+    "x": 382,
+    "y": 430,
+    "z": 6,
     "width": 326,
-    "height": 96,
-    "tabOrder": 3
+    "height": 320,
+    "tabOrder": 6
   },
   "visual": {
     "visualType": "card",
@@ -23,11 +23,11 @@
                       "Entity": "Ventas"
                     }
                   },
-                  "Property": "Ticket Promedio"
+                  "Property": "Descuentos"
                 }
               },
-              "queryRef": "Ventas.Ticket Promedio",
-              "nativeQueryRef": "Ticket Promedio"
+              "queryRef": "Ventas.Descuentos",
+              "nativeQueryRef": "Descuentos"
             }
           ]
         }
@@ -41,7 +41,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ticket Promedio'"
+                  "Value": "'6. Discount Management (Descuentos)'"
                 }
               }
             },
@@ -159,7 +159,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#118DFF'"
+                      "Value": "'#FD625E'"
                     }
                   }
                 }

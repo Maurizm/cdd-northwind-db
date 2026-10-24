@@ -143,7 +143,7 @@ class ReportContractTests(unittest.TestCase):
 
     def test_pages_in_expected_order(self):
         self.assertEqual([p["name"] for p in self.pages],
-                         ["home", "panorama", "productos", "clientes", "logistica"])
+                         ["home", "ejecutivo", "panorama", "productos", "clientes", "logistica"])
 
     def test_every_projection_binds_to_existing_model_field(self):
         for page in self.pages:

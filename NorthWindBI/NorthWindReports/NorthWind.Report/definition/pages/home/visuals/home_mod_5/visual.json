@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
-  "name": "home_kpi_1",
+  "name": "home_mod_5",
   "position": {
-    "x": 382,
-    "y": 76,
-    "z": 2,
+    "x": 32,
+    "y": 430,
+    "z": 5,
     "width": 326,
-    "height": 96,
-    "tabOrder": 2
+    "height": 320,
+    "tabOrder": 5
   },
   "visual": {
     "visualType": "card",
@@ -23,11 +23,11 @@
                       "Entity": "Ventas"
                     }
                   },
-                  "Property": "Pedidos"
+                  "Property": "Unidades Vendidas"
                 }
               },
-              "queryRef": "Ventas.Pedidos",
-              "nativeQueryRef": "Pedidos"
+              "queryRef": "Ventas.Unidades Vendidas",
+              "nativeQueryRef": "Unidades Vendidas"
             }
           ]
         }
@@ -41,7 +41,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pedidos'"
+                  "Value": "'5. Product Management (Unidades)'"
                 }
               }
             },
